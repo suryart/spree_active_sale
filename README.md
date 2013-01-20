@@ -24,11 +24,11 @@ INSTALLATION
 In a rails application with Spree installed include the following line in your Gemfile:
   * To use the master branch from github: 
     
-      gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'
+      `gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'`
 
   * Or get it from rubygems.org:
     
-      gem 'spree_active_sale'
+      `gem 'spree_active_sale'`
 
 Then run the following commands: 
 
@@ -43,16 +43,16 @@ Example
 
 * Get a taxon in rails console:
     
-    taxon = Taxon.last
+    `taxon = Taxon.last`
 
 * Create and *ActiveSale*: 
 
-    active_sale = Spree::ActiveSale.create name: "January 2013 sales"
-    output: #<Spree::ActiveSale id: 1, name: "January 2013 sales", created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">
+    `active_sale = Spree::ActiveSale.create name: "January 2013 sales"`
+  output: `#<Spree::ActiveSale id: 1, name: "January 2013 sales", created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">`
 
 * Then create an *Event* under this sale by: 
     
-    event = taxon.active_sale_event.create name: "January 2013 sales", active_sale_id: active_sale.id, start_date: Time.now, end_date: Time.now+1.day, permalink: taxon.permalink 
+    `event = taxon.active_sale_event.create name: "January 2013 sales", active_sale_id: active_sale.id, start_date: Time.now, end_date: Time.now+1.day, permalink: taxon.permalink `
 
 * Now try to access this taxon in browser, there should be no other taxon/ product link accessible except the one we've created just now.
 
