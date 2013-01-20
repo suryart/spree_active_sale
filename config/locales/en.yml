@@ -1,0 +1,12 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  spree:
+    active_sale:
+      event:
+        validation:
+          errors:
+            invalid_dates: "Event's start date can not be greater than end date."
+        flash:
+          error: "The page you are looking for is no longer available."
