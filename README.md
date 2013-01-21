@@ -30,6 +30,7 @@ In a rails application with Spree installed include the following line in your G
     
       `gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'`
 
+
   * Or get it from rubygems.org:
     
 
