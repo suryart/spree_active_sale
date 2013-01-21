@@ -18,6 +18,10 @@ FEATURES
 * <tt>Spree::ActiveSale::Event.starting_today</tt> lists all sale events which are going to or have start today.
 * <tt>Spree::ActiveSale::Event.ending_today</tt> lists all sale events which are going to expire today.
 
+
+[![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/suryart/spree_active_sale)
+
 INSTALLATION
 ============
 
@@ -28,6 +32,7 @@ In a rails application with Spree installed include the following line in your G
 
   * Or get it from rubygems.org:
     
+
       `gem 'spree_active_sale'`
 
 Then run the following commands: 
@@ -68,9 +73,9 @@ Testing
 
 Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
 
-    $ `bundle`
-    $ `bundle exec rake test_app`
-    $ `bundle exec rspec spec`
+    $ bundle
+    $ bundle exec rake test_app
+    $ bundle exec rspec spec
 
 Contributing
 ============
