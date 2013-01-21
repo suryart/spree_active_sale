@@ -19,7 +19,7 @@ module Spree
     scope :live, lambda { where("(start_date <= :start_date AND end_date >= :end_date) OR is_permanent = :is_permanent", { start_date: Time.now, end_date: Time.now, is_permanent: true }) }
     scope :active, lambda { |*args| where(is_active: valid_argument(args)) }
     scope :hidden, lambda { |*args| where(is_hidden: valid_argument(args)) }
-    scope :live_active, lambda { |*args| self.live.active(valid_argument([args.first[:active]])) }
+    scope :live_active, lambda { |*args| self.live.active(valid_argument(args)) }
     scope :live_active_and_hidden, lambda { |*args| 
                             args = [{}] if [nil, true, false].include? args.first
                             self.live.active(valid_argument([args.first[:active]])).hidden(valid_argument([args.first[:hidden]])) 
