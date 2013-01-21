@@ -1,7 +1,7 @@
 Welcome to Spree Active Sale
 ============================
 
-Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can group products in a taxon, attach that taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
+Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a variant, product, or group number of products in a taxon, attach that variant, product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
 
 
 FEATURES
@@ -17,6 +17,7 @@ FEATURES
 * <tt>Spree::ActiveSale::Event.upcoming_events</tt> lists all scheduled sale events which are going to be live in future.
 * <tt>Spree::ActiveSale::Event.starting_today</tt> lists all sale events which are going to or have start today.
 * <tt>Spree::ActiveSale::Event.ending_today</tt> lists all sale events which are going to expire today.
+* <tt>Spree::ActiveSale::Event.is_live?(instance)</tt> here instance can be an object of "Spree::ActiveSale::Event", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class, which simply says if sale event for that instance is accessible for users or not.
 
 
 [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
@@ -55,7 +56,9 @@ Example
 * Create and *ActiveSale*: 
 
     `active_sale = Spree::ActiveSale.create name: "January 2013 sales"`
-  output: `#<Spree::ActiveSale id: 1, name: "January 2013 sales", created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">`
+  output: 
+
+    `#<Spree::ActiveSale id: 1, name: "January 2013 sales", created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">`
 
 * Then create an *Event* under this sale by: 
     
