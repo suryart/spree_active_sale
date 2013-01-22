@@ -6,6 +6,6 @@ Spree::Product.class_eval do
   end
 
   def live?
-    !self.active_sale_events.detect{ |event| (event.live_and_active?) }.nil? || !self.find_live_taxons.blank?
+    !self.active_sale_events.detect{ |event| event.live_and_active? }.nil? || !self.find_live_taxons.blank?
   end
 end

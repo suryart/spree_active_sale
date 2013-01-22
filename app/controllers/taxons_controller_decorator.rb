@@ -5,7 +5,7 @@ module Spree
       @taxon = Spree::Taxon.find_by_permalink!(params[:id])
       return unless @taxon
 
-      if Spree::ActiveSale::Event.is_live? @taxon
+      if @taxon.live?
         @searcher = Spree::Config.searcher_class.new(params.merge(:taxon => @taxon.id))
         @products = @searcher.retrieve_products
 

@@ -6,7 +6,7 @@ module Spree
       @product = Spree::Product.active.find_by_permalink!(params[:id])
       return unless @product
 
-      if Spree::ActiveSale::Event.is_live? @product
+      if @product.live?
         @variants = Spree::Variant.active.includes([:option_values, :images]).where(:product_id => @product.id)
         @product_properties = Spree::ProductProperty.includes(:property).where(:product_id => @product.id)
 

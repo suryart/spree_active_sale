@@ -6,7 +6,7 @@ module SpreeActiveSale
       # should only/ always represents live and active events and not just live events.
       def is_live? object
         object_class_name = object.class.name
-        return (object.live_and_active?) if object_class_name == self.name
+        return object.live_and_active? if object_class_name == self.name
         %w(Spree::Product Spree::Variant Spree::Taxon).include?(object_class_name) ? object.live? : false
       end
 
