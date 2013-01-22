@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email     = 'raj.surya19@gmail.com'
   s.homepage  = 'https://github.com/suryart/spree_active_sale'
 
-  #s.files       = `git ls-files`.split("\n")
+  s.files        = Dir['LICENSE', 'README.md', 'app/**/*', 'config/**/*', 'lib/**/*', 'db/**/*']
   #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
