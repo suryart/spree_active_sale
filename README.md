@@ -53,7 +53,7 @@ Example
     
     `taxon = Taxon.last`
 
-* Create and *ActiveSale*: 
+* Create an *ActiveSale*: 
 
     `active_sale = Spree::ActiveSale.create name: "January 2013 sales"`
   output: 
