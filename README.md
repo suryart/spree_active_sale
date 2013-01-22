@@ -22,7 +22,7 @@ FEATURES
 
 [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/suryart/spree_active_sale)
-[![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=1-0-5)](https://travis-ci.org/suryart/spree_active_sale)
+[![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=master)](https://travis-ci.org/suryart/spree_active_sale)
 
 INSTALLATION
 ============
@@ -41,7 +41,7 @@ In a rails application with Spree installed include the following line in your G
 Then run the following commands: 
 
     $ bundle install
-    $ rake spree_active_sale:install 
+    $ rails g spree_active_sale:install 
     $ rake db:migrate
     $ rails s 
 
@@ -62,7 +62,7 @@ Example
 
 * Then create an *Event* under this sale by: 
     
-    `event = taxon.active_sale_event.create name: "January 2013 sales", active_sale_id: active_sale.id, start_date: Time.now, end_date: Time.now+1.day, permalink: taxon.permalink `
+    `event = taxon.active_sale_events.create name: "January 2013 sales", active_sale_id: active_sale.id, start_date: Time.now, end_date: Time.now+1.day, permalink: taxon.permalink `
 
 * Now try to access this taxon in browser, there should be no other taxon/ product link accessible except the one we've created just now.
 
@@ -71,7 +71,9 @@ TODOs
 =====
 
 * Improve testing and write more test cases.
+* Make an example applciation to show usage of this extension.
 * Provide an admin interface for creating/ scheduling, managing, or re-scheduling sales.
+* Provide a timer hlper for showing the countdown to users.
 
 Testing
 -------
