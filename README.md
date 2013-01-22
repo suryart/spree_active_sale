@@ -22,7 +22,7 @@ FEATURES
 
 [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/suryart/spree_active_sale)
-[![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=1-0-5)](https://travis-ci.org/suryart/spree_active_sale)
+[![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=master)](https://travis-ci.org/suryart/spree_active_sale)
 
 INSTALLATION
 ============
