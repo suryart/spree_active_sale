@@ -51,7 +51,7 @@ Example
 
 * Get a taxon in rails console:
     
-    `taxon = Taxon.last`
+    `taxon = Spree::Taxon.last`
 
 * Create an *ActiveSale*: 
 
