@@ -1,0 +1,57 @@
+<% content_for :page_title do %>
+  <%= t('spree.active_sale.title.list') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to t('spree.active_sale.link.new'), new_object_url, :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
+  </li>
+<% end %>
+
+<div id="new_active_sale" data-hook></div>
+
+<table class="index" id="listing_active_sales" data-hook>
+  <colgroup>
+    <col style="width: 85%">
+    <col style="width: 15%">
+  </colgroup>
+  <thead>
+    <tr data-hook="admin_active_sales_index_headers">
+      <th><%= sort_link @search, :name, t(:active_sale), {}, { :title => 'active_sales_name_title' } %></th>
+      <th data-hook="admin_active_sales_index_header_actions" class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @active_sales.each do |active_sale| %>
+      <tr id="<%= spree_dom_id active_sale %>" data-hook="admin_active_sales_index_rows" class="<%= cycle('odd', 'even')%>">
+        <td class='active_sale_name'><%= link_to active_sale.name, object_url(active_sale) %></td>
+        <td class="actions" data-hook="admin_active_sales_index_row_actions">
+          <p class="actions" data-hook="actions">
+            <%= link_to_edit active_sale, :no_text => true %>
+            <%= link_to_delete active_sale, :no_text => true %>
+          </p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @active_sales %>
+
+<% content_for :sidebar_title do %>
+  <%= t(:search) %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="box align-center" data-hook="admin_active_sales_index_search">    
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="field">
+        <%= f.label t(:name) %> <br>
+        <%= f.text_field :name_cont, :class => 'fullwidth' %>
+      </div>
+      <div data-hook="admin_active_sales_index_search_buttons">
+        <%= button t(:search), 'icon-search' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<%= form_for(@spree_active_sale_event) do |f| %>
+  <% if @spree_active_sale_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@spree_active_sale_event.errors.count, "error") %> prohibited this spree_active_sale_event from being saved:</h2>
+
+      <ul>
+      <% @spree_active_sale_event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

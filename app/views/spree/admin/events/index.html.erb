@@ -1,0 +1,21 @@
+<h1>Listing spree_active_sale_events</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @spree_active_sale_events.each do |spree_active_sale_event| %>
+  <tr>
+    <td><%= link_to 'Show', spree_active_sale_event %></td>
+    <td><%= link_to 'Edit', edit_spree_active_sale_event_path(spree_active_sale_event) %></td>
+    <td><%= link_to 'Destroy', spree_active_sale_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event', new_spree_active_sale_event_path %>
