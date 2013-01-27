@@ -8,7 +8,7 @@ FEATURES
 ========
 
 * Provides a quick implementation of flash sales/ daily deals behavior by a easy scheduler a.k.a *ActiveSale*.
-* Provides an admin interface for creating/ scheduling, managing, or re-scheduling sales adn events.
+* Provides an admin interface for creating/ scheduling, managing, or re-scheduling sales and events.
 * Supplies methods for class <tt>Spree::ActiveSale::Event</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
 * <tt>Spree::ActiveSale::Event.live</tt> lists all sale events which are currently and suppose to be running.
 * <tt>Spree::ActiveSale::Event.active</tt> lists all sale events which are active, they may or may not be live. You can do <tt>Spree::ActiveSale::Event.active(false)</tt> to list all inactive sale events.
