@@ -4,8 +4,6 @@ module Spree
       # GET /spree/active_sales
       # GET /spree/active_sales.json
       def index
-        @search = Spree::ActiveSale.ransack(params[:q])
-
         respond_with(@collection) do |format|
           format.html
           format.json { render :json => json_data }
@@ -21,6 +19,10 @@ module Spree
       # GET /spree/active_sales/1/edit
       def edit
         @active_sale = Spree::ActiveSale.includes(:events).find(params[:id])
+        respond_with(@collection) do |format|
+          format.html
+          format.json { render :json => json_data }
+        end
       end
 
       protected

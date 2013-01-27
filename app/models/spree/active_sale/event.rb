@@ -9,10 +9,11 @@ module Spree
     belongs_to :eventable, :polymorphic => true
     belongs_to :active_sale
 
-    attr_accessible :description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :name, :permalink, :active_sale_id, :start_date
+    attr_accessible :description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date
 
     validates :name, :presence => true
     validates :permalink, :presence => true
+    validates :eventable_id, :presence => true, :uniqueness => { :scope => [:eventable_type, :active_sale_id] }
     validates :start_date, :presence => true
     validates :end_date, :presence => true
     validates :active_sale_id, :presence => true

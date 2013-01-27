@@ -1,12 +1,8 @@
 module Spree
   module Admin
     class EventsController < ResourceController
-      before_filter :load_data, :except => [:index, :new, :create]
-
-      def load_data
-        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
-        @event = @active_sale.events.find(params[:id])
-      end
+      before_filter :load_data, :except => [:index, :show, :new, :create]
+      before_filter :get_eventable, :only => [:create, :update]
 
       # GET /spree/active_sale/events
       # GET /spree/active_sale/events.json
@@ -86,19 +82,28 @@ module Spree
 
       protected
 
-        # def collection
-        #   return @collection if @collection.present?
-        #   @search = Spree::ActiveSale::Event.ransack(params[:q])
-        #   @collection = @search.result.page(params[:page]).per(Spree::ActiveSaleConfig[:admin_active_sales_per_page])
-        # end
+        def collection
+          return @collection if @collection.present?
+          @search = Spree::ActiveSale::Event.ransack(params[:q])
+          @collection = @search.result.page(params[:page]).per(Spree::ActiveSaleConfig[:admin_active_sales_per_page])
+        end
 
         def model_class
           "Spree::ActiveSale::Event".constantize
         end
 
-        # def model_name
-        #   parent_data[:model_name].gsub('spree/', '')
-        # end
+        def load_data
+          @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
+          @event = @active_sale.events.find(params[:id])
+        end
+
+        def get_eventable
+          eventable_type = params[:active_sale_event][:eventable_type]
+          eventable = "Spree::#{eventable_type}".constantize.where(:permalink => params[:active_sale_event][:permalink]).first
+          return false if eventable.nil?
+          params[:active_sale_event][:eventable_type] = eventable.class.name
+          params[:active_sale_event][:eventable_id] = eventable.id
+        end
     end
   end
 end

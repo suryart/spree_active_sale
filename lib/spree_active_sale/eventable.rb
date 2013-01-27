@@ -21,7 +21,7 @@ module SpreeActiveSale
     module InstanceMethods
 
       def validate_start_and_end_date
-        errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if (self.start_date and self.end_date) and (self.start_date > self.end_date)
+        errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if (self.start_date and self.end_date) and (self.start_date >= self.end_date)
       end
 
       def live?

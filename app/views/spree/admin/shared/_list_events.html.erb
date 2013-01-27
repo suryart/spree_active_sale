@@ -1,15 +1,15 @@
 
-<div id="new_active_sale" data-hook></div>
+<div id="new_active_sale_event" data-hook></div>
 
-<table class="index" id="listing_active_sales" data-hook>
+<table class="index" id="listing_active_sale_events" data-hook>
   <colgroup>
     <col style="width: 85%">
     <col style="width: 15%">
   </colgroup>
   <thead>
-    <tr data-hook="admin_active_sales_index_headers">
-      <th><%#= sort_link @search, :name, t(:active_sale), {}, { :title => 'active_sales_name_title' } %></th>
-      <th data-hook="admin_active_sales_index_header_actions" class="actions"></th>
+    <tr data-hook="admin_active_sale_events_index_headers">
+      <th><%= t('spree.active_sale.event.title.name') %></th>
+      <th data-hook="admin_active_sale_events_index_header_actions" class="actions"></th>
     </tr>
   </thead>
   <tbody>
@@ -18,9 +18,9 @@
         <td class='active_sale_name'><%= link_to event.name, admin_active_sale_event_url(@active_sale, event) %></td>
         <td class="actions" data-hook="admin_active_sales_index_row_actions">
           <p class="actions" data-hook="actions">
-            <%= link_to_with_icon('edit', t(:edit), edit_admin_active_sale_event_url(@active_sale, event), { :no_text => true }) %>
-            <%= link_to_with_icon('edit', t(:delete), admin_active_sale_event_url(@active_sale, event), { :no_text => true }) %>
-            <%= link_to_delete event, {:url => admin_active_sale_event_url(@active_sale, event) } %>
+            <%= link_to_edit_url edit_admin_active_sale_event_url(@active_sale, event), :no_text => true %>
+            &nbsp;
+            <%= link_to_delete event, { :url => admin_active_sale_event_url(@active_sale, event), :no_text => true } %>
           </p>
         </td>
       </tr>

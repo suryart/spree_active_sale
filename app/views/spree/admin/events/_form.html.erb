@@ -23,6 +23,12 @@
 
       <div class="right" data-hook="admin_product_form_right">
         <p>
+          <%= f.label :eventable, t(:eventable) %><br />
+          <%= f.error_message_on :eventable %>
+          <%= f.select :eventable_type, ["Product", "Taxon"], :class => 'text' %>
+        </p>
+
+        <p>
           <%= f.label :permalink, t(:permalink) %><br />
           <%= f.error_message_on :permalink %>
           <%= f.text_field :permalink, :class => 'text' %>
@@ -40,18 +46,25 @@
           <%= f.datetime_select :end_date, :class => 'datepicker' %>
         </p>
 
-        
+        <p>
+          <%= f.label :is_active, t('spree.active_sale.event.active_record.is_active') %><br />
+          <%= f.error_message_on :is_active %>
+          <%= f.check_box :is_active %>
+        </p>
+
+        <p>
+          <%= f.label :is_hidden, t('spree.active_sale.event.active_record.is_hidden') %><br />
+          <%= f.error_message_on :is_hidden %>
+          <%= f.check_box :is_hidden %>
+        </p>
+
+        <p>
+          <%= f.label :is_permanent, t('spree.active_sale.event.active_record.is_permanent') %><br />
+          <%= f.error_message_on :is_permanent %>
+          <%= f.check_box :is_permanent %>
+        </p>
       </div>
     </div>
-
-
-
-    <div data-hook="admin_product_form_additional_fields">
-      <%# Spree::Variant.additional_fields.select{|af| af[:only].nil? || af[:only].include?(:product) }.each do |field| %>
-        <%#= render :partial => 'spree/admin/shared/additional_field', :locals => { :field => field, :f => f } %>
-      <%# end %>
-    </div>
-
 
     <p class="form-buttons" data-hook="admin_active_sale_form_buttons">
       <% if @event.new_record? %>

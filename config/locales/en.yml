@@ -21,9 +21,13 @@ en:
         active_record:
           start_date: "Start date"
           end_date: "End date"
+          is_active: "Active?(Check this if true)"
+          is_hidden: "Hidden?(Check this if true)"
+          is_permanent: "Permanent?(Check this if true)"
         title:
+          name: "Event name"
           new: "New event"
-          new: "Edit event"
+          edit: "Edit event"
           list: "Listing events"
         link:
           new: "New event"
@@ -31,6 +35,6 @@ en:
           back: "Back to events"
         validation:
           errors:
-            invalid_dates: "Event's start date can not be greater than end date."
+            invalid_dates: "can not be greater than or equal to the end date."
         flash:
           error: "The page you are looking for is no longer available."
