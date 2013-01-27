@@ -68,18 +68,6 @@ module Spree
         end
       end
 
-      # DELETE /spree/active_sale/events/1
-      # DELETE /spree/active_sale/events/1.json
-      def destroy
-        @event = Spree::ActiveSale::Event.find(params[:id])
-        @event.destroy
-
-        respond_to do |format|
-          format.html { redirect_to admin_active_sale_events_url }
-          format.json { head :no_content }
-        end
-      end
-
       protected
 
         def collection

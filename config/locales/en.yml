@@ -19,13 +19,17 @@ en:
       event:
         create_if_no_record: "You don't have any event in this active sale, let's create an event?"
         active_record:
+          name: "Event name"
           start_date: "Start date"
           end_date: "End date"
           is_active: "Active?(Check this if true)"
           is_hidden: "Hidden?(Check this if true)"
           is_permanent: "Permanent?(Check this if true)"
+          is_live: "Live?"
+        boolean:
+          yes: "Yes"
+          no: "No"
         title:
-          name: "Event name"
           new: "New event"
           edit: "Edit event"
           list: "Listing events"
