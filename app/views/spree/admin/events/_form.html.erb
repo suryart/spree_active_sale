@@ -1,17 +1,64 @@
-<%= form_for(@spree_active_sale_event) do |f| %>
-  <% if @spree_active_sale_event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@spree_active_sale_event.errors.count, "error") %> prohibited this spree_active_sale_event from being saved:</h2>
+<% if @event.try(:errors).present? %>
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @event } %>
+<% end %>
 
-      <ul>
-      <% @spree_active_sale_event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @event, :url => ( @event.new_record? ? admin_active_sale_events_url(@active_sale, @event) : admin_active_sale_event_url(@active_sale, @event) ) do |f| %>
+  <fieldset data-hook="new_active_sale">
+
+    <div class="clearfix">
+      <div class="left" data-hook="admin_product_form_left">
+        <%= f.field_container :name do %>
+          <%= f.label :name, t(:name) %> <span class="required">*</span><br />
+          <%= f.text_field :name, :class => 'title' %>
+          <%= f.error_message_on :name %>
+        <% end %>
+
+
+        <%= f.field_container :description do %>
+          <%= f.label :description, t(:description) %><br />
+          <%= f.text_area :description, {:cols => 60, :rows => 4, :class => 'fullwidth'} %>
+          <%= f.error_message_on :description %>
+        <% end %>
+      </div>
+
+      <div class="right" data-hook="admin_product_form_right">
+        <p>
+          <%= f.label :permalink, t(:permalink) %><br />
+          <%= f.error_message_on :permalink %>
+          <%= f.text_field :permalink, :class => 'text' %>
+        </p>
+
+        <p>
+          <%= f.label :start_date, t('spree.active_sale.event.active_record.start_date') %><br />
+          <%= f.error_message_on :start_date %>
+          <%= f.datetime_select :start_date, :class => 'datepicker' %>
+        </p>
+
+        <p>
+          <%= f.label :end_date, t('spree.active_sale.event.active_record.end_date') %><br />
+          <%= f.error_message_on :end_date %>
+          <%= f.datetime_select :end_date, :class => 'datepicker' %>
+        </p>
+
+        
+      </div>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+    <div data-hook="admin_product_form_additional_fields">
+      <%# Spree::Variant.additional_fields.select{|af| af[:only].nil? || af[:only].include?(:product) }.each do |field| %>
+        <%#= render :partial => 'spree/admin/shared/additional_field', :locals => { :field => field, :f => f } %>
+      <%# end %>
+    </div>
+
+
+    <p class="form-buttons" data-hook="admin_active_sale_form_buttons">
+      <% if @event.new_record? %>
+        <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+      <% else %>
+        <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+      <% end %>
+    </p>
+  </fieldset>
 <% end %>

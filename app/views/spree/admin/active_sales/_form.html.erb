@@ -22,3 +22,14 @@
 
   </fieldset>
 <% end %>
+
+<% unless @active_sale.new_record? %>
+  <% if @active_sale.events.blank? %>
+    <% @event = @active_sale.events.build %>
+    <h4><%= t('spree.active_sale.event.create_if_no_record') %></h4>
+    <%= render :partial => "spree/admin/events/form" %>
+  <% else %>
+    <% @events = @active_sale.events %>
+    <%= render :partial => "events", :locals => { :events => @events } %>
+  <% end %>
+<% end %>

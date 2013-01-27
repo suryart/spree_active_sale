@@ -1,10 +1,18 @@
 module Spree
   module Admin
-    class ActiveSale::EventsController < ResourceController
+    class EventsController < ResourceController
+      before_filter :load_data, :except => [:index, :new, :create]
+
+      def load_data
+        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
+        @event = @active_sale.events.find(params[:id])
+      end
+
       # GET /spree/active_sale/events
       # GET /spree/active_sale/events.json
       def index
-        @spree_active_sale_events = Spree::ActiveSale::Event.all
+        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
+        @events = @active_sale.events
 
         respond_to do |format|
           format.html # index.html.erb
@@ -15,42 +23,34 @@ module Spree
       # GET /spree/active_sale/events/1
       # GET /spree/active_sale/events/1.json
       def show
-        @spree_active_sale_event = Spree::ActiveSale::Event.find(params[:id])
-
-        respond_to do |format|
-          format.html # show.html.erb
-          format.json { render json: @spree_active_sale_event }
-        end
+        redirect_to( :action => :edit )
       end
 
       # GET /spree/active_sale/events/new
       # GET /spree/active_sale/events/new.json
       def new
-        @spree_active_sale_event = Spree::ActiveSale::Event.new
+        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
+        @event = @active_sale.events.build
 
         respond_to do |format|
           format.html # new.html.erb
-          format.json { render json: @spree_active_sale_event }
+          format.json { render json: @event }
         end
-      end
-
-      # GET /spree/active_sale/events/1/edit
-      def edit
-        @spree_active_sale_event = Spree::ActiveSale::Event.find(params[:id])
       end
 
       # POST /spree/active_sale/events
       # POST /spree/active_sale/events.json
       def create
-        @spree_active_sale_event = Spree::ActiveSale::Event.new(params[:spree_active_sale_event])
+        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
+        @event = @active_sale.events.build(params[:active_sale_event])
 
         respond_to do |format|
-          if @spree_active_sale_event.save
-            format.html { redirect_to @spree_active_sale_event, notice: 'Event was successfully created.' }
-            format.json { render json: @spree_active_sale_event, status: :created, location: @spree_active_sale_event }
+          if @event.save
+            format.html { redirect_to admin_active_sale_event_url(@active_sale, @event), notice: 'Event was successfully created.' }
+            format.json { render json: @event, status: :created, location: @event }
           else
             format.html { render action: "new" }
-            format.json { render json: @spree_active_sale_event.errors, status: :unprocessable_entity }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
           end
         end
       end
@@ -58,15 +58,16 @@ module Spree
       # PUT /spree/active_sale/events/1
       # PUT /spree/active_sale/events/1.json
       def update
-        @spree_active_sale_event = Spree::ActiveSale::Event.find(params[:id])
+        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
+        event = @active_sale.events.find(params[:id])
 
         respond_to do |format|
-          if @spree_active_sale_event.update_attributes(params[:spree_active_sale_event])
-            format.html { redirect_to @spree_active_sale_event, notice: 'Event was successfully updated.' }
+          if @event.update_attributes(params[:active_sale_event])
+            format.html { redirect_to admin_active_sale_event_url(@active_sale, event), notice: 'Event was successfully updated.' }
             format.json { head :no_content }
           else
             format.html { render action: "edit" }
-            format.json { render json: @spree_active_sale_event.errors, status: :unprocessable_entity }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
           end
         end
       end
@@ -74,14 +75,30 @@ module Spree
       # DELETE /spree/active_sale/events/1
       # DELETE /spree/active_sale/events/1.json
       def destroy
-        @spree_active_sale_event = Spree::ActiveSale::Event.find(params[:id])
-        @spree_active_sale_event.destroy
+        @event = Spree::ActiveSale::Event.find(params[:id])
+        @event.destroy
 
         respond_to do |format|
-          format.html { redirect_to spree_active_sale_events_url }
+          format.html { redirect_to admin_active_sale_events_url }
           format.json { head :no_content }
         end
       end
+
+      protected
+
+        # def collection
+        #   return @collection if @collection.present?
+        #   @search = Spree::ActiveSale::Event.ransack(params[:q])
+        #   @collection = @search.result.page(params[:page]).per(Spree::ActiveSaleConfig[:admin_active_sales_per_page])
+        # end
+
+        def model_class
+          "Spree::ActiveSale::Event".constantize
+        end
+
+        # def model_name
+        #   parent_data[:model_name].gsub('spree/', '')
+        # end
     end
   end
 end

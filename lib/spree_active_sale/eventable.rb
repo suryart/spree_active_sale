@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module SpreeActiveSale
   module Eventable
     module ClassMethods

@@ -6,6 +6,10 @@ module SpreeActiveSale
 
     config.autoload_paths += %W(#{config.root}/lib)
 
+    initializer "spree.active_sale.environment", :after => "spree.environment" do |app|
+      Spree::ActiveSaleConfig = Spree::ActiveSale::Configuration.new
+    end
+
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec

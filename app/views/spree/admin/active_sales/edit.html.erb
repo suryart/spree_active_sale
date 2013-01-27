@@ -5,8 +5,12 @@
 <% content_for :page_actions do %>
   <li>
     <%= button_link_to t('spree.active_sale.link.back'), admin_active_sales_url, :icon => 'icon-arrow-left', :id => 'admin_new_active_sale_link' %>
+    <%= button_link_to t('spree.active_sale.event.link.new'), new_admin_active_sale_event_url(@active_sale), :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
   </li>
 <% end %>
 
-<%= render 'form' %>
-
+<div data-hook="admin_active_sale_edit_form">
+  <div id="active-sale-form-wrapper">
+    <%= render :partial => 'form' %>
+  </div>
+</div>

@@ -4,7 +4,31 @@
 en:
   spree:
     active_sale:
+      title:
+        new: "New active sale"
+        edit: "Edit active sale"
+        list: "Listing active sales"
+      link:
+        new: "New active sale"
+        edit: "Edit active sale"
+        back: "Back to active sales list"
+      notice_messages:
+        created: "Active sale was successfully created."
+        updated: "Active sale was successfully updated."
+        deleted: "Active sale has been deleted."
       event:
+        create_if_no_record: "You don't have any event in this active sale, let's create an event?"
+        active_record:
+          start_date: "Start date"
+          end_date: "End date"
+        title:
+          new: "New event"
+          new: "Edit event"
+          list: "Listing events"
+        link:
+          new: "New event"
+          edit: "Edit event"
+          back: "Back to events"
         validation:
           errors:
             invalid_dates: "Event's start date can not be greater than end date."
