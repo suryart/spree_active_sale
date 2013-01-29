@@ -6,8 +6,9 @@ module SpreeActiveSale
 
     config.autoload_paths += %W(#{config.root}/lib)
 
-    initializer "spree.active_sale.environment", :after => "spree.environment" do |app|
+    initializer "spree_active_sale.environment", :after => "spree.environment" do |app|
       Spree::ActiveSaleConfig = Spree::ActiveSale::Configuration.new
+      %w(ActionController::Base Spree::BaseController).each { |controller| controller.constantize.send(:helper, Spree::ActiveSale::EventsHelper) }
     end
 
     # use rspec for tests
@@ -24,3 +25,5 @@ module SpreeActiveSale
     config.to_prepare &method(:activate).to_proc
   end
 end
+
+

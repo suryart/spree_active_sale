@@ -1,2 +1,4 @@
-module Spree::ActiveSalesHelper
+module Spree
+  module ActiveSalesHelper
+  end
 end

@@ -17,6 +17,7 @@ en:
         updated: "Active sale was successfully updated."
         deleted: "Active sale has been deleted."
       event:
+        can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSale::Event"
         create_if_no_record: "You don't have any event in this active sale, let's create an event?"
         active_record:
           name: "Event name"
@@ -42,3 +43,7 @@ en:
             invalid_dates: "can not be greater than or equal to the end date."
         flash:
           error: "The page you are looking for is no longer available."
+        notice_messages:
+          created: "Event was successfully created."
+          updated: "Event was successfully updated."
+          deleted: "Event has been deleted."
