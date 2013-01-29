@@ -31,6 +31,5 @@
   <% else %>
     <% @events = @active_sale.events %>
     <%= render :partial => "spree/admin/shared/list_events", :locals => { :events => @events } %>
-    <%#= render :partial => "events", :locals => { :events => @events } %>
   <% end %>
 <% end %>

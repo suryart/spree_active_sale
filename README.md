@@ -9,6 +9,7 @@ FEATURES
 
 * Provides a quick implementation of flash sales/ daily deals behavior by a easy scheduler a.k.a *ActiveSale*.
 * Provides an admin interface for creating/ scheduling, managing, or re-scheduling sales and events.
+* Provides a view helper for countdown timer to show sales ending time, which will be shown to your customers. This eventually makes a sense of urgency in your customers.
 * Supplies methods for class <tt>Spree::ActiveSale::Event</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
 * <tt>Spree::ActiveSale::Event.live</tt> lists all sale events which are currently and suppose to be running.
 * <tt>Spree::ActiveSale::Event.active</tt> lists all sale events which are active, they may or may not be live. You can do <tt>Spree::ActiveSale::Event.active(false)</tt> to list all inactive sale events.
@@ -74,7 +75,7 @@ TODOs
 * Improve testing and write more test cases.
 * Make an example applciation to show usage of this extension.
 * Enhance the admin interface for active sales and events[U.I. and U.X.].
-* Provide a timer hlper for showing the countdown to users.
+* Make time countdown helper flexible so that developers can modify according to their requirements.
 
 Testing
 -------
