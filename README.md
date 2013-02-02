@@ -21,10 +21,15 @@ FEATURES
 * <tt>Spree::ActiveSale::Event.ending_today</tt> lists all sale events which are going to expire today.
 * <tt>Spree::ActiveSale::Event.is_live?(instance)</tt> here instance can be an object of "Spree::ActiveSale::Event", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class, which simply says if sale event for that instance is accessible for users or not.
 
+LINKS
+=====
 
-[![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/suryart/spree_active_sale)
-[![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=master)](https://travis-ci.org/suryart/spree_active_sale)
+* Demo application: [Spree Active Sale Demo](https://github.com/suryart/spree_active_sale_demo)
+* Dependency status: [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
+* Code climate: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/suryart/spree_active_sale)
+* Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=master)](https://travis-ci.org/suryart/spree_active_sale)
+* Issues: [Project issues](https://github.com/suryart/spree_active_sale/issues)
+* Fork: [Fork this Project](https://github.com/suryart/spree_active_sale/fork_select)
 
 INSTALLATION
 ============
@@ -73,7 +78,6 @@ TODOs
 =====
 
 * Improve testing and write more test cases.
-* Make an example applciation to show usage of this extension.
 * Enhance the admin interface for active sales and events[U.I. and U.X.].
 * Make time countdown helper flexible so that developers can modify according to their requirements.
 
