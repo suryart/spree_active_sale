@@ -1,2 +1,3 @@
 //= require admin/spree_core
-//= require jquery.coundown.min
+//= require jquery.countdown.min
+//= require event_timer.js
