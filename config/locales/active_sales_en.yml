@@ -4,6 +4,9 @@
 en:
   spree:
     active_sale:
+      events_not_found: "There are no sales available at this moment. Try later?"
+      active_record:
+        name: "Sale name"
       title:
         new: "New active sale"
         edit: "Edit active sale"
@@ -18,6 +21,7 @@ en:
         deleted: "Active sale has been deleted."
       event:
         can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSale::Event"
+        close_message: "SALE CLOSES IN"
         create_if_no_record: "You don't have any event in this active sale, let's create an event?"
         active_record:
           name: "Event name"

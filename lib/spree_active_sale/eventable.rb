@@ -12,9 +12,22 @@ module SpreeActiveSale
         %w(Spree::Product Spree::Variant Spree::Taxon).include?(object_class_name) ? object.live? : false
       end
 
+      def paginate(options = {})
+        options = prepare_pagination(options)
+        self.page(options[:page]).per(options[:per_page])
+      end
+
       private
         def valid_argument args
           (args.first == nil || args.first == true)
+        end
+
+        def prepare_pagination(options)
+          per_page = options[:per_page].to_i
+          options[:per_page] = per_page > 0 ? per_page : Spree::ActiveSaleConfig[:active_sale_events_per_page]
+          page = options[:page].to_i
+          options[:page] = page > 0 ? page : 1
+          options
         end
     end
     
@@ -31,6 +44,11 @@ module SpreeActiveSale
 
       def live_and_active?
         self.live? and self.is_active?
+      end
+
+      def update_permalink
+        prefix = {"Spree::Taxon" => "t", "Spree::Product" => "products"}
+        self.permalink = [prefix[self.eventable_type], self.eventable.permalink].join("/")
       end
     end
     

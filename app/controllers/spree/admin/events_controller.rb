@@ -1,13 +1,12 @@
 module Spree
   module Admin
     class EventsController < ResourceController
-      before_filter :load_data, :except => [:index, :show, :new, :create]
+      before_filter :load_active_sale, :except => [:show]
       before_filter :get_eventable, :only => [:create, :update]
 
       # GET /spree/active_sale/events
       # GET /spree/active_sale/events.json
       def index
-        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
         @events = @active_sale.events
 
         respond_to do |format|
@@ -25,7 +24,6 @@ module Spree
       # GET /spree/active_sale/events/new
       # GET /spree/active_sale/events/new.json
       def new
-        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
         @event = @active_sale.events.build
 
         respond_to do |format|
@@ -37,7 +35,6 @@ module Spree
       # POST /spree/active_sale/events
       # POST /spree/active_sale/events.json
       def create
-        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
         @event = @active_sale.events.build(params[:active_sale_event])
 
         respond_to do |format|
@@ -54,7 +51,6 @@ module Spree
       # PUT /spree/active_sale/events/1
       # PUT /spree/active_sale/events/1.json
       def update
-        @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
         event = @active_sale.events.find(params[:id])
 
         respond_to do |format|
@@ -80,9 +76,8 @@ module Spree
           "Spree::ActiveSale::Event".constantize
         end
 
-        def load_data
+        def load_active_sale
           @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
-          @event = @active_sale.events.find(params[:id])
         end
 
         def get_eventable
