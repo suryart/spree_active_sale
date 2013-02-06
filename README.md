@@ -58,7 +58,9 @@ Then run the following commands:
     # created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">
 
     # Then create an Event under this sale by:
-    event = taxon.active_sale_events.create :name => "January 2013 sales", :active_sale_id => active_sale.id, :start_date => Time.now, :end_date => Time.now+1.day, :permalink => taxon.permalink
+    event = taxon.active_sale_events.create(:name => "January 2013 sales", 
+        :active_sale_id => active_sale.id, :start_date => Time.now, 
+        :end_date => Time.now+1.day, :permalink => taxon.permalink)
 
     # Now try to access this taxon in web browser, there should be no other taxon/ product link accessible except the one we've created just now.
   ```
