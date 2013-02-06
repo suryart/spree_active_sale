@@ -46,7 +46,7 @@ Then run the following commands:
 
 ## Example and usages
 
-* For trying to see how this plugin works. You can create an *ActiveSale* and its events by following these commands: 
+* For trying to see how this plugin works. You can create an *ActiveSale* and its events by following these commands in your <tt>rails console</tt>: 
   ```ruby
     # Get a taxon in rails console:
     taxon = Taxon.last
@@ -54,8 +54,7 @@ Then run the following commands:
     # Create an ActiveSale
     active_sale = Spree::ActiveSale.create name: "January 2013 sales"
 
-    #Output:
-    => #<Spree::ActiveSale id: 1, name: "January 2013 sales", created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">
+    # Output => #<Spree::ActiveSale id: 1, name: "January 2013 sales", created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">
 
     # Then create an Event under this sale by:
     event = taxon.active_sale_events.create name: "January 2013 sales", active_sale_id: active_sale.id, start_date: Time.now, end_date: Time.now+1.day, permalink: taxon.permalink
