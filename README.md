@@ -52,7 +52,7 @@ Then run the following commands:
     taxon = Taxon.last
 
     # Create an ActiveSale
-    active_sale = Spree::ActiveSale.create :name => "January 2013 sales"
+    active_sale = Spree::ActiveSale.create(:name => "January 2013 sales")
 
     # Output => #<Spree::ActiveSale id: 1, name: "January 2013 sales", 
     # created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">
@@ -62,7 +62,9 @@ Then run the following commands:
         :active_sale_id => active_sale.id, :start_date => Time.now, 
         :end_date => Time.now+1.day, :permalink => taxon.permalink)
 
-    # Now try to access this taxon in web browser, there should be no other taxon/ product link accessible except the one we've created just now.
+    # Now try to access this taxon in web browser.
+    # There should be no any other taxon/ product link accessible except 
+    # the one we've created just now.
   ```
 * When you have enough sale events in your database, you can try these commands as per your requirements :
   ```ruby
