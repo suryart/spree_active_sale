@@ -2,8 +2,7 @@
 
 Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a variant, product, or group number of products in a taxon, attach that variant, product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
 
-> It's all about selling your first product. 
->                            ~ [Vivek SP](https://twitter.com/viveksp)
+> It's all about selling your first product. ~ [Vivek SP](https://twitter.com/viveksp)
 
 ----------
 
@@ -25,7 +24,7 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with 
 
 ## INSTALLATION
 
-In a rails application with Spree installed include the following line in your Gemfile:
+### In a rails application with Spree installed include the following line in your Gemfile:
   * To use the master branch from github: 
     
       `gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'`
@@ -36,13 +35,26 @@ In a rails application with Spree installed include the following line in your G
 
       `gem 'spree_active_sale'`
 
-Then run the following commands: 
+### Then run the following commands: 
 
     $ bundle install
     $ rails g spree_active_sale:install 
     $ rake db:migrate
     $ rails s 
 
+### Including stylesheet and javascript
+
+#### Stylesheet usage in Rails >= 3.1(Only supported versions for now)
+
+You will have to add stylesheet in the bottom of your **admin/all.css** file as follows -
+  
+    *= require admin/spree_active_sale
+
+#### Javascript usage in Rails >= 3.1(Only supported versions for now)
+
+You will have to add javascript in the bottom of your **admin/all.js** file as follows -
+    
+    //= require admin/spree_active_sale
 
 ## Example and usages
 
