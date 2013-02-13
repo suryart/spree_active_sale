@@ -2,43 +2,35 @@
   <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @event } %>
 <% end %>
 
-<%= form_for @event, :url => ( @event.new_record? ? admin_active_sale_events_url(@active_sale, @event) : admin_active_sale_event_url(@active_sale, @event) ) do |f| %>
-  <fieldset data-hook="new_active_sale">
+<%= form_for @event, :url => ( @event.new_record? ? admin_active_sale_events_url(@active_sale, @event) : admin_active_sale_event_url(@active_sale, @event) ), :html => { :id => 'admin_active_sale_event' } do |f| %>
+  <fieldset data-hook="admin_active_sale_event_form_fields">
 
     <div class="clearfix">
-      <div class="left" data-hook="admin_product_form_left">
-        <%= f.field_container :name do %>
-          <%= f.label :name, t(:name) %> <span class="required">*</span><br />
-          <%= f.text_field :name, :class => 'title' %>
-          <%= f.error_message_on :name %>
-        <% end %>
-
-
-        <%= f.field_container :description do %>
-          <%= f.label :description, t(:description) %><br />
-          <%= f.text_area :description, {:cols => 60, :rows => 4, :class => 'fullwidth'} %>
-          <%= f.error_message_on :description %>
-        <% end %>
+      <div class="left eight columns alpha" data-hook="admin_active_sale_event_form_left">
+          <%= f.field_container :name do %>
+            <%= f.label :name, raw(t('spree.active_sale.event.active_record.name') + content_tag(:span, ' *', :class => 'required')) %>
+            <%= f.text_field :name, :class => 'fullwidth' %>
+            <%= f.error_message_on :name %>
+          <% end %>
+          <%= f.field_container :description do %>
+            <%= f.label :description, t('spree.active_sale.event.active_record.description') %>
+            <%= f.text_area :description, {:cols => 60, :rows => 10, :class => 'fullwidth'} %>
+            <%= f.error_message_on :description %>
+          <% end %>
       </div>
 
-      <div class="right" data-hook="admin_product_form_right">
-        <div class="omega four columns">
-          <%= f.label :eventable, t(:eventable) %><br />
-          <%= f.error_message_on :eventable %>
-          <%= f.select :eventable_type, ["Product", "Taxon"], :class => 'text' %>
-        </div>
+      <div class="right eight columns omega" data-hook="admin_active_sale_event_form_right">
+        <div class="alpha four columns">
 
-        <div class="omega four columns">
-          <%= f.label :permalink, t(:permalink) %><br />
-          <%= f.error_message_on :permalink %>
-          <%= f.text_field :permalink, :class => 'text' %>
-        </div>
-
-        <div class="omega four columns">
           <%= f.field_container :start_date do %>
             <%= f.label :start_date, t('spree.active_sale.event.active_record.start_date') %>
             <%= f.error_message_on :start_date %>
-            <%= f.text_field :start_date, :class => 'timepicker fullwidth' %>
+            <% if @event.start_date? %>
+              <% start_date = l(@event.start_date, :format => t('spree.active_sale.event.datetimepicker.format')) %>
+            <% else %>
+              <% start_date = l(Time.zone.now, :format => t('spree.active_sale.event.datetimepicker.format')) %>
+            <% end %>
+            <%= f.text_field :start_date, :value => start_date, :class => 'timepicker' %>
           <% end %>
         </div>
 
@@ -46,27 +38,52 @@
           <%= f.field_container :end_date do %>
             <%= f.label :end_date, t('spree.active_sale.event.active_record.end_date') %>
             <%= f.error_message_on :end_date %>
-            <%= f.text_field :end_date, :class => 'timepicker fullwidth' %>
+            <% end_date = l((@event.end_date? ? @event.end_date : Time.zone.now+1.day), :format => t('spree.active_sale.event.datetimepicker.format')) %>
+            <%= f.text_field :end_date, :value => end_date, :class => 'timepicker' %>
           <% end %>
         </div>
 
-        <p>
-          <%= f.label :is_active, t('spree.active_sale.event.active_record.is_active') %><br />
-          <%= f.error_message_on :is_active %>
-          <%= f.check_box :is_active %>
-        </p>
+        <div class="alpha four columns">
+          <%= f.label :eventable, t('spree.active_sale.event.active_record.eventable_type', :default => :evenetable) %>
+          <%= f.select :eventable_type, [["Product","Spree::Product"], ["Taxon","Spree::Taxon"]], { :include_blank => false }, { :class => 'select2' } %>
+          <%= f.error_message_on :eventable %>
+        </div>
 
-        <p>
-          <%= f.label :is_hidden, t('spree.active_sale.event.active_record.is_hidden') %><br />
-          <%= f.error_message_on :is_hidden %>
-          <%= f.check_box :is_hidden %>
-        </p>
+        <div class="omega four columns">
+          <%= f.label :eventable_name, t('spree.active_sale.event.active_record.eventable_name', :default => :eventable_name) %>
+          <%= f.error_message_on :eventable_name %>
+          <%= f.text_field :eventable_name, :class => 'autocomplete', :data => { :auto_complete => "some path" } %>
+        </div>
 
-        <p>
-          <%= f.label :is_permanent, t('spree.active_sale.event.active_record.is_permanent') %><br />
-          <%= f.error_message_on :is_permanent %>
-          <%= f.check_box :is_permanent %>
-        </p>
+        <div class="alpha four columns">
+          <%= f.field_container :is_active, :class => ['checkbox'] do %>
+            <label>
+              <%= f.check_box :is_active %>
+              <%= t('spree.active_sale.event.active_record.is_active') %>
+              <%= f.error_message_on :is_active %>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="omega four columns">
+          <%= f.field_container :is_hidden, :class => ['checkbox'] do %>
+            <label>
+              <%= f.check_box :is_hidden %>
+              <%= t('spree.active_sale.event.active_record.is_hidden') %>
+              <%= f.error_message_on :is_hidden %>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="alpha four columns">
+          <%= f.field_container :is_permanent, :class => ['checkbox'] do %>
+            <label>
+              <%= f.check_box :is_permanent %>
+              <%= t('spree.active_sale.event.active_record.is_permanent') %>
+              <%= f.error_message_on :is_permanent %>
+            </label>
+          <% end %>
+        </div>
       </div>
     </div>
 
@@ -79,3 +96,19 @@
     </p>
   </fieldset>
 <% end %>
+
+<%= javascript_tag do -%>
+  var properties = "<%= raw(@properties.to_json) %>";
+
+  $("#admin_active_sale_event input.autocomplete").live("keydown", function(){
+    var eventable_type = $('#active_sale_event_eventable_type :selected').val();
+    var eventable_name = $('#active_sale_event_eventable_name').val();
+    already_auto_completed = $(this).is('ac_input');
+    if (!already_auto_completed) {
+      $(this).autocomplete({
+        source: "<%= eventables_admin_active_sale_events_url(:active_sale_id => @active_sale.id) %>"+"?eventable_type="+eventable_type+"&name="+eventable_name
+      });
+      $(this).focus();
+    }
+  });
+<% end -%>

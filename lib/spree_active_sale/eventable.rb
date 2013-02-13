@@ -38,7 +38,7 @@ module SpreeActiveSale
       end
 
       def live?
-        current_time = Time.now
+        current_time = Time.zone.now
         (self.start_date <= current_time and self.end_date >= current_time) or self.is_permanent?
       end
 
@@ -49,6 +49,14 @@ module SpreeActiveSale
       def update_permalink
         prefix = {"Spree::Taxon" => "t", "Spree::Product" => "products"}
         self.permalink = [prefix[self.eventable_type], self.eventable.permalink].join("/")
+      end
+
+      def eventable_name
+        eventable.try(:name)
+      end
+
+      def eventable_name=(name)
+        self.eventable = self.eventable_type.constantize.find_by_name(name) if name.present?
       end
     end
     

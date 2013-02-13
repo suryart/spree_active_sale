@@ -1,6 +1,6 @@
 # Welcome to Spree Active Sale
 
-Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a variant, product, or group number of products in a taxon, attach that variant, product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
+Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a product, or group number of products in a taxon, attach that product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
 
 > It's all about selling your first product. ~ [Vivek SP](https://twitter.com/viveksp)
 
@@ -9,8 +9,8 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with 
 ## FEATURES
 
 * Provides a quick implementation of flash sales/ daily deals behavior by a easy scheduler a.k.a *ActiveSale*.
-* Provides an admin interface for creating/ scheduling, managing, or re-scheduling sales and events.
-* Provides a view helper for countdown timer to show sales ending time, which will be shown to your customers. This eventually makes a sense of urgency in your customers.
+* Provides an admin interface for creating/ scheduling, managing, or re-scheduling sale events.
+* Provides a view helper for countdown timer to show sale's ending time, which will be shown to your customers. This eventually makes a sense of urgency in your customers mind.
 * Supplies methods for class <tt>Spree::ActiveSale::Event</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
 
 ## LINKS

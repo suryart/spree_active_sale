@@ -1,0 +1,21 @@
+handle_datetime_picker_fields = function(){
+  $('.timepicker').datetimepicker({
+    showOn: "focus",
+    showTimezone: true,
+    showSecond: true,
+    dateFormat: Spree.datetime_translations.date_format,
+    timeFormat: Spree.datetime_translations.time_format,
+    timeOnlyTitle: Spree.datetime_translations.time_only_title,
+    timeText: Spree.datetime_translations.time_text,
+    hourText: Spree.datetime_translations.hour_text,
+    minuteText: Spree.datetime_translations.minute_text,
+    secondText: Spree.datetime_translations.second_text,
+    currentText: Spree.datetime_translations.current_text,
+    closeText: Spree.datetime_translations.close_text
+  });
+
+}
+
+$(document).ready(function(){
+  handle_datetime_picker_fields();
+});

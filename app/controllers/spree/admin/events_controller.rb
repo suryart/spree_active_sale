@@ -64,6 +64,11 @@ module Spree
         end
       end
 
+      def eventables
+        search = params[:eventable_type].constantize.search(:name_cont => params[:name])
+        render :json => search.result.map(&:name)
+      end
+
       protected
 
         def collection
@@ -82,10 +87,16 @@ module Spree
 
         def get_eventable
           eventable_type = params[:active_sale_event][:eventable_type]
-          eventable = "Spree::#{eventable_type}".constantize.where(:permalink => params[:active_sale_event][:permalink]).first
-          return false if eventable.nil?
-          params[:active_sale_event][:eventable_type] = eventable.class.name
-          params[:active_sale_event][:eventable_id] = eventable.id
+          eventable = "#{eventable_type}".constantize.find_by_name(params[:active_sale_event][:eventable_name])
+          params[:active_sale_event].delete(:eventable_name)
+          unless eventable.nil?
+            params[:active_sale_event][:eventable_type] = eventable.class.name
+            params[:active_sale_event][:eventable_id] = eventable.id
+            params[:active_sale_event][:permalink] = eventable.permalink
+          else
+            params[:active_sale_event][:eventable_type] = nil
+            params[:active_sale_event][:eventable_id] = nil
+          end
         end
     end
   end
