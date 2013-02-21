@@ -1,8 +1,8 @@
-<% if @event.try(:errors).present? %>
-  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @event } %>
+<% if @active_sale_event.try(:errors).present? %>
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @active_sale_event } %>
 <% end %>
 
-<%= form_for @event, :url => ( @event.new_record? ? admin_active_sale_events_url(@active_sale, @event) : admin_active_sale_event_url(@active_sale, @event) ), :html => { :id => 'admin_active_sale_event' } do |f| %>
+<%= form_for [:admin, @active_sale, @active_sale_event], :html => { :id => 'admin_active_sale_event' } do |f| %>
   <fieldset data-hook="admin_active_sale_event_form_fields">
 
     <div class="clearfix">
@@ -25,8 +25,8 @@
           <%= f.field_container :start_date do %>
             <%= f.label :start_date, t('spree.active_sale.event.active_record.start_date') %>
             <%= f.error_message_on :start_date %>
-            <% if @event.start_date? %>
-              <% start_date = l(@event.start_date, :format => t('spree.active_sale.event.datetimepicker.format')) %>
+            <% if @active_sale_event.start_date? %>
+              <% start_date = l(@active_sale_event.start_date, :format => t('spree.active_sale.event.datetimepicker.format')) %>
             <% else %>
               <% start_date = l(Time.zone.now, :format => t('spree.active_sale.event.datetimepicker.format')) %>
             <% end %>
@@ -38,7 +38,7 @@
           <%= f.field_container :end_date do %>
             <%= f.label :end_date, t('spree.active_sale.event.active_record.end_date') %>
             <%= f.error_message_on :end_date %>
-            <% end_date = l((@event.end_date? ? @event.end_date : Time.zone.now+1.day), :format => t('spree.active_sale.event.datetimepicker.format')) %>
+            <% end_date = l((@active_sale_event.end_date? ? @active_sale_event.end_date : Time.zone.now+1.day), :format => t('spree.active_sale.event.datetimepicker.format')) %>
             <%= f.text_field :end_date, :value => end_date, :class => 'timepicker' %>
           <% end %>
         </div>
@@ -52,7 +52,7 @@
         <div class="omega four columns">
           <%= f.label :eventable_name, t('spree.active_sale.event.active_record.eventable_name', :default => :eventable_name) %>
           <%= f.error_message_on :eventable_name %>
-          <%= f.text_field :eventable_name, :class => 'autocomplete', :data => { :auto_complete => "some path" } %>
+          <%= f.text_field :eventable_name, :class => 'autocomplete', :data => { :auto_complete_url => eventables_admin_active_sale_active_sale_events_url(:active_sale_id => @active_sale.id) } %>
         </div>
 
         <div class="alpha four columns">
@@ -88,7 +88,7 @@
     </div>
 
     <p class="form-buttons" data-hook="admin_active_sale_form_buttons">
-      <% if @event.new_record? %>
+      <% if @active_sale_event.new_record? %>
         <%= render :partial => 'spree/admin/shared/new_resource_links' %>
       <% else %>
         <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
@@ -103,10 +103,11 @@
   $("#admin_active_sale_event input.autocomplete").live("keydown", function(){
     var eventable_type = $('#active_sale_event_eventable_type :selected').val();
     var eventable_name = $('#active_sale_event_eventable_name').val();
+    var url = $(this).data('auto-complete-url')
     already_auto_completed = $(this).is('ac_input');
     if (!already_auto_completed) {
       $(this).autocomplete({
-        source: "<%= eventables_admin_active_sale_events_url(:active_sale_id => @active_sale.id) %>"+"?eventable_type="+eventable_type+"&name="+eventable_name
+        source: url+"?eventable_type="+eventable_type+"&name="+eventable_name
       });
       $(this).focus();
     }

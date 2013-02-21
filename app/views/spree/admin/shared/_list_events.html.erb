@@ -12,18 +12,18 @@
     </tr>
   </thead>
   <tbody>
-    <% @events.each do |event| %>
+    <% @active_sale_events.each do |event| %>
       <tr id="<%= spree_dom_id event %>" data-hook="admin_active_sales_index_rows" class="<%= cycle('odd', 'even')%>">
-        <td class='active_sale_name'><%= link_to event.name, admin_active_sale_event_url(@active_sale, event) %></td>
+        <td class='active_sale_name'><%= link_to event.name, [:admin, @active_sale, event] %></td>
         <td class='active_sale_start_date'><%= event.start_date %></td>
         <td class='active_sale_end_date'><%= event.end_date %></td>
         <td class='active_sale_is_live'><%= event.live? ? t('spree.active_sale.event.boolean.yes') : t('spree.active_sale.event.boolean.no') %></td>
 
         <td class="actions" data-hook="admin_active_sale_events_index_row_actions">
           <p class="actions" data-hook="actions">
-            <%= link_to_edit_url edit_admin_active_sale_event_url(@active_sale, event), :no_text => true %>
+            <%= link_to_edit_url [:edit, :admin, @active_sale, event], :no_text => true %>
             &nbsp;
-            <%= link_to_delete event, { :url => admin_active_sale_event_url(@active_sale, event), :no_text => true } %>
+            <%= link_to_delete event, { :url => [:admin, @active_sale, event], :no_text => true } %>
           </p>
         </td>
       </tr>

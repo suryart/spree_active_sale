@@ -10,14 +10,14 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with 
 
 * Provides a quick implementation of flash sales/ daily deals behavior by a easy scheduler a.k.a *ActiveSale*.
 * Provides an admin interface for creating/ scheduling, managing, or re-scheduling sale events.
-* Provides a view helper for countdown timer to show sale's ending time, which will be shown to your customers. This eventually makes a sense of urgency in your customers mind.
-* Supplies methods for class <tt>Spree::ActiveSale::Event</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
+* Provides a view helper for countdown timer to show sale's ending time, which will be shown to your customers. This eventually makes a sense of urgency in your customers' mind.
+* Supplies methods for class <tt>Spree::ActiveSaleEvent</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
 
 ## LINKS
 
 * Demo application: [Spree Active Sale Demo](https://github.com/suryart/spree_active_sale_demo)
 * Dependency status: [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
-* Code climate: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/suryart/spree_active_sale)
+* Code climate: [![Code Climate](https://codeclimate.com/github/suryart/spree_active_sale.png)](https://codeclimate.com/github/suryart/spree_active_sale)
 * Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=1-1-0-testing)](https://travis-ci.org/suryart/spree_active_sale)
 * Issues: [Project issues](https://github.com/suryart/spree_active_sale/issues)
 * Fork: [Fork this Project](https://github.com/suryart/spree_active_sale/fork_select)
@@ -81,46 +81,46 @@ You will have to add javascript in the bottom of your **admin/all.js** file as f
 * When you have enough sale events in your database, you can try these commands as per your requirements :
   ```ruby
     # listing all sale events which are currently and suppose to be running.
-    Spree::ActiveSale::Event.live
+    Spree::ActiveSaleEvent.live
 
     # listing all sale events which are active, they may or may not be live. 
-    Spree::ActiveSale::Event.active
+    Spree::ActiveSaleEvent.active
 
     # to list all inactive sale events.
-    Spree::ActiveSale::Event.active(false) 
+    Spree::ActiveSaleEvent.active(false) 
 
     # listing all sale events which are live and active, which includes hidden sales, too.
-    Spree::ActiveSale::Event.live_active 
+    Spree::ActiveSaleEvent.live_active 
 
     # to list all sale events which live and not active.
-    Spree::ActiveSale::Event.live_active(false)
+    Spree::ActiveSaleEvent.live_active(false)
 
     # listing all sale events which are hidden, they may or may not be live.
-    Spree::ActiveSale::Event.hidden
+    Spree::ActiveSaleEvent.hidden
 
     # to list sale events which are not hidden.
-    Spree::ActiveSale::Event.hidden(false)
+    Spree::ActiveSaleEvent.hidden(false)
 
     # listing all sale events which are live, active, and hidden.
-    Spree::ActiveSale::Event.live_active_and_hidden
+    Spree::ActiveSaleEvent.live_active_and_hidden
 
     # to list inactive and not hidden sale events, you can change values accordingly.
-    Spree::ActiveSale::Event.live_active_and_hidden(:active => false, :hidden => false)
+    Spree::ActiveSaleEvent.live_active_and_hidden(:active => false, :hidden => false)
 
     # listing all scheduled sale events which are going to be live in future.
-    Spree::ActiveSale::Event.upcoming_events
+    Spree::ActiveSaleEvent.upcoming_events
 
     # listing all sale events which are going to or have start today.
-    Spree::ActiveSale::Event.starting_today
+    Spree::ActiveSaleEvent.starting_today
 
     # listing all sale events which are going to expire today.
-    Spree::ActiveSale::Event.ending_today
+    Spree::ActiveSaleEvent.ending_today
 
     # to check if an instance is live or not?. 
     # Here instance can be an object of 
-    # "Spree::ActiveSale::Event", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class.
+    # "Spree::ActiveSaleEvent", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class.
     # Which simply says if sale event for that instance is accessible for users or not.
-    Spree::ActiveSale::Event.is_live?(instance)
+    Spree::ActiveSaleEvent.is_live?(instance)
   ```
 
 

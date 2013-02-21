@@ -4,7 +4,7 @@ module SpreeActiveSale
   module Eventable
     module ClassMethods
 
-      # Spree::ActiveSale::Event.is_live? method 
+      # Spree::ActiveSaleEvent.is_live? method 
       # should only/ always represents live and active events and not just live events.
       def is_live? object
         object_class_name = object.class.name
@@ -29,6 +29,10 @@ module SpreeActiveSale
           options[:page] = page > 0 ? page : 1
           options
         end
+
+        def zone_time
+          Time.zone.now
+        end
     end
     
     module InstanceMethods
@@ -38,8 +42,18 @@ module SpreeActiveSale
       end
 
       def live?
-        current_time = Time.zone.now
+        current_time = object_zone_time
         (self.start_date <= current_time and self.end_date >= current_time) or self.is_permanent?
+      end
+
+      def upcoming?
+        current_time = object_zone_time
+        (self.start_date >= current_time and self.end_date > self.start_date)
+      end
+
+      def past?
+        current_time = object_zone_time
+        (self.start_date < current_time and self.end_date > self.start_date and self.end_date < current_time)
       end
 
       def live_and_active?
@@ -58,6 +72,11 @@ module SpreeActiveSale
       def eventable_name=(name)
         self.eventable = self.eventable_type.constantize.find_by_name(name) if name.present?
       end
+
+      private
+        def object_zone_time
+          Time.zone.now
+        end
     end
     
     def self.included(receiver)

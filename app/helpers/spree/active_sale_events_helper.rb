@@ -1,8 +1,8 @@
 module Spree
-  module ActiveSale::EventsHelper
+  module ActiveSaleEventsHelper
     
     def sale_event_timer(event = nil)
-      return I18n.t('spree.active_sale.event.can_not_be_nil') if (event == nil) || (event.class.name != "Spree::ActiveSale::Event")
+      return I18n.t('spree.active_sale.event.can_not_be_nil') if (event == nil) || (event.class.name != "Spree::ActiveSaleEvent")
       content_tag(:span, I18n.t('spree.active_sale.event.close_message'), :class => 'sale_event_message') + " " + content_tag(:span, event.end_date.getlocal.strftime('%Y-%m-%dT%H:%M:%S'), "data-timer" => event.end_date.getlocal.strftime('%Y-%m-%dT%H:%M:%S'), :class => 'sale_event_message')
     end
 

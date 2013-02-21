@@ -4,13 +4,13 @@
 #
 module Spree
   class ActiveSale < ActiveRecord::Base
-    has_many :events, :class_name => "Spree::ActiveSale::Event"
+    has_many :active_sale_events
     belongs_to :taxon, :class_name => "Spree::Taxon"
 
     attr_accessible :name
 
     validates :name, :presence => true
 
-    accepts_nested_attributes_for :events, :allow_destroy => true, :reject_if => lambda { |attrs| attrs.all? { |k, v| v.blank? } }
+    accepts_nested_attributes_for :active_sale_events, :allow_destroy => true, :reject_if => lambda { |attrs| attrs.all? { |k, v| v.blank? } }
   end
 end

@@ -7,7 +7,7 @@ en:
       active_record:
         name: "Sale name"
       event:
-        can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSale::Event"
+        can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSaleEvent"
         close_message: "SALE CLOSES IN"
         create_if_no_record: "You don't have any event in this active sale, let's create an event?"
         active_record:
@@ -36,6 +36,7 @@ en:
         validation:
           errors:
             invalid_dates: "can not be greater than or equal to the end date."
+            live_event: "already running and live."
         flash:
           error: "The page you are looking for is no longer available."
         notice_messages:

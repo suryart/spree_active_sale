@@ -24,12 +24,12 @@
 <% end %>
 
 <% unless @active_sale.new_record? %>
-  <% if @active_sale.events.blank? %>
-    <% @event = @active_sale.events.build %>
+  <% if @active_sale.active_sale_events.blank? %>
+    <% @active_sale_event = @active_sale.active_sale_events.build %>
     <h4><%= t('spree.active_sale.event.create_if_no_record') %></h4>
-    <%= render :partial => "spree/admin/events/form" %>
+    <%= render :partial => "spree/admin/active_sale_events/form", :locals => { :events => @active_sale_event } %>
   <% else %>
-    <% @events = @active_sale.events %>
-    <%= render :partial => "spree/admin/shared/list_events", :locals => { :events => @events } %>
+    <% @active_sale_events = @active_sale.active_sale_events %>
+    <%= render :partial => "spree/admin/shared/list_events", :locals => { :events => @active_sale_events } %>
   <% end %>
 <% end %>
