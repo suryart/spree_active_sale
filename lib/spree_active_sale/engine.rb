@@ -7,7 +7,7 @@ module SpreeActiveSale
     config.autoload_paths += %W(#{config.root}/lib)
 
     initializer "spree_active_sale.environment", :after => "spree.environment" do |app|
-      Spree::ActiveSaleConfig = Spree::ActiveSale::Configuration.new
+      Spree::ActiveSaleConfig = Spree::ActiveSaleConfiguration.new
       %w(ActionController::Base Spree::BaseController).each { |controller| controller.constantize.send(:helper, Spree::ActiveSaleEventsHelper) }
     end
 
