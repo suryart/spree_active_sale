@@ -1,0 +1,18 @@
+<div data-hook="admin_image_form_fields">
+  <div class="four columns alpha">
+    <div data-hook="file" class="field">
+      <%= f.label t(:filename) %><br>
+      <%= f.file_field :attachment %>
+    </div>
+  </div>
+  <div data-hook="alt_text" class="field omega five columns">
+    <%= f.label t(:alt_text) %><br>
+    <%= f.text_area :alt, :rows => 4, :class => 'fullwidth' %>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<br/>
+
+<%= render 'spree/admin/shared/sale_images' %>
