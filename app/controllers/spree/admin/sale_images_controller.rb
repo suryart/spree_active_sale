@@ -1,6 +1,7 @@
 module Spree
   module Admin
     class SaleImagesController < ResourceController
+      belongs_to 'spree/active_sale_event', :find_by => :id
       before_filter :load_data
 
       create.before :set_viewable
@@ -14,7 +15,8 @@ module Spree
         end
 
         def load_data
-          @active_sale_event = ActiveSaleEvent.find(params[:active_sale_event_id])
+          @active_sale = Spree::ActiveSale.find(params[:active_sale_id])
+          @active_sale_event = Spree::ActiveSaleEvent.find(params[:active_sale_event_id])
         end
 
         def set_viewable

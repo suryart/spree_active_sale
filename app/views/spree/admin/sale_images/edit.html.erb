@@ -1,10 +1,10 @@
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @sale_image } %>
 
 <ul class="inline-menu">
-  <li><%= button_link_to t(:back_to_active_sale_events), edit_admin_active_sale_active_sale_event_url(@active_sale_event.active_sale, @active_sale_event), :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to t('spree.active_sale.event.link.back'), edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event), :icon => 'icon-arrow-left' %></li>
 </ul>
 
-<%= form_for [:admin, @active_sale_event, @sale_image], :html => { :multipart => true } do |f| %>
+<%= form_for [:admin, @active_sale, @active_sale_event, @sale_image], :html => { :multipart => true } do |f| %>
   <fieldset data-hook="edit_image">
     <legend align="center"><%= @sale_image.attachment_file_name%></legend>
     <div data-hook="thumbnail" class="field alpha three columns align-center">
@@ -18,7 +18,7 @@
     <div class="form-buttons filter-actions actions" data-hook="buttons">
       <%= button t(:update), 'icon-refresh' %>
       <span class="or"><%= t(:or) %></span>
-        <%= link_to_with_icon 'icon-remove', t(:cancel), admin_active_sale_active_sale_event_url(@active_sale_event.active_sale,@active_sale_event), :id => 'cancel_link', :class => 'button' %>
+        <%= link_to_with_icon 'icon-remove', t(:cancel), admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
     </div>
   </fieldset>
 <% end %>
