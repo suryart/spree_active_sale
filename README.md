@@ -109,6 +109,9 @@ You will have to add javascript in the bottom of your **admin/all.js** file as f
 
     # listing all scheduled sale events which are going to be live in future.
     Spree::ActiveSaleEvent.upcoming_events
+    
+    # listing all past sale events which ended and not accessible to users.
+    Spree::ActiveSaleEvent.past_events
 
     # listing all sale events which are going to or have start today.
     Spree::ActiveSaleEvent.starting_today
