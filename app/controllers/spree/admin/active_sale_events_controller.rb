@@ -18,7 +18,7 @@ module Spree
 
         def collection
           return @collection if @collection.present?
-          @search = Spree::ActiveSaleEvent.ransack(params[:q])
+          @search = Spree::ActiveSaleEvent.where(:active_sale_id => params[:active_sale_id]).ransack(params[:q])
           @collection = @search.result.page(params[:page]).per(Spree::ActiveSaleConfig[:admin_active_sale_events_per_page])
         end
 
