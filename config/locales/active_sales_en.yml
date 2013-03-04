@@ -1,0 +1,69 @@
+# Active Sale localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  spree:
+    active_sale:
+      active_record:
+        name: "Sale name"
+      event:
+        active_record:
+          description: "Event Description"
+          is_active: "Active?(Check this if yes)"
+          is_hidden: "Hidden?(Check this if yes)"
+          is_permanent: "Permanent?(Check this if yes)"
+          is_live: "Live?"
+          name: "Event name"
+          start_date: "Start date"
+          end_date: "End date"
+          eventable_name: "Add the name to add type in event"
+          eventable_type: "Add a type for event"
+          permalink: "Type the name or permalink"
+        boolean:
+          yes: "Yes"
+          no: "No"
+        can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSaleEvent"
+        create_if_no_record: "You don't have any event in this active sale, let's create an event?"
+        datetimepicker:
+          format: ! '%Y/%m/%d %H:%M:%S %z'
+          js_format: 'HH:mm:ss z'
+          js_date_format: 'yy/mm/dd'
+          time_only_title: 'Time only'
+          time_text: 'Time'
+          hour_text: 'Hour'
+          minute_text: 'Minute'
+          second_text: 'Second'
+          current_text: 'Current'
+          close_text: 'Close'
+        ending_message: "SALE CLOSES IN"
+        flash:
+          error: "The page you are looking for is no longer available."
+        link:
+          new: "New event"
+          edit: "Edit event"
+          back: "Back to events"
+        notice_messages:
+          created: "Event was successfully created."
+          updated: "Event was successfully updated."
+          deleted: "Event has been deleted."
+        title:
+          new: "New event"
+          edit: "Edit event"
+          list: "Listing events"
+        validation:
+          errors:
+            invalid_dates: "can not be greater than or equal to the end date."
+            live_event: "already running and live."
+      events_not_found: "There are no sales available at this moment. Try later?"
+      link:
+        new: "New active sale"
+        edit: "Edit active sale"
+        back: "Back to active sales list"
+      notice_messages:
+        created: "Active sale was successfully created."
+        updated: "Active sale was successfully updated."
+        deleted: "Active sale has been deleted."
+      title:
+        new: "New active sale"
+        edit: "Edit active sale"
+        list: "Listing active sales"

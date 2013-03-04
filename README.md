@@ -1,33 +1,30 @@
-Welcome to Spree Active Sale
-============================
+# Welcome to Spree Active Sale
 
-Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a variant, product, or group number of products in a taxon, attach that variant, product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
+Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a product, or group number of products in a taxon, attach that product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
 
+> It's all about selling your first product. ~ [Vivek SP](https://twitter.com/viveksp)
 
-FEATURES
-========
+----------
+
+## FEATURES
 
 * Provides a quick implementation of flash sales/ daily deals behavior by a easy scheduler a.k.a *ActiveSale*.
-* Supplies methods for class <tt>Spree::ActiveSale::Event</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
-* <tt>Spree::ActiveSale::Event.live</tt> lists all sale events which are currently and suppose to be running.
-* <tt>Spree::ActiveSale::Event.active</tt> lists all sale events which are active, they may or may not be live. You can do <tt>Spree::ActiveSale::Event.active(false)</tt> to list all inactive sale events.
-* <tt>Spree::ActiveSale::Event.live_active</tt> lists all sale events which are live and active, which includes hidden sales, too. Doing <tt>Spree::ActiveSale::Event.live_active(false)</tt> will list all sale events which live and not active.
-* <tt>Spree::ActiveSale::Event.hidden</tt> lists all sale events which are hidden, they may or may not be live. You can do <tt>Spree::ActiveSale::Event.hidden(false)</tt> to list sale events which are not hidden.
-* <tt>Spree::ActiveSale::Event.live_active_and_hidden</tt> lists all sale events which are live, active, and hidden. <tt>Spree::ActiveSale::Event.live_active_and_hidden(:active => false, :hidden => false)</tt> will list inactive and not hidden sale events, you can change values accordingly.
-* <tt>Spree::ActiveSale::Event.upcoming_events</tt> lists all scheduled sale events which are going to be live in future.
-* <tt>Spree::ActiveSale::Event.starting_today</tt> lists all sale events which are going to or have start today.
-* <tt>Spree::ActiveSale::Event.ending_today</tt> lists all sale events which are going to expire today.
-* <tt>Spree::ActiveSale::Event.is_live?(instance)</tt> here instance can be an object of "Spree::ActiveSale::Event", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class, which simply says if sale event for that instance is accessible for users or not.
+* Provides an admin interface for creating/ scheduling, managing, or re-scheduling sale events.
+* Provides a view helper for countdown timer to show sale's ending time, which will be shown to your customers. This eventually makes a sense of urgency in your customers' mind.
+* Supplies methods for class <tt>Spree::ActiveSaleEvent</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
 
+## LINKS
 
-[![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/suryart/spree_active_sale)
-[![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=master)](https://travis-ci.org/suryart/spree_active_sale)
+* Demo application: [Spree Active Sale Demo](https://github.com/suryart/spree_active_sale_demo)
+* Dependency status: [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
+* Code climate: [![Code Climate](https://codeclimate.com/github/suryart/spree_active_sale.png)](https://codeclimate.com/github/suryart/spree_active_sale)
+* Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=1-1-0-testing)](https://travis-ci.org/suryart/spree_active_sale)
+* Issues: [Project issues](https://github.com/suryart/spree_active_sale/issues)
+* Fork: [Fork this Project](https://github.com/suryart/spree_active_sale/fork_select)
 
-INSTALLATION
-============
+## INSTALLATION
 
-In a rails application with Spree installed include the following line in your Gemfile:
+### In a rails application with Spree installed include the following line in your Gemfile:
   * To use the master branch from github: 
     
       `gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'`
@@ -38,45 +35,105 @@ In a rails application with Spree installed include the following line in your G
 
       `gem 'spree_active_sale'`
 
-Then run the following commands: 
+### Then run the following commands: 
 
     $ bundle install
     $ rails g spree_active_sale:install 
     $ rake db:migrate
     $ rails s 
 
+### Including stylesheet and javascript
 
-Example
-=======
+#### Stylesheet usage in Rails >= 3.1(Only supported versions for now)
 
-* Get a taxon in rails console:
+You will have to add stylesheet in the bottom of your **admin/all.css** file as follows -
+  
+    *= require admin/spree_active_sale
+
+#### Javascript usage in Rails >= 3.1(Only supported versions for now)
+
+You will have to add javascript in the bottom of your **admin/all.js** file as follows -
     
-    `taxon = Taxon.last`
+    //= require admin/spree_active_sale
 
-* Create an *ActiveSale*: 
+## Example and usages
 
-    `active_sale = Spree::ActiveSale.create name: "January 2013 sales"`
-  output: 
+* For trying to see how this plugin works. You can create an *ActiveSale* and its events by following these commands in your <tt>rails console</tt>: 
+  ```ruby
+    # Get a taxon in rails console:
+    taxon = Taxon.last
 
-    `#<Spree::ActiveSale id: 1, name: "January 2013 sales", created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">`
+    # Create an ActiveSale
+    active_sale = Spree::ActiveSale.create(:name => "January 2013 sales")
 
-* Then create an *Event* under this sale by: 
+    # Output => #<Spree::ActiveSale id: 1, name: "January 2013 sales", 
+    # created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">
+
+    # Then create an Event under this sale by:
+    event = taxon.active_sale_events.create(:name => "January 2013 sales", 
+        :active_sale_id => active_sale.id, :start_date => Time.now, 
+        :end_date => Time.now+1.day, :permalink => taxon.permalink)
+
+    # Now try to access this taxon in web browser.
+    # There should be no any other taxon/ product link accessible except 
+    # the one we've created just now.
+  ```
+* When you have enough sale events in your database, you can try these commands as per your requirements :
+  ```ruby
+    # listing all sale events which are currently and suppose to be running.
+    Spree::ActiveSaleEvent.live
+
+    # listing all sale events which are active, they may or may not be live. 
+    Spree::ActiveSaleEvent.active
+
+    # to list all inactive sale events.
+    Spree::ActiveSaleEvent.active(false) 
+
+    # listing all sale events which are live and active, which includes hidden sales, too.
+    Spree::ActiveSaleEvent.live_active 
+
+    # to list all sale events which live and not active.
+    Spree::ActiveSaleEvent.live_active(false)
+
+    # listing all sale events which are hidden, they may or may not be live.
+    Spree::ActiveSaleEvent.hidden
+
+    # to list sale events which are not hidden.
+    Spree::ActiveSaleEvent.hidden(false)
+
+    # listing all sale events which are live, active, and hidden.
+    Spree::ActiveSaleEvent.live_active_and_hidden
+
+    # to list inactive and not hidden sale events, you can change values accordingly.
+    Spree::ActiveSaleEvent.live_active_and_hidden(:active => false, :hidden => false)
+
+    # listing all scheduled sale events which are going to be live in future.
+    Spree::ActiveSaleEvent.upcoming_events
     
-    `event = taxon.active_sale_events.create name: "January 2013 sales", active_sale_id: active_sale.id, start_date: Time.now, end_date: Time.now+1.day, permalink: taxon.permalink `
+    # listing all past sale events which ended and not accessible to users.
+    Spree::ActiveSaleEvent.past_events
 
-* Now try to access this taxon in browser, there should be no other taxon/ product link accessible except the one we've created just now.
+    # listing all sale events which are going to or have start today.
+    Spree::ActiveSaleEvent.starting_today
+
+    # listing all sale events which are going to expire today.
+    Spree::ActiveSaleEvent.ending_today
+
+    # to check if an instance is live or not?. 
+    # Here instance can be an object of 
+    # "Spree::ActiveSaleEvent", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class.
+    # Which simply says if sale event for that instance is accessible for users or not.
+    Spree::ActiveSaleEvent.is_live?(instance)
+  ```
 
 
-TODOs
-=====
+## TODOs
 
 * Improve testing and write more test cases.
-* Make an example applciation to show usage of this extension.
-* Provide an admin interface for creating/ scheduling, managing, or re-scheduling sales.
-* Provide a timer hlper for showing the countdown to users.
+* Enhance the admin interface for active sales and events[U.I. and U.X.].
+* Make time countdown helper flexible so that developers can modify according to their requirements.
 
-Testing
--------
+## Testing
 
 Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
 
@@ -84,19 +141,16 @@ Be sure to bundle your dependencies and then create a dummy test app for the spe
     $ bundle exec rake test_app
     $ bundle exec rspec spec
 
-Contributing
-============
+## Contributing
 
 1. [Fork](https://help.github.com/articles/fork-a-repo) the project
 2. Make one or more well commented and clean commits to the repository. You can make a new branch here if you are modifying more than one part or feature.
 3. Perform a [pull request](https://help.github.com/articles/using-pull-requests) in github's web interface.
 
-NOTE
-====
+## NOTE
 
 The current version supports Spree 1.3.0 or above. Older versions of Spree are unlikely to work, so attempt at your own risk.
 
 
-License
----------
+## License
 Copyright (c) 2013 Surya Tripathi, released under the New BSD License
