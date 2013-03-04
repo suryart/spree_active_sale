@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "spree/active_sales/index" do
+describe "spree/admin/active_sales/index" do
   before(:each) do
     assign(:spree_active_sales, [
       stub_model(Spree::ActiveSale),
@@ -8,8 +8,8 @@ describe "spree/active_sales/index" do
     ])
   end
 
-  it "renders a list of spree/active_sales" do
-    render
+  it "renders a list of spree/admin/active_sales/index" do
+    # render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
   end
 end

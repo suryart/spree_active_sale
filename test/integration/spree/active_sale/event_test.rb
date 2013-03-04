@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Spree::ActiveSale::EventTest < ActionDispatch::IntegrationTest
+class Spree::ActiveSaleEventTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

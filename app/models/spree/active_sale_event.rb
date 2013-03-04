@@ -6,9 +6,9 @@ module Spree
   class ActiveSaleEvent < ActiveRecord::Base
     include SpreeActiveSale::Eventable
 
-    before_save :update_permalink
+    before_validation :update_permalink
 
-    has_many :sale_images, :as => :viewable, :dependent => :destroy
+    has_many :active_sale_images, :as => :viewable, :dependent => :destroy
     belongs_to :eventable, :polymorphic => true
     belongs_to :active_sale
 

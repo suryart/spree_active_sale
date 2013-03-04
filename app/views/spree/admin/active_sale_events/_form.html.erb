@@ -2,7 +2,7 @@
   <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @active_sale_event } %>
 <% end %>
 
-<%= form_for [:admin, @active_sale, @active_sale_event], :html => { :id => 'admin_active_sale_event' } do |f| %>
+<%= form_for [:admin, @active_sale, @active_sale_event], :html => { :id => 'admin_active_sale_event', :multipart => true } do |f| %>
   <fieldset data-hook="admin_active_sale_event_form_fields">
 
     <div class="clearfix">
@@ -82,6 +82,18 @@
               <%= t('spree.active_sale.event.active_record.is_permanent') %>
               <%= f.error_message_on :is_permanent %>
             </label>
+          <% end %>
+        </div>
+
+        <div class="omega four columns">
+          <% f.fields_for :active_sale_images do |image| %>
+            <%= image.field_container :active_sale_images, :class => ['checkbox'] do %>
+              <label>
+                <%= image.file_field :is_permanent %>
+                <%= t('spree.active_sale.event.active_record.is_permanent') %>
+                <%= image.error_message_on :is_permanent %>
+              </label>
+            <% end %>
           <% end %>
         </div>
       </div>

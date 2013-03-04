@@ -38,22 +38,22 @@ module SpreeActiveSale
     module InstanceMethods
 
       def validate_start_and_end_date
-        errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if (self.start_date and self.end_date) and (self.start_date >= self.end_date)
+        errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if invalid_dates?
       end
 
       def live?
         current_time = object_zone_time
-        (self.start_date <= current_time and self.end_date >= current_time) or self.is_permanent?
+        (self.start_date <= current_time and self.end_date >= current_time) or self.is_permanent? if start_and_dates_available?
       end
 
       def upcoming?
         current_time = object_zone_time
-        (self.start_date >= current_time and self.end_date > self.start_date)
+        (self.start_date >= current_time and self.end_date > self.start_date) if start_and_dates_available?
       end
 
       def past?
         current_time = object_zone_time
-        (self.start_date < current_time and self.end_date > self.start_date and self.end_date < current_time)
+        (self.start_date < current_time and self.end_date > self.start_date and self.end_date < current_time) if start_and_dates_available?
       end
 
       def live_and_active?
@@ -62,7 +62,7 @@ module SpreeActiveSale
 
       def update_permalink
         prefix = {"Spree::Taxon" => "t", "Spree::Product" => "products"}
-        self.permalink = [prefix[self.eventable_type], self.eventable.permalink].join("/")
+        self.permalink = [prefix[self.eventable_type], self.eventable.permalink].join("/") unless self.eventable.nil?
       end
 
       def eventable_name
@@ -71,6 +71,14 @@ module SpreeActiveSale
 
       def eventable_name=(name)
         self.eventable = self.eventable_type.constantize.find_by_name(name) if name.present?
+      end
+
+      def start_and_dates_available?
+        self.start_date and self.end_date
+      end
+
+      def invalid_dates?
+        self.start_and_dates_available? and (self.start_date >= self.end_date)
       end
 
       private

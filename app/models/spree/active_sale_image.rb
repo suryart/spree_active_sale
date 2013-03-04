@@ -1,5 +1,5 @@
 module Spree
-  class SaleImage < Asset
+  class ActiveSaleImage < Asset
     validates_attachment_presence :attachment
     validate :no_attachment_errors
 

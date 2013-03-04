@@ -1,7 +1,7 @@
 module Spree
   module Admin
     class ActiveSalesController < ResourceController
-      # List all sales
+      
       def index
         respond_with(@collection) do |format|
           format.html
@@ -10,7 +10,7 @@ module Spree
       end
 
       def show
-        redirect_to( :action => :edit )
+        redirect_to edit_object_url(@active_sale)
       end
 
       protected
