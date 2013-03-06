@@ -10,6 +10,10 @@ p.hint {
   display: block;
 }
 
-.checkbox.field label {
+#admin_active_sale_event .checkbox.field label {
   margin-top: 0px !important;
+}
+
+#admin_active_sale_event .checkbox.field {
+  min-height: 0px;
 }
