@@ -9,3 +9,9 @@ p.hint {
   margin-bottom: 5px;
   display: block;
 }
+
+.checkbox.field {
+  label {
+    margin-top: 0px !important;
+  }
+}
