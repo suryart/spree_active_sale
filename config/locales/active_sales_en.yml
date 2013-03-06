@@ -9,9 +9,9 @@ en:
       event:
         active_record:
           description: "Event Description"
-          is_active: "Active?(Check this if yes)"
-          is_hidden: "Hidden?(Check this if yes)"
-          is_permanent: "Permanent?(Check this if yes)"
+          is_active: "Active?"
+          is_hidden: "Hidden?"
+          is_permanent: "Permanent?"
           is_live: "Live?"
           name: "Event name"
           start_date: "Start date"
