@@ -51,7 +51,7 @@
 
         <div class="omega four columns">
           <%= f.label :eventable_name, t('spree.active_sale.event.active_record.eventable_name', :default => :eventable_name) %>
-          <p class='hint'>Enter the name of product or taxon category this sale will include.</span>
+          <p class='hint'>Enter the name of product or taxon category this sale will include.</p>
           <%= f.error_message_on :eventable_name %>
           <%= f.text_field :eventable_name, :class => 'autocomplete', :data => { :auto_complete_url => eventables_admin_active_sale_active_sale_events_url(:active_sale_id => @active_sale.id) } %>
         </div>
