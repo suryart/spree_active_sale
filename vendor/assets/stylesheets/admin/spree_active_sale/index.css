@@ -10,8 +10,6 @@ p.hint {
   display: block;
 }
 
-.checkbox.field {
-  label {
-    margin-top: 0px !important;
-  }
+.checkbox.field label {
+  margin-top: 0px !important;
 }
