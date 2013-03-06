@@ -51,7 +51,7 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with 
     $ rake db:migrate                           ; do not forget to run this after copying migrations
 
 ### Including stylesheet and javascript for admin and store
-If you do not run **rails g spree_active_sale:innstall** then you must have to add stylesheets and javascripts accordinlgy, as these steps are important because, if you don't follow/ add them, you will not see datetime picker for start and end date in Admin area and countdown timer on the Store page.
+If you do not run **rails g spree_active_sale:install** then you must have to add stylesheets and javascripts accordinlgy. As these steps are important because, if you don't follow/ add them. You will not see datetime picker for start and end date in Admin area and countdown timer on the Store page.
 
 ##### Stylesheet usage in Rails >= 3.1(Only supported versions for now)
 
