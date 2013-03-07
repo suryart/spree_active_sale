@@ -45,12 +45,14 @@
 
         <div class="alpha four columns">
           <%= f.label :eventable, t('spree.active_sale.event.active_record.eventable_type', :default => :evenetable) %>
+          <p class='hint'>Will this be a sale for an individual product or many based on a taxon?</p>
           <%= f.select :eventable_type, [["Product","Spree::Product"], ["Taxon","Spree::Taxon"]], { :include_blank => false }, { :class => 'select2' } %>
           <%= f.error_message_on :eventable %>
         </div>
 
         <div class="omega four columns">
           <%= f.label :eventable_name, t('spree.active_sale.event.active_record.eventable_name', :default => :eventable_name) %>
+          <p class='hint'>Enter the name of product or taxon this sale will include.</p>
           <%= f.error_message_on :eventable_name %>
           <%= f.text_field :eventable_name, :class => 'autocomplete', :data => { :auto_complete_url => eventables_admin_active_sale_active_sale_events_url(:active_sale_id => @active_sale.id) } %>
         </div>
@@ -63,9 +65,7 @@
               <%= f.error_message_on :is_active %>
             </label>
           <% end %>
-        </div>
 
-        <div class="omega four columns">
           <%= f.field_container :is_hidden, :class => ['checkbox'] do %>
             <label>
               <%= f.check_box :is_hidden %>
@@ -73,9 +73,7 @@
               <%= f.error_message_on :is_hidden %>
             </label>
           <% end %>
-        </div>
 
-        <div class="alpha four columns">
           <%= f.field_container :is_permanent, :class => ['checkbox'] do %>
             <label>
               <%= f.check_box :is_permanent %>
