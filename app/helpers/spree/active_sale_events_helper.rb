@@ -15,6 +15,10 @@ module Spree
       end
     end
 
+    def sale_image_available?(sale_event)
+      !sale_event.sale_images.empty? || sale_event.eventable_image_available?
+    end
+
     private
 
     # Returns style of image or nil

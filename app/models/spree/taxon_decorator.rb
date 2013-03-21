@@ -4,4 +4,8 @@ Spree::Taxon.class_eval do
   def live?
     !self.active_sale_events.detect{ |event| event.live_and_active? }.nil?
   end
+
+  def image_available?
+    icon?
+  end
 end

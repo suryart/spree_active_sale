@@ -8,4 +8,8 @@ Spree::Product.class_eval do
   def live?
     !self.active_sale_events.detect{ |event| event.live_and_active? }.nil? || !self.find_live_taxons.blank?
   end
+
+  def image_available?
+    !images.blank?
+  end
 end
