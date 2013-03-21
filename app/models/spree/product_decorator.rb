@@ -2,7 +2,7 @@ Spree::Product.class_eval do
   has_many :active_sale_events, :as => :eventable
 
   def find_live_taxons
-    Spree::ActiveSaleEvent.live_active.where(:eventable_type => "Spree::Taxon", :eventable_id => self.taxons.map(&:id))
+    Spree::ActiveSaleEvent.live_active.where(:eventable_type => "Spree::Taxon", :eventable_id => self.taxons.map{|t| t.self_and_ancestors}.flatten.map(&:id))
   end
 
   def live?
