@@ -27,15 +27,13 @@ describe Spree::HomeController do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # Spree::ActiveSaleEventsController. Be sure to keep this updated too.
+  # Spree::HomeController. Be sure to keep this updated too.
   def valid_session
     { "warden.user.user.key" => session["warden.user.user.key"] }
   end
 
   before do
-    controller.stub :current_user => FactoryGirl.create(:admin_user)
-    # @active_sales = FactoryGirl.create_list(:active_sales, 10)
-    # @active_sales.each{ |active_sale| FactoryGirl.create_list(:active_sale_events, 10) }
+    controller.stub :current_user => FactoryGirl.create(:user)
     @active_sale = Spree::ActiveSale.create! active_sale_valid_attributes
     @active_sale.active_sale_events.create! valid_attributes
   end
