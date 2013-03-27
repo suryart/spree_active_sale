@@ -1,6 +1,6 @@
 # Welcome to Spree Active Sale
 
-Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a product, or group number of products in a taxon, attach that product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
+Spree Active Sale makes it easy to handle flash sale/ daily deals behavior within a spree application. By this, you can have a product, or group number of products in a taxon, attach that product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or reschedule the same.
 
 > It's all about selling your first product. ~ [Vivek SP](https://twitter.com/viveksp)
 
@@ -78,7 +78,7 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
 * For trying to see how this plugin works. You can create an *ActiveSale* and its events by following these commands in your <tt>rails console</tt>: 
   ```ruby
     # Get a taxon in rails console:
-    taxon = Taxon.last
+    taxon = Spree::Taxon.last
 
     # Create an ActiveSale
     active_sale = Spree::ActiveSale.create(:name => "January 2013 sales")
