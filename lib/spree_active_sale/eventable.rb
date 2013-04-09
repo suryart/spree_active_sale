@@ -81,6 +81,10 @@ module SpreeActiveSale
         self.start_and_dates_available? and (self.start_date >= self.end_date)
       end
 
+      def eventable_image_available?
+        !!eventable.try(:image_available?)
+      end
+
       private
         def object_zone_time
           Time.zone.now

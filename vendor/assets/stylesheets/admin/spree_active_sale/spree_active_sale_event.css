@@ -1,0 +1,14 @@
+p.hint {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 5px;
+  display: block;
+}
+
+#admin_active_sale_event .checkbox.field label {
+  margin-top: 0px !important;
+}
+
+#admin_active_sale_event .checkbox.field {
+  min-height: 0px;
+}

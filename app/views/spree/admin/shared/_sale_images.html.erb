@@ -2,7 +2,7 @@
 
 <% unless @active_sale_event.sale_images.any? %>
   <div class="no-objects-found">
-    <%= t(:no_images_found) %>.
+    <%= t('spree.active_sale.event.no_image') %>
   </div>
 <% else %>
   <table class="index sortable" data-hook="images_table" data-sortable-link="<%= update_positions_admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event) %>">

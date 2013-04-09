@@ -36,12 +36,15 @@ en:
           current_text: 'Current'
           close_text: 'Close'
         ending_message: "SALE CLOSES IN"
+        eventable_hint: "Will this be a sale for an individual product or many based on a taxon?"
+        eventable_name_hint: "Enter the name of product or taxon this sale will include."
         flash:
           error: "The page you are looking for is no longer available."
         link:
           new: "New event"
           edit: "Edit event"
           back: "Back to events"
+        no_image: "No image found. If image is not available for this sale then affiliated product's/ taxon's image will be used by default to show on store."
         notice_messages:
           created: "Event was successfully created."
           updated: "Event was successfully updated."

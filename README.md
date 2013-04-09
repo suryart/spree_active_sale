@@ -1,6 +1,6 @@
 # Welcome to Spree Active Sale
 
-Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a product, or group number of products in a taxon, attach that product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.
+Spree Active Sale makes it easy to handle flash sale/ daily deals behavior within a spree application. By this, you can have a product, or group number of products in a taxon, attach that product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or reschedule the same.
 
 > It's all about selling your first product. ~ [Vivek SP](https://twitter.com/viveksp)
 
@@ -25,15 +25,23 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with 
 ## INSTALLATION
 
 ### In a rails application with Spree installed include the following line in your Gemfile:
-  * To use the master branch from github: 
+  * Get the latest greatest from github: 
     
-      `gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'`
+      ```ruby
+        gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'
+      ```
 
-
-  * Or get it from rubygems.org:
+  * Get the 1-3-stable branch for Spree 1.3.x from github: 
     
+      ```ruby
+        gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git', :branch => '1-3-stable'
+      ```
 
-      `gem 'spree_active_sale'`
+  * Or get it from rubygems.org by mentioning the following line in your Gemfile:
+    
+      ```ruby 
+        gem 'spree_active_sale', '1.0.6'
+      ```
 
 ### Then run the following commands: 
 
@@ -78,7 +86,7 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
 * For trying to see how this plugin works. You can create an *ActiveSale* and its events by following these commands in your <tt>rails console</tt>: 
   ```ruby
     # Get a taxon in rails console:
-    taxon = Taxon.last
+    taxon = Spree::Taxon.last
 
     # Create an ActiveSale
     active_sale = Spree::ActiveSale.create(:name => "January 2013 sales")
@@ -162,7 +170,8 @@ Be sure to bundle your dependencies and then create a dummy test app for the spe
 
 1. [Fork](https://help.github.com/articles/fork-a-repo) the project
 2. Make one or more well commented and clean commits to the repository. You can make a new branch here if you are modifying more than one part or feature.
-3. Perform a [pull request](https://help.github.com/articles/using-pull-requests) in github's web interface.
+3. Add tests for it. This is important so I don’t break it in a future version unintentionally.
+4. Perform a [pull request](https://help.github.com/articles/using-pull-requests) in github's web interface.
 
 ## NOTE
 

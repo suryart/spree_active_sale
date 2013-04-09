@@ -24,7 +24,8 @@ describe Spree::Admin::ActiveSalesController  do
     it "assigns all active_sales as @active_sales" do
       active_sale = Spree::ActiveSale.create! valid_attributes
       spree_get :index, {}, valid_session
-      assigns(:active_sales).should eq([active_sale])
+      assigns(:active_sales).include?(active_sale).should be_true
+      assigns(:active_sales).should eq(Spree::ActiveSale.all)
     end
   end
 
