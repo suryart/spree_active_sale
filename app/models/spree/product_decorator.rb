@@ -3,7 +3,7 @@ Spree::Product.class_eval do
 
   # Find live and active taxons for a product.
   def find_live_taxons
-    Spree::ActiveSaleEvent.live_active.where(:eventable_type => "Spree::Taxon", :eventable_id => self.taxons.map(&:id))
+    Spree::ActiveSaleEvent.live_active.where(:eventable_type => "Spree::Taxon", :eventable_id => self.taxons.map{|t| t.self_and_ancestors}.flatten.map(&:id))
   end
 
   # if there is at least one active sale event which is live and active.

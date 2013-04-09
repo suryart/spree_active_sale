@@ -6,6 +6,16 @@ FactoryGirl.define do
     name "Dummy Sale"
   end
 
+  factory :active_sale_event, :class => Spree::ActiveSaleEvent do |f|
+    active_sale
+    name "Dummy Sale Event"
+    permalink "dummy-sale-event"
+    is_permanent true
+    is_active true
+    start_date 1.day.ago
+    end_date 1.day.from_now
+  end
+
   sequence :name do |n|
     "Dummy Sale Event - #{n}"
   end
