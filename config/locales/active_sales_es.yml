@@ -1,0 +1,72 @@
+# Active Sale localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+es:
+  spree:
+    active_sale:
+      active_record:
+        name: "Nombre de la campaña"
+      event:
+        active_record:
+          description: "Descripción del evento"
+          is_active: "Activo"
+          is_hidden: "Oculto"
+          is_permanent: "Permanente"
+          is_live: "Vigente"
+          name: "Nombre del evento"
+          start_date: "Fecha de comienzo"
+          end_date: "Fecha de finalización"
+          eventable_name: "Nombre de elemento asociado"
+          eventable_type: "Tipo de evento"
+          permalink: "Nombre o permalink"
+        boolean:
+          yes: "Sí"
+          no: "No"
+        can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSaleEvent"
+        create_if_no_record: "You don't have any event in this active sale, let's create an event?"
+        datetimepicker:
+          format: ! '%d/%m/%Y %H:%M:%S %z'
+          js_format: 'HH:mm:ss z'
+          js_date_format: 'dd/mm/yy'
+          time_only_title: 'Sólo hora'
+          time_text: 'Hora'
+          hour_text: 'Hora'
+          minute_text: 'Minuto'
+          second_text: 'Segundo'
+          current_text: 'Actual'
+          close_text: 'Cerrar'
+        ending_message: "EL EVENTO TERMINA EN"
+        eventable_hint: "¿Esta campaña estará asociada a un producto concreto o a muchos asociados con un taxón?"
+        eventable_name_hint: "Teclea el nombre del producto o del taxón que estará asociado a esta campaña."
+        flash:
+          error: "La página que buscas ya no está disponible."
+        link:
+          new: "Nuevo evento"
+          edit: "Editar evento"
+          back: "Volver a eventos"
+        no_image: "Imagen no encontrada. Si la campaña no tiene asociada una imagen entonces la imagen del producto/taxón asociado será utilizado para mostarla en la tienda."
+        notice_messages:
+          created: "El evento ha sido creado con éxito."
+          updated: "El evento ha sido actualizado con éxito."
+          deleted: "El evento ha sido eliminado."
+        title:
+          new: "Nuevo evento"
+          edit: "Editar evento"
+          list: "Listar eventos"
+        validation:
+          errors:
+            invalid_dates: "no puede ser superior o igual a la fecha de finalización."
+            live_event: "ya está creada y vigente."
+      events_not_found: "No hay eventos disponibles en este momento."
+      link:
+        new: "Nueva campaña"
+        edit: "Editar campaña"
+        back: "Volver a listado de campañas"
+      notice_messages:
+        created: "La campaña ha sido creada con éxito."
+        updated: "La campaña ha sido actualizada con éxito."
+        deleted: "La campaña ha sido borrada."
+      title:
+        new: "Nueva campaña"
+        edit: "Editar campaña"
+        list: "Listar campañas"
