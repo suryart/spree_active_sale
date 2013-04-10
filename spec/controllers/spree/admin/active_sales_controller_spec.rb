@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Spree::Admin::ActiveSalesController  do
-  # stub_authorization!
   before do
     controller.stub :current_user => FactoryGirl.create(:admin_user)
   end

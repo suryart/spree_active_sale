@@ -151,6 +151,26 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     Spree::ActiveSaleEvent.is_live?(instance)
   ```
 
+## Overriding configuration and preferences
+
+You can use put this at the bottom of your **application's app/config/initializers/spree.rb**:
+    
+  ```ruby
+    Spree::ActiveSale.config do |config|
+      config.admin_active_sales_per_page = 20
+      config.active_sales_per_page = 10
+      config.admin_active_sale_events_per_page = 30
+      config.active_sale_events_per_page = 40
+    end
+  ```
+Since you can not set boolean values from the block config shown above for assignment(:?=). To override boolean preferences, you can always do this with in the spree config file spree.rb:
+
+  ```ruby
+    Spree::ActiveSaleConfig[:paginate_sale_events_for_admin?] = true
+    Spree::ActiveSaleConfig[:paginate_sales_for_admin?] = true
+    Spree::ActiveSaleConfig[:paginate_sale_events_for_user?] = true
+    Spree::ActiveSaleConfig[:paginate_sales_for_user?] = false
+  ```
 
 ## TODOs
 
