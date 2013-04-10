@@ -151,6 +151,20 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     Spree::ActiveSaleEvent.is_live?(instance)
   ```
 
+## Overriding countdown timer's layout differently for different events
+There is a view helper which shows the count down timer. This extension uses [jQuery Countdown](http://keith-wood.name/countdown.html) library for countdown timer. View helper available for count down timer is:
+
+  ```ruby
+    <%= sale_event_timer(active_sale_event) %>
+  ```
+You can pass a layout(layout is optional by default it is: '{dn} days {hnn}{sep}{mnn}{sep}{snn}' ) according to your requirement like this:
+  
+  ```ruby
+    <%= sale_event_timer(active_sale_event, '{dn} days {hnn} hours {sep}{mnn} minutes {sep}{snn} seconds') %>
+  ```
+
+Please visit [jQuery Countdown](http://keith-wood.name/countdown.html) for more layouts.
+
 ## Overriding configuration and preferences
 
 You can use put this at the bottom of your **application's app/config/initializers/spree.rb**:
@@ -176,7 +190,6 @@ Since you can not set boolean values from the block config shown above for assig
 
 * Improve testing and write more test cases.
 * Enhance the admin interface for active sales and events[U.I. and U.X.].
-* Make time countdown helper flexible so that developers can modify according to their requirements.
 
 ## Testing
 

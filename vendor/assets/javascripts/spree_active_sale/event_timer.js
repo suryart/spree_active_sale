@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $("[data-timer]").each(function() {
     var cTime = $(this).attr('data-timer');
+    var timeLayout = $(this).attr('data-layout');
     // endTime for event in db:
     var endTime = new Date(cTime);
     // Return the timezone difference between UTC and User Local Time
@@ -11,11 +12,10 @@ $(document).ready(function() {
     // Event's final end date will depend on the final subtracted date as:
     var eventEndDate = new Date(endTime - userTimeZoneDiff * MS_PER_MINUTE);
 
-    cTime = Date.parse(cTime);
     $(this).countdown({ 
       until: eventEndDate, 
       compact: true, 
-      layout: '{dn} DAYS {hnn}{sep}{mnn}{sep}{snn}'
+      layout: timeLayout
     });
   });
 });
