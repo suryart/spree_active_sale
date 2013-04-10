@@ -41,9 +41,9 @@ module SpreeActiveSale
         errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if invalid_dates?
       end
 
-      def live?
-        current_time = object_zone_time
-        (self.start_date <= current_time and self.end_date >= current_time) or self.is_permanent? if start_and_dates_available?
+      def live?(moment=nil)
+        moment ||= object_zone_time
+        (self.start_date <= moment and self.end_date >= moment) or self.is_permanent? if start_and_dates_available?
       end
 
       def upcoming?
@@ -56,8 +56,8 @@ module SpreeActiveSale
         (self.start_date < current_time and self.end_date > self.start_date and self.end_date < current_time) if start_and_dates_available?
       end
 
-      def live_and_active?
-        self.live? and self.is_active?
+      def live_and_active?(moment=nil)
+        self.live?(moment) and self.is_active?
       end
 
       def update_permalink
