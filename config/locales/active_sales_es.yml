@@ -13,6 +13,7 @@ es:
           is_hidden: "Oculto"
           is_permanent: "Permanente"
           is_live: "Vigente"
+          discount: "Porcentaje de descuento"
           name: "Nombre del evento"
           start_date: "Fecha de comienzo"
           end_date: "Fecha de finalización"
@@ -36,8 +37,9 @@ es:
           current_text: 'Actual'
           close_text: 'Cerrar'
         ending_message: "EL EVENTO TERMINA EN"
-        eventable_hint: "¿Esta campaña estará asociada a un producto concreto o a muchos asociados con un taxón?"
+        eventable_hint: "¿Esta campaña estará asociada a un producto concreto o a un taxón?"
         eventable_name_hint: "Teclea el nombre del producto o del taxón que estará asociado a esta campaña."
+        discount_hint: "Número que indique el porcentaje medio aplicado (p.e. '30' para expresar un 30%)."
         flash:
           error: "La página que buscas ya no está disponible."
         link:
