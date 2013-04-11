@@ -12,7 +12,7 @@ module Spree
     belongs_to :eventable, :polymorphic => true
     belongs_to :active_sale
 
-    attr_accessible :description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date, :eventable_name
+    attr_accessible :description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date, :eventable_name, :discount
 
     validates :name, :permalink, :eventable_id, :start_date, :end_date, :active_sale_id, :presence => true
     validates :eventable_type, :presence => true, :uniqueness => { :scope => :eventable_id, :message => I18n.t('spree.active_sale.event.validation.errors.live_event') }, :if => :live?

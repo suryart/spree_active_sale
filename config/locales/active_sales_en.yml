@@ -13,6 +13,7 @@ en:
           is_hidden: "Hidden?"
           is_permanent: "Permanent?"
           is_live: "Live?"
+          discount: "Discount percentage"
           name: "Event name"
           start_date: "Start date"
           end_date: "End date"
@@ -38,6 +39,7 @@ en:
         ending_message: "SALE CLOSES IN"
         eventable_hint: "Will this be a sale for an individual product or many based on a taxon?"
         eventable_name_hint: "Enter the name of product or taxon this sale will include."
+        discount_hint: "Ingeger number with the mean or max discount percentage (i.e. '30' to express a 30%)."
         flash:
           error: "The page you are looking for is no longer available."
         link:
