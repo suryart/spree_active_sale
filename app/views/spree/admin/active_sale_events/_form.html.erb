@@ -20,68 +20,82 @@
       </div>
 
       <div class="right eight columns omega" data-hook="admin_active_sale_event_form_right">
-        <div class="alpha four columns">
-
-          <%= f.field_container :start_date do %>
-            <%= f.label :start_date, t('spree.active_sale.event.active_record.start_date') %>
-            <%= f.error_message_on :start_date %>
-            <% if @active_sale_event.start_date? %>
-              <% start_date = l(@active_sale_event.start_date, :format => t('spree.active_sale.event.datetimepicker.format')) %>
-            <% else %>
-              <% start_date = l(Time.zone.now, :format => t('spree.active_sale.event.datetimepicker.format')) %>
+        <div class="row">
+          <div class="alpha four columns">
+  
+            <%= f.field_container :start_date do %>
+              <%= f.label :start_date, t('spree.active_sale.event.active_record.start_date') %>
+              <%= f.error_message_on :start_date %>
+              <% if @active_sale_event.start_date? %>
+                <% start_date = l(@active_sale_event.start_date, :format => t('spree.active_sale.event.datetimepicker.format')) %>
+              <% else %>
+                <% start_date = l(Time.zone.now, :format => t('spree.active_sale.event.datetimepicker.format')) %>
+              <% end %>
+              <%= f.text_field :start_date, :value => start_date, :class => 'timepicker' %>
             <% end %>
-            <%= f.text_field :start_date, :value => start_date, :class => 'timepicker' %>
+          </div>
+  
+          <div class="omega four columns">
+            <%= f.field_container :end_date do %>
+              <%= f.label :end_date, t('spree.active_sale.event.active_record.end_date') %>
+              <%= f.error_message_on :end_date %>
+              <% end_date = l((@active_sale_event.end_date? ? @active_sale_event.end_date : Time.zone.now+1.day), :format => t('spree.active_sale.event.datetimepicker.format')) %>
+              <%= f.text_field :end_date, :value => end_date, :class => 'timepicker' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="alpha four columns">
+            <%= f.label :eventable, t('spree.active_sale.event.active_record.eventable_type', :default => :evenetable) %>
+            <p class='hint'><%= t('spree.active_sale.event.eventable_hint') %></p>
+            <%= f.select :eventable_type, [["Product","Spree::Product"], ["Taxon","Spree::Taxon"]], { :include_blank => false }, { :class => 'select2' } %>
+            <%= f.error_message_on :eventable %>
+          </div>
+  
+          <div class="omega four columns">
+            <%= f.label :eventable_name, t('spree.active_sale.event.active_record.eventable_name', :default => :eventable_name) %>
+            <p class='hint'><%= t('spree.active_sale.event.eventable_name_hint') %></p>
+            <%= f.error_message_on :eventable_name %>
+            <%= f.text_field :eventable_name, :class => 'autocomplete', :data => { :auto_complete_url => eventables_admin_active_sale_active_sale_events_url(:active_sale_id => @active_sale.id) } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="alpha four columns clearfix">
+            <%= f.field_container :is_active, :class => ['checkbox'] do %>
+              <label>
+                <%= f.check_box :is_active %>
+                <%= t('spree.active_sale.event.active_record.is_active') %>
+                <%= f.error_message_on :is_active %>
+              </label>
+            <% end %>
+  
+            <%= f.field_container :is_hidden, :class => ['checkbox'] do %>
+              <label>
+                <%= f.check_box :is_hidden %>
+                <%= t('spree.active_sale.event.active_record.is_hidden') %>
+                <%= f.error_message_on :is_hidden %>
+              </label>
+            <% end %>
+  
+            <%= f.field_container :is_permanent, :class => ['checkbox'] do %>
+              <label>
+                <%= f.check_box :is_permanent %>
+                <%= t('spree.active_sale.event.active_record.is_permanent') %>
+                <%= f.error_message_on :is_permanent %>
+              </label>
+            <% end %>
+          </div>
+  
+          <div class="omega four columns">
+          <%= f.field_container :discount do %>
+            <%= f.label :discount, t('spree.active_sale.event.active_record.discount', :default => :discount) %>
+            <p class='hint'><%= t('spree.active_sale.event.discount_hint') %></p>
+            <%= f.error_message_on :discount %>
+            <%= f.text_field :discount, :size => 2, :maxlength => 2 %>
           <% end %>
+          </div>
         </div>
 
-        <div class="omega four columns">
-          <%= f.field_container :end_date do %>
-            <%= f.label :end_date, t('spree.active_sale.event.active_record.end_date') %>
-            <%= f.error_message_on :end_date %>
-            <% end_date = l((@active_sale_event.end_date? ? @active_sale_event.end_date : Time.zone.now+1.day), :format => t('spree.active_sale.event.datetimepicker.format')) %>
-            <%= f.text_field :end_date, :value => end_date, :class => 'timepicker' %>
-          <% end %>
-        </div>
-
-        <div class="alpha four columns">
-          <%= f.label :eventable, t('spree.active_sale.event.active_record.eventable_type', :default => :evenetable) %>
-          <p class='hint'><%= t('spree.active_sale.event.eventable_hint') %></p>
-          <%= f.select :eventable_type, [["Product","Spree::Product"], ["Taxon","Spree::Taxon"]], { :include_blank => false }, { :class => 'select2' } %>
-          <%= f.error_message_on :eventable %>
-        </div>
-
-        <div class="omega four columns">
-          <%= f.label :eventable_name, t('spree.active_sale.event.active_record.eventable_name', :default => :eventable_name) %>
-          <p class='hint'><%= t('spree.active_sale.event.eventable_name_hint') %></p>
-          <%= f.error_message_on :eventable_name %>
-          <%= f.text_field :eventable_name, :class => 'autocomplete', :data => { :auto_complete_url => eventables_admin_active_sale_active_sale_events_url(:active_sale_id => @active_sale.id) } %>
-        </div>
-
-        <div class="alpha four columns">
-          <%= f.field_container :is_active, :class => ['checkbox'] do %>
-            <label>
-              <%= f.check_box :is_active %>
-              <%= t('spree.active_sale.event.active_record.is_active') %>
-              <%= f.error_message_on :is_active %>
-            </label>
-          <% end %>
-
-          <%= f.field_container :is_hidden, :class => ['checkbox'] do %>
-            <label>
-              <%= f.check_box :is_hidden %>
-              <%= t('spree.active_sale.event.active_record.is_hidden') %>
-              <%= f.error_message_on :is_hidden %>
-            </label>
-          <% end %>
-
-          <%= f.field_container :is_permanent, :class => ['checkbox'] do %>
-            <label>
-              <%= f.check_box :is_permanent %>
-              <%= t('spree.active_sale.event.active_record.is_permanent') %>
-              <%= f.error_message_on :is_permanent %>
-            </label>
-          <% end %>
-        </div>
       </div>
     </div>
 
