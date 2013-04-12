@@ -15,4 +15,8 @@ Spree::Product.class_eval do
   def image_available?
     !images.blank?
   end
+
+  def image
+    images.first
+  end
 end

@@ -9,4 +9,8 @@ Spree::Taxon.class_eval do
   def image_available?
     icon?
   end
+
+  def image
+    icon
+  end
 end

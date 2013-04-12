@@ -1,5 +1,5 @@
 class OldActiveSale < ActiveRecord::Base
-  set_table_name "spree_active_sales"
+  self.table_name = "spree_active_sales"
 end
 
 class CreateSaleEvents < ActiveRecord::Migration
