@@ -18,7 +18,7 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
 * Demo application: [Spree Active Sale Demo](https://github.com/suryart/spree_active_sale_demo)
 * Dependency status: [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
 * Code climate: [![Code Climate](https://codeclimate.com/github/suryart/spree_active_sale.png)](https://codeclimate.com/github/suryart/spree_active_sale)
-* Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=1-3-stable)](https://travis-ci.org/suryart/spree_active_sale)
+* Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=master)](https://travis-ci.org/suryart/spree_active_sale)
 * Issues: [Project issues](https://github.com/suryart/spree_active_sale/issues)
 * Fork: [Fork this Project](https://github.com/suryart/spree_active_sale/fork_select)
 
