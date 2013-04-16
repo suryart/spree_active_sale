@@ -37,8 +37,10 @@ module Spree
       parents = self.active_sale.self_and_ancestors.flatten
       oldest_start_date = active_sale_events.select{|event| !event.start_date.blank? }.sort_by(&:start_date).first.start_date
       latest_end_date = active_sale_events.select{|event| !event.end_date.blank? }.sort_by(&:end_date).last.end_date
-      parents.each{ |parent| parent.update_attributes(:start_date => oldest_start_date) if parent.start_date.nil? ? true : (parent.start_date > oldest_start_date) }
-      parents.each{ |parent| parent.update_attributes(:end_date => latest_end_date) if parent.end_date.nil? ? true : (parent.end_date < latest_end_date) }
+      parents.each{ |parent| 
+        parent.update_attributes(:start_date => oldest_start_date) if parent.start_date.nil? ? true : (parent.start_date > oldest_start_date) 
+        parent.update_attributes(:end_date => latest_end_date) if parent.end_date.nil? ? true : (parent.end_date < latest_end_date)
+      }
     end
 
     def eventable_name
