@@ -91,8 +91,12 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     # Create an ActiveSale
     active_sale = Spree::ActiveSale.create(:name => "January 2013 sales")
 
-    # Output => #<Spree::ActiveSale id: 1, name: "January 2013 sales", 
-    # created_at: "2013-01-20 20:33:57", updated_at: "2013-01-20 20:33:57">
+    # Output => => #<Spree::ActiveSale id: 42, name: "January 2013 sales", description: nil, 
+    # permalink: nil, start_date: nil, end_date: nil, is_active: true, is_hidden: false, 
+    # is_permanent: false, eventable_id: nil, eventable_type: nil, active_sale_id: nil, 
+    # created_at: "2013-04-16 07:26:45", updated_at: "2013-04-16 07:26:45", 
+    # type: "Spree::ActiveSale", parent_id: nil, lft: 5, rgt: 6, position: nil, discount: nil>
+
 
     # Then create an Event under this sale by:
     event = taxon.active_sale_events.create(:name => "January 2013 sales", 
@@ -143,8 +147,31 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
 
     # listing all sale events which are going to expire today.
     Spree::ActiveSaleEvent.ending_today
+    
+    # to check if an active sale event is live?
+    active_sale_event = Spree::ActiveSaleEvent.first
+    # output => => #<Spree::ActiveSaleEvent id: 1, name: "Event 1", description: "20% Off", 
+    # permalink: "t/designers/event-1", 
+    # start_date: "2013-03-22 04:00:03", end_date: "2013-04-25 04:00:00", is_active: true, 
+    # is_hidden: false, is_permanent: false, eventable_id: 1992, 
+    # eventable_type: "Spree::Taxon", active_sale_id: 31, created_at: "2013-03-23 08:37:29", 
+    # updated_at: "2013-04-09 18:55:37", type: "Spree::ActiveSaleEvent", parent_id: nil, 
+    # lft: nil, rgt: nil, position: nil, discount: nil>
+    # Now do:
+    active_sale_event.live?
+    # output => true
 
-    # to check if an instance is live or not?. 
+    # you can also check if that event was live on a particular datetime, for example:
+    active_sale_event.live?(Time.zone.now - 1.month)
+
+    # to check if an active sale event is live and active:
+    active_sale_event.live_and_active?
+    # output => true
+
+    # you can check if that event was live and active on a particular datetime by:
+    active_sale_event.live_and_active?(Time.zone.now - 1.month)
+
+    # to check if an instance/ object is live or not?. 
     # Here instance can be an object of 
     # "Spree::ActiveSaleEvent", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class.
     # Which simply says if sale event for that instance is accessible for users or not.
@@ -157,7 +184,7 @@ There is a view helper which shows the count down timer. This extension uses [jQ
   ```ruby
     <%= sale_event_timer(active_sale_event) %>
   ```
-You can pass a layout(layout is optional by default it is: '{dn} days {hnn}{sep}{mnn}{sep}{snn}' ) according to your requirement like this:
+You can pass a layout(layout is optional. default value is: '{dn} days {hnn}{sep}{mnn}{sep}{snn}' ) according to your requirement like this:
   
   ```ruby
     <%= sale_event_timer(active_sale_event, '{dn} days {hnn} hours {sep}{mnn} minutes {sep}{snn} seconds') %>
