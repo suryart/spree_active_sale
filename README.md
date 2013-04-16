@@ -40,7 +40,7 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
   * Or get it from rubygems.org by mentioning the following line in your Gemfile:
     
       ```ruby 
-        gem 'spree_active_sale', '1.0.6'
+        gem 'spree_active_sale', '1.3.0'
       ```
 
 ### Then run the following commands: 
