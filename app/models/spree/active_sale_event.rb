@@ -3,10 +3,9 @@
 # There can be many events for one sale.
 #
 module Spree
-  class ActiveSaleEvent < ActiveRecord::Base
-    include SpreeActiveSale::Eventable
-
+  class ActiveSaleEvent < Spree::SaleEvent
     before_validation :update_permalink
+    after_save :update_parent_active_sales
 
     has_many :sale_images, :as => :viewable, :dependent => :destroy, :order => 'position ASC'
     belongs_to :eventable, :polymorphic => true
@@ -18,18 +17,40 @@ module Spree
     validates :eventable_type, :presence => true, :uniqueness => { :scope => :eventable_id, :message => I18n.t('spree.active_sale.event.validation.errors.live_event') }, :if => :live?
     validate  :validate_start_and_end_date
 
-    scope :live, lambda { where("(start_date <= :start_date AND end_date >= :end_date) OR is_permanent = :is_permanent", { :start_date => zone_time, :end_date => zone_time, :is_permanent => true }) }
-    scope :active, lambda { |*args| where(:is_active => valid_argument(args)) }
-    scope :hidden, lambda { |*args| where(:is_hidden => valid_argument(args)) }
-    scope :live_active, lambda { |*args| self.live.active(valid_argument(args)) }
-    scope :live_active_and_hidden, lambda { |*args| 
-                            args = [{}] if [nil, true, false].include? args.first
-                            self.live.active(valid_argument([args.first[:active]])).hidden(valid_argument([args.first[:hidden]])) 
-                          }
-    scope :upcoming_events, lambda { where("start_date > :start_date", { :start_date => zone_time }) }
-    scope :past_events, lambda { where("end_date < :end_date", { :end_date => zone_time }) }
-    scope :starting_today, lambda { where(:start_date => zone_time..zone_time.now.end_of_day) }
-    scope :ending_today, lambda { where(:end_date => zone_time..zone_time.now.end_of_day) }
+    # Spree::ActiveSaleEvent.is_live? method 
+    # should only/ always represents live and active events and not just live events.
+    def is_live? object
+      object_class_name = object.class.name
+      return object.live_and_active? if object_class_name == self.name
+      %w(Spree::Product Spree::Variant Spree::Taxon).include?(object_class_name) ? object.live? : false
+    end
 
+    def update_permalink
+      prefix = {"Spree::Taxon" => "t", "Spree::Product" => "products"}
+      self.permalink = [prefix[self.eventable_type], self.eventable.permalink].join("/") unless self.eventable.nil?
+    end
+
+    # This callback basically makes sure that parents for an event lives longer.
+    # Or at least parents live for the time when event is live.
+    def update_parent_active_sales
+      active_sale_events = active_sale.children_and_active_sale_events
+      parents = active_sale.self_and_ancestors.flatten
+      oldest_start_date = active_sale_events.select{|event| !event.start_date.blank? }.sort_by(&:start_date).first.start_date
+      latest_end_date = active_sale_events.select{|event| !event.end_date.blank? }.sort_by(&:end_date).last.end_date
+      parents.select{ |parent| parent.start_date.nil? ? true : (parent.start_date > oldest_start_date) }.each{ |sale| sale.update_attributes(:start_date => oldest_start_date) }
+      parents.select{ |parent| parent.end_date.nil? ? true : (parent.end_date < latest_end_date) }.each{ |sale| sale.update_attributes(:end_date => latest_end_date) }
+    end
+
+    def eventable_name
+      eventable.try(:name)
+    end
+
+    def eventable_name=(name)
+      self.eventable = self.eventable_type.constantize.find_by_name(name) if name.present?
+    end
+
+    def eventable_image_available?
+      !!eventable.try(:image_available?)
+    end
   end
 end

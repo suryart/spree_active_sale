@@ -3,7 +3,7 @@ require 'spree/core/testing_support/factories'
 
 FactoryGirl.define do
   factory :active_sale, :class => Spree::ActiveSale do |f|
-    name "Dummy Sale"
+    name "Dummy Active Sale"
   end
 
   sequence :name do |n|

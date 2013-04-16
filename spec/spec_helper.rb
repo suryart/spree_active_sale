@@ -5,6 +5,7 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'capybara/rails'
 require 'ffaker'
 require 'factory_girl'
 
@@ -34,6 +35,7 @@ RSpec.configure do |config|
   config.include Spree::Core::TestingSupport::ControllerRequests
   config.include Spree::Core::TestingSupport::Preferences
   config.include Spree::Core::TestingSupport::Flash
+  config.include Capybara::DSL
 
   # == Mock Framework
   #
