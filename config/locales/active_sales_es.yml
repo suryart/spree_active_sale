@@ -23,8 +23,8 @@ es:
         boolean:
           yes: "Sí"
           no: "No"
-        can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSaleEvent"
-        create_if_no_record: "You don't have any event in this active sale, let's create an event?"
+        can_not_be_nil: "El argumento no puede ser nulo y debe ser una instancia de la clase Spree::ActiveSaleEvent"
+        create_if_no_record: "Todavía no tienes creada ningún evento, ¿lo creamos ya?"
         datetimepicker:
           format: ! '%d/%m/%Y %H:%M:%S %z'
           js_format: 'HH:mm:ss z'
