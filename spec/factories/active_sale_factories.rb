@@ -1,5 +1,5 @@
 # coding: UTF-8
-require 'spree/core/testing_support/factories'
+require 'spree/testing_support/factories'
 
 FactoryGirl.define do
   factory :active_sale, :class => Spree::ActiveSale do |f|
