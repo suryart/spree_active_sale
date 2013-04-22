@@ -1,3 +1,3 @@
-//= require admin/spree_core
+//= require admin/spree_backend
 //= require spree_active_sale
 //= require_tree .
