@@ -3,7 +3,7 @@ Spree::Core::Engine.routes.draw do
   namespace :admin do
     resources :active_sales do
       resources :active_sale_events do
-        get 'eventables', :on => :collection
+        get :eventables, :on => :collection
         resources :sale_images do
           collection do
             post :update_positions
