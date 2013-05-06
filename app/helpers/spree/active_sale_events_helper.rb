@@ -4,7 +4,7 @@ module Spree
     def sale_event_timer(event = nil, layout = nil)
       return I18n.t('spree.active_sale.event.can_not_be_nil') if (event == nil) || (event.class.name != "Spree::ActiveSaleEvent")
       layout ||= '{dn} DAYS {hnn}{sep}{mnn}{sep}{snn}'
-      content_tag(:span, I18n.t('spree.active_sale.event.ending_message'), :class => 'sale_event_message') + " " + content_tag(:span, event.end_date.strftime('%Y-%m-%dT%H:%M:%S'), "data-timer" => event.end_date.strftime('%Y-%m-%dT%H:%M:%S'), "data-layout" => layout, :class => 'sale_event_message')
+      content_tag(:span, I18n.t('spree.active_sale.event.ending_message'), :class => 'sale_event_message') + " " + content_tag(:span, event.end_date.strftime('%Y-%m-%dT%H:%M:%S'), "data-timer" => event.end_date.strftime('%Y-%m-%dT%H:%M:%S'), "data-layout" => layout, :class => 'sale_event_message_timer')
     end
 
     def method_missing(method_name, *args, &block)
