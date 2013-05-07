@@ -5,7 +5,7 @@ es:
   spree:
     active_sale:
       active_record:
-        name: "Nombre de la campaña"
+        name: "Nombre del envento"
       event:
         active_record:
           description: "Descripción del evento"
@@ -37,8 +37,8 @@ es:
           current_text: 'Actual'
           close_text: 'Cerrar'
         ending_message: "EL EVENTO TERMINA EN"
-        eventable_hint: "¿Esta campaña estará asociada a un producto concreto o a un taxón?"
-        eventable_name_hint: "Teclea el nombre del producto o del taxón que estará asociado a esta campaña."
+        eventable_hint: "¿Este evento estará asociada a un producto concreto o a un taxón?"
+        eventable_name_hint: "Teclea el nombre del producto o del taxón que estará asociado a este evento."
         discount_hint: "Número que indique el porcentaje medio aplicado (p.e. '30' para expresar un 30%)."
         flash:
           error: "La página que buscas ya no está disponible."
@@ -46,7 +46,7 @@ es:
           new: "Nuevo evento"
           edit: "Editar evento"
           back: "Volver a eventos"
-        no_image: "Imagen no encontrada. Si la campaña no tiene asociada una imagen entonces la imagen del producto/taxón asociado será utilizado para mostarla en la tienda."
+        no_image: "Imagen no encontrada. Si el evento no tiene asociada una imagen entonces la imagen del producto/taxón asociado será utilizado para mostarla en la tienda."
         notice_messages:
           created: "El evento ha sido creado con éxito."
           updated: "El evento ha sido actualizado con éxito."
@@ -61,14 +61,14 @@ es:
             live_event: "ya está creada y vigente."
       events_not_found: "No hay eventos disponibles en este momento."
       link:
-        new: "Nueva campaña"
-        edit: "Editar campaña"
-        back: "Volver a listado de campañas"
+        new: "Nueva evento"
+        edit: "Editar evento"
+        back: "Volver a listado de eventos"
       notice_messages:
-        created: "La campaña ha sido creada con éxito."
-        updated: "La campaña ha sido actualizada con éxito."
-        deleted: "La campaña ha sido borrada."
+        created: "La eventos ha sido creada con éxito."
+        updated: "La eventos ha sido actualizada con éxito."
+        deleted: "La eventos ha sido borrada."
       title:
-        new: "Nueva campaña"
-        edit: "Editar campaña"
-        list: "Listar campañas"
+        new: "Nueva evento"
+        edit: "Editar evento"
+        list: "Listar evento"
