@@ -1,17 +1,1 @@
-<% content_for :page_title do %>
-  <%= t('spree.active_sale.title.edit') %>
-<% end %>
-
-<% content_for :page_actions do %>
-  <li>
-    <% @event = Spree::ActiveSaleEvent.new %>
-    <%= button_link_to t('spree.active_sale.link.back'), collection_url, :icon => 'icon-arrow-left', :id => 'admin_new_active_sale_link' %>
-    <%= button_link_to t('spree.active_sale.event.link.new'), [:new, :admin, @active_sale, :active_sale_event], :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
-  </li>
-<% end %>
-
-<div data-hook="admin_active_sale_edit_form">
-  <div id="active-sale-form-wrapper">
-    <%= render :partial => 'form' %>
-  </div>
-</div>
+<%= render :partial => 'spree/admin/shared/list_events', :locals => { :active_sale => @active_sale, :active_sale_events => @active_sale_events } %>

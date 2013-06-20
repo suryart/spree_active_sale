@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Spree::CheckoutController do
-
+  stub_authorization!
   let(:products) { create_list(:product, 10) }
   let(:order) { create(:order) }
   let(:active_sale_event) { FactoryGirl.create(:active_sale_event) }

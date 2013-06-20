@@ -9,8 +9,8 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
 ## FEATURES
 
 * Provides a quick implementation of flash sales/ daily deals behavior by a easy scheduler a.k.a *ActiveSale*.
-* Provides an admin interface for creating/ scheduling, managing, or re-scheduling sale events.
-* Provides a view helper for countdown timer to show sale's ending time, which will be shown to your customers. This eventually makes a sense of urgency in your customers' mind.
+* Provides an admin interface for creating/ scheduling, managing, sorting, bundeling, or re-scheduling sale events.
+* Provides a view helper for countdown timer to show sale's ending time, which will be shown to your customers. This eventually makes a sense of urgency on your customers' mind.
 * Supplies methods for class <tt>Spree::ActiveSaleEvent</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
 
 ## LINKS
@@ -176,6 +176,15 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     # "Spree::ActiveSaleEvent", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class.
     # Which simply says if sale event for that instance is accessible for users or not.
     Spree::ActiveSaleEvent.is_live?(instance)
+
+    # You can list the rows where a column, for example- :start_date, is not blank,
+    # and get it sorted using not_blank_and_sorted_by(:column_name) like this:
+    Spree::SaleEvent.not_blank_and_sorted_by(:start_date)
+    Spree::ActiveSale.not_blank_and_sorted_by(:start_date)
+    Spree::ActiveSaleEvent.not_blank_and_sorted_by(:start_date)
+
+    # Also, you can chain this method with other scopes, like this:
+    Spree::ActiveSaleEvent.live_active.not_blank_and_sorted_by(:start_date)
   ```
 
 ## Overriding countdown timer's layout differently for different events
@@ -194,7 +203,7 @@ Please visit [jQuery Countdown](http://keith-wood.name/countdown.html) for more 
 
 ## Overriding configuration and preferences
 
-You can use put this at the bottom of your **application's app/config/initializers/spree.rb**:
+You can use this at the bottom of your **application's app/config/initializers/spree.rb** for configuration:
     
   ```ruby
     Spree::ActiveSale.config do |config|
@@ -211,6 +220,7 @@ Since you can not set boolean values from the block config shown above for assig
     Spree::ActiveSaleConfig[:paginate_sales_for_admin?] = true
     Spree::ActiveSaleConfig[:paginate_sale_events_for_user?] = true
     Spree::ActiveSaleConfig[:paginate_sales_for_user?] = false
+    Spree::ActiveSaleConfig[:name_with_event_position?] = true
   ```
 
 ## TODOs

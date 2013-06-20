@@ -10,6 +10,15 @@
 
 <div data-hook="admin_active_sale_new_form">
   <div id="active-sale-form-wrapper">
-    <%= render :partial => 'form' %>
+    
+    <% if @active_sale.try(:errors).present? %>
+      <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @active_sale } %>
+    <% end %>
+
+    <%= form_for [:admin, @active_sale], :html => { :id => 'admin_active_sale_event' } do |form| %>
+      <%= fields_for @active_sale_event do |event_form| %>
+        <%= render :partial => 'spree/admin/active_sale_events/form', :locals => { :form => event_form } %>
+      <% end %>
+    <% end %>
   </div>
 </div>

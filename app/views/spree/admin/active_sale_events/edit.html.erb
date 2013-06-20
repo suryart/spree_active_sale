@@ -4,14 +4,14 @@
 
 <% content_for :page_actions do %>
   <li>
-    <%= button_link_to t('spree.active_sale.event.link.back'), [:admin, @active_sale, :active_sale_events], :icon => 'icon-arrow-left', :id => 'admin_active_sale_events_link' %>
-    <%= button_link_to t('spree.active_sale.event.link.new'), new_object_url, :icon => 'icon-plus', :id => 'new_admin_active_sale_event_link' %>
-    <%= button_link_to t('spree.active_sale.link.edit'), [:edit, :admin, @active_sale], :icon => 'icon-edit', :id => 'admin_active_sales_link' %>
+    <%= button_link_to t('spree.active_sale.link.edit'), [:edit, :admin, @active_sale], :icon => 'icon-arrow-left', :id => 'admin_active_sales_link' %>
   </li>
 <% end %>
 
 <div data-hook="admin_active_sale_event_edit_form">
   <div id="active-sale-event-form-wrapper">
-    <%= render :partial => 'form' %>
+    <%= form_for [:admin, @active_sale, @active_sale_event], :html => { :id => 'admin_active_sale_event', :multipart => true } do |form| %>
+      <%= render :partial => 'form', :locals => { :form => form } %>
+    <% end %>
   </div>
 </div>
