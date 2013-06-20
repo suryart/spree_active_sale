@@ -10,7 +10,7 @@ FactoryGirl.define do
   sequence(:eventable_product) { FactoryGirl.create(:product) }
 
   sequence :eventable_taxon do |n|
-    number = n+Random.rand(20..50)
+    number = n+Random.rand(50)
     FactoryGirl.create(:taxon) do |taxon|
       taxon.products << FactoryGirl.create_list(:product, number)
     end
