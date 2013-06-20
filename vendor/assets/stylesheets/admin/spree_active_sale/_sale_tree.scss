@@ -1,0 +1,39 @@
+#active_sale_tree {
+  > ul, .jstree-icon {
+    background-image: none;
+  }
+  
+  .jstree-icon {
+    @extend [class^="icon-"]:before;
+  }
+
+  .jstree-open > .jstree-icon {    
+    @extend .icon-caret-down;
+  }
+  .jstree-closed > .jstree-icon {    
+    @extend .icon-caret-right;
+  }
+
+  li {
+    background-image: none;
+
+    a {
+      background-color: very-light($color-3) !important;
+      border: 1px solid $color-border;
+      color: $color-body-text;
+      font-weight: $font-weight-bold;
+      text-shadow: none;
+      width: 90%;
+      height: auto;
+      line-height: inherit;
+      text-transform: uppercase;
+      padding: 5px 0 5px 10px;
+      margin-bottom: 10px;
+
+      .jstree-icon {
+        padding-left: 0px;
+        @extend .icon-move;   
+      }
+    }
+  }
+}

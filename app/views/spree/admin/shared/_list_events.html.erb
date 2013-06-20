@@ -1,32 +1,53 @@
+<%= render :partial => 'spree/admin/shared/js_head' %>
 
-<div id="new_active_sale_event" data-hook></div>
+<% content_for :page_title do %>
+  <%= t('spree.active_sale.title.edit') %> &#62; <%= @active_sale.name %>
+<% end %>
 
-<table class="index" id="listing_active_sale_events" data-hook>
-  <thead>
-    <tr data-hook="admin_active_sale_events_index_headers">
-      <th><%= t('spree.active_sale.event.active_record.name') %></th>
-      <th><%= t('spree.active_sale.event.active_record.start_date') %></th>
-      <th><%= t('spree.active_sale.event.active_record.end_date') %></th>
-      <th><%= t('spree.active_sale.event.active_record.is_live') %></th>
-      <th data-hook="admin_active_sale_events_index_header_actions" class="actions"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @active_sale_events.each do |event| %>
-      <tr id="<%= spree_dom_id event %>" data-hook="admin_active_sales_index_rows" class="<%= cycle('odd', 'even')%>">
-        <td class='active_sale_name'><%= link_to event.name, [:admin, @active_sale, event] %></td>
-        <td class='active_sale_start_date'><%= event.start_date %></td>
-        <td class='active_sale_end_date'><%= event.end_date %></td>
-        <td class='active_sale_is_live'><%= event.live? ? t('spree.active_sale.event.boolean.yes') : t('spree.active_sale.event.boolean.no') %></td>
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to t('spree.active_sale.link.back'), collection_url, :icon => 'icon-arrow-left', :id => 'admin_new_active_sale_link' %>
+  </li>
+<% end %>
 
-        <td class="actions" data-hook="admin_active_sale_events_index_row_actions">
-          <p class="actions" data-hook="actions">
-            <%= link_to_edit_url [:edit, :admin, @active_sale, event], :no_text => true %>
-            &nbsp;
-            <%= link_to_delete event, { :url => [:admin, @active_sale, event], :no_text => true } %>
-          </p>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="ajax_error" class="errorExplanation" style="display:none;"></div>
+
+<fieldset class="no-border-top">
+  <div>
+    <%= label_tag nil, t(:tree) %><br />
+    <div id="active_sale_tree" class="tree" data-url="<%= admin_active_sale_active_sale_events_path @active_sale %>"></div>
+  </div>
+  <div id="progress" style="display:none;">
+    <%= image_tag 'spinner.gif', :title => 'Spinner', :style => "vertical-align:bottom;" %> <%= t(:updating) %>..
+  </div>
+
+  <p class='hint info'>
+    <%= t('spree.active_sale.event.active_sale_tree_hint') %>
+  </p>
+
+  <br>
+</fieldset>
+
+<% content_for :head do %>
+  <%= javascript_tag do -%>
+    var initial = [
+      { "attr" :
+      { "id" : "<%= @active_sale.root.id %>", "rel" : "root", "parent_id" : "nil" },
+      "data" : "<%= escape_javascript(raw(@active_sale.root.name)) %>",
+      "state" : "open",
+      "children" : [
+        <% @active_sale.root.children_sorted_by_position.each_with_index do |event,i| %>
+          {
+            "attr" :
+            { "id" : "<%= event.id %>", "parent_id" : "<%= event.parent_id %>" },
+            "data" : "<%= escape_javascript(raw(event_js_data(event))) %>"
+            <% unless event.children.empty? %>
+              ,"state" : "closed"
+            <% end %>
+          }<%= ',' if i < (@active_sale.root.children.size - 1) %>
+        <% end %>
+      ]
+        }
+    ];
+  <% end -%>
+<% end %>

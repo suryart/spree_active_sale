@@ -42,5 +42,10 @@ module Spree
         end
       end
     end
+
+    def event_js_data(event)
+      return nil if event.blank?
+      Spree::ActiveSaleConfig[:name_with_event_position?] ? "#{event.name.gsub('"','\"')} - #{I18n.t('spree.active_sale.event.active_record.position')}: #{event.position}" : event.name.gsub('"','\"')
+    end
   end
 end

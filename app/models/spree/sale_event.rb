@@ -20,43 +20,46 @@ module Spree
     scope :starting_today, lambda { where(:start_date => zone_time..zone_time.end_of_day) }
     scope :ending_today, lambda { where(:end_date => zone_time..zone_time.end_of_day) }
 
-
-    def validate_start_and_end_date
-      errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if invalid_dates?
-    end
+    validate :validate_start_and_end_date
 
     def live?(moment=nil)
       moment ||= object_zone_time
-      (self.start_date <= moment and self.end_date >= moment) or self.is_permanent? if start_and_dates_available?
+      (self.start_date <= moment and self.end_date >= moment) or self.is_permanent? if start_and_end_dates_available?
     end
 
     def upcoming?
       current_time = object_zone_time
-      (self.start_date >= current_time and self.end_date > self.start_date) if start_and_dates_available?
+      (self.start_date >= current_time and self.end_date > self.start_date) if start_and_end_dates_available?
     end
 
     def past?
       current_time = object_zone_time
-      (self.start_date < current_time and self.end_date > self.start_date and self.end_date < current_time) if start_and_dates_available?
+      (self.start_date < current_time and self.end_date > self.start_date and self.end_date < current_time) if start_and_end_dates_available?
     end
 
     def live_and_active?(moment=nil)
       self.live?(moment) and self.is_active?
     end
 
-    def start_and_dates_available?
+    def start_and_end_dates_available?
       self.start_date and self.end_date
     end
 
     def invalid_dates?
-      self.start_and_dates_available? and (self.start_date >= self.end_date)
+      self.start_and_end_dates_available? and (self.start_date >= self.end_date)
     end
 
+    # Class methods
     class << self
-      # Class methods
       def paginate(objects_per_page, options = {})
         options = prepare_pagination(objects_per_page, options)
         self.page(options[:page]).per(options[:per_page])
+      end
+
+      def not_blank_and_sorted_by(column)
+        return nil if column.blank? 
+        column = column.to_sym
+        self.select(&column).map(&column).reject(&:blank?).sort
       end
 
       private
@@ -81,6 +84,10 @@ module Spree
       
       def object_zone_time
         Time.zone.now
+      end
+
+      def validate_start_and_end_date
+        errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if invalid_dates?
       end
   end
 end

@@ -2,9 +2,10 @@
 require 'spec_helper'
 
 describe Spree::ProductsController do
+  stub_authorization!
 
-  let(:active_sale_event) { FactoryGirl.create(:active_sale_event) }
-  let(:inactive_sale_event) { FactoryGirl.create(:inactive_sale_event) }
+  let(:active_sale_event) { FactoryGirl.create(:active_sale_event_for_product) }
+  let(:inactive_sale_event) { FactoryGirl.create(:inactive_sale_event_for_product) }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -22,6 +23,7 @@ describe Spree::ProductsController do
       it "then product view page should be accessible" do
         event = active_sale_event
         product = event.eventable
+        event.live_and_active?.should be_true
         product.live?.should be_true
         spree_get :show, {:id => product.to_param}, valid_session
         response.should be_success

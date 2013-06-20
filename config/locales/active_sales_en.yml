@@ -7,6 +7,7 @@ en:
       active_record:
         name: "Sale name"
       event:
+        active_sale_tree_hint: "Right click on any row in the tree to access the menu for adding, deleting or sorting products in a sale. Drag and drop to change their positions."
         active_record:
           description: "Event Description"
           is_active: "Active?"
@@ -20,6 +21,7 @@ en:
           eventable_name: "Add the name to add type in event"
           eventable_type: "Add a type for event"
           permalink: "Type the name or permalink"
+          position: "Position"
         boolean:
           yes: "Yes"
           no: "No"
@@ -57,8 +59,11 @@ en:
           list: "Listing events"
         validation:
           errors:
+            date_empty: "can't be left empty."
             invalid_dates: "can not be greater than or equal to the end date."
+            invalid_root_dates: "and end date should be in between it's sub sales' start and end dates range."
             live_event: "already running and live."
+        parent_id_cant_be_nil: "Parent can not be null"
       events_not_found: "There are no sales available at this moment. Try later?"
       link:
         new: "New active sale"
