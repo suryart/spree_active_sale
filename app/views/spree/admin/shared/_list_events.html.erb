@@ -32,19 +32,21 @@
   <%= javascript_tag do -%>
     var initial = [
       { "attr" :
-      { "id" : "<%= @active_sale.root.id %>", "rel" : "root", "parent_id" : "nil" },
-      "data" : "<%= escape_javascript(raw(@active_sale.root.name)) %>",
+      { "id" : "<%= @active_sale.root.try(:id) %>", "rel" : "root", "parent_id" : "nil" },
+      "data" : "<%= escape_javascript(raw(@active_sale.root.try(:name))) %>",
       "state" : "open",
       "children" : [
-        <% @active_sale.root.children_sorted_by_position.each_with_index do |event,i| %>
-          {
-            "attr" :
-            { "id" : "<%= event.id %>", "parent_id" : "<%= event.parent_id %>" },
-            "data" : "<%= escape_javascript(raw(event_js_data(event))) %>"
-            <% unless event.children.empty? %>
-              ,"state" : "closed"
-            <% end %>
-          }<%= ',' if i < (@active_sale.root.children.size - 1) %>
+        <% unless @active_sale.root.nil? %>
+          <% @active_sale.root.children_sorted_by_position.each_with_index do |event,i| %>
+            {
+              "attr" :
+              { "id" : "<%= event.id %>", "parent_id" : "<%= event.parent_id %>" },
+              "data" : "<%= escape_javascript(raw(event_js_data(event))) %>"
+              <% unless event.children.empty? %>
+                ,"state" : "closed"
+              <% end %>
+            }<%= ',' if i < (@active_sale.root.children.size - 1) %>
+          <% end %>
         <% end %>
       ]
         }
