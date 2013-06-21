@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Spree::Admin::ActiveSaleEventsController do
   stub_authorization!
   before do
-    controller.stub :current_user => FactoryGirl.create(:admin_user)
+    controller.stub :spree_current_user => FactoryGirl.create(:admin_user)
   end
 
   let(:product) { create(:product) }

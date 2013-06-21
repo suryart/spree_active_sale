@@ -5,7 +5,7 @@ describe Spree::Admin::ActiveSalesController  do
   let(:taxon) { create(:taxon) }
 
   before do
-    controller.stub :current_user => FactoryGirl.create(:admin_user)
+    controller.stub :spree_current_user => FactoryGirl.create(:admin_user)
   end
 
   # This should return the minimal set of attributes required to create a valid

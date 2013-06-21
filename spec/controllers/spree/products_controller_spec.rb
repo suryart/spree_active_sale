@@ -15,7 +15,7 @@ describe Spree::ProductsController do
   end
 
   before do
-    controller.stub :current_user => FactoryGirl.create(:user)
+    controller.stub :spree_current_user => FactoryGirl.create(:user)
   end
 
   describe "GET show" do
