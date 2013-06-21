@@ -31,16 +31,16 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
         gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'
       ```
 
-  * Get the 1-3-stable branch for Spree 1.3.x from github: 
+  * Get the 2-0-stable branch for Spree 2.0.x from github: 
     
       ```ruby
-        gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git', :branch => '1-3-stable'
+        gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git', :branch => '2-0-stable'
       ```
 
   * Or get it from rubygems.org by mentioning the following line in your Gemfile:
     
       ```ruby 
-        gem 'spree_active_sale', '1.3.0'
+        gem 'spree_active_sale', '2.0.0'
       ```
 
 ### Then run the following commands: 
@@ -226,7 +226,6 @@ Since you can not set boolean values from the block config shown above for assig
 ## TODOs
 
 * Improve testing and write more test cases.
-* Enhance the admin interface for active sales and events[U.I. and U.X.].
 
 ## Testing
 
@@ -245,7 +244,7 @@ Be sure to bundle your dependencies and then create a dummy test app for the spe
 
 ## NOTE
 
-The current version supports Spree 1.3.0 or above. Older versions of Spree are unlikely to work, so attempt at your own risk.
+The current version supports Spree's versions: 1.3.x and 2.0.x. Older versions of Spree are unlikely to work, so attempt at your own risk.
 
 
 ## License
