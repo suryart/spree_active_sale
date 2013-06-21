@@ -9,6 +9,9 @@ require 'capybara/rails'
 require 'ffaker'
 require 'factory_girl'
 
+require 'coveralls'
+Coveralls.wear!
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }

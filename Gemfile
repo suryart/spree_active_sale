@@ -5,4 +5,6 @@ gem 'spree_auth_devise', :git => "git://github.com/spree/spree_auth_devise", :br
 
 gem 'spree', :git => "git://github.com/spree/spree", :branch => '2-0-stable'
 
+gem 'coveralls', require: false
+
 gemspec
