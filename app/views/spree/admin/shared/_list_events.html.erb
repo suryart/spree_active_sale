@@ -14,11 +14,11 @@
 
 <fieldset class="no-border-top">
   <div>
-    <%= label_tag nil, t(:tree) %><br />
+    <%= label_tag nil, Spree.t(:tree) %><br />
     <div id="active_sale_tree" class="tree" data-url="<%= admin_active_sale_active_sale_events_path @active_sale %>"></div>
   </div>
   <div id="progress" style="display:none;">
-    <%= image_tag 'spinner.gif', :title => 'Spinner', :style => "vertical-align:bottom;" %> <%= t(:updating) %>..
+    <%= image_tag 'spinner.gif', :title => 'Spinner', :style => "vertical-align:bottom;" %> <%= Spree.t(:updating) %>..
   </div>
 
   <p class='hint info'>

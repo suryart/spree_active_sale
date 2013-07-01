@@ -77,3 +77,4 @@ en:
         new: "New active sale"
         edit: "Edit active sale"
         list: "Listing active sales"
+      tree_error: "Active Sale Tree Error"

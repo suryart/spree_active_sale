@@ -5,14 +5,14 @@
 
 <%= form_for [:admin, @active_sale, @active_sale_event, @sale_image], :html => { :multipart => true } do |f| %>
   <fieldset data-hook="new_image">
-    <legend align="center"><%= t(:new_image) %></legend>
+    <legend align="center"><%= Spree.t(:new_image) %></legend>
 
       <%= render :partial => 'form', :locals => { :f => f } %>
     
       <div class="form-buttons filter-actions actions" data-hook="buttons">
-        <%= button t(:save), 'icon-refresh' %>
-        <span class="or"><%= t(:or) %></span>
-        <%= link_to_with_icon 'icon-remove', t(:cancel), admin_active_sale_active_sale_event_url(@active_sale_event.active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
+        <%= button Spree.t(:save), 'icon-refresh' %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), admin_active_sale_active_sale_event_url(@active_sale_event.active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
       </div>
   </fieldset>
 <% end %>

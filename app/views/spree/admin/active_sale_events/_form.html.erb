@@ -101,7 +101,7 @@
 
     <% unless @active_sale_event.new_record? %>
       <ul class="inline-menu">
-        <li><%= link_to_with_icon('icon-plus', t(:new_image), new_admin_active_sale_active_sale_event_sale_image_url(@active_sale, @active_sale_event), :id => 'new_sale_image_link', :class => 'button') %></li>
+        <li><%= link_to_with_icon('icon-plus', Spree.t(:new_image), new_admin_active_sale_active_sale_event_sale_image_url(@active_sale, @active_sale_event), :id => 'new_sale_image_link', :class => 'button') %></li>
       </ul>
       <br/>
       <%= render 'spree/admin/shared/sale_images' %>

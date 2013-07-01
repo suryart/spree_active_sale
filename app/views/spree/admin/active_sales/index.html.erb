@@ -17,7 +17,7 @@
   </colgroup>
   <thead>
     <tr data-hook="active_sales_header">
-      <th><%= t(:name) %></th>
+      <th><%= t('spree.active_sale.active_record.name') %></th>
       <th class="actions"></th>
     </tr>
   </thead>
@@ -40,18 +40,18 @@
 <%= paginate @active_sales %>
 
 <% content_for :sidebar_title do %>
-  <%= t(:search) %>
+  <%= Spree.t(:search) %>
 <% end %>
 
 <% content_for :sidebar do %>
   <div class="box align-center" data-hook="admin_active_sales_index_search">    
     <%= search_form_for [:admin, @search] do |f| %>
       <div class="field">
-        <%= f.label t(:name) %> <br>
+        <%= f.label Spree.t(:name) %> <br>
         <%= f.text_field :name_cont, :class => 'fullwidth' %>
       </div>
       <div data-hook="admin_active_sales_index_search_buttons">
-        <%= button t(:search), 'icon-search' %>
+        <%= button Spree.t(:search), 'icon-search' %>
       </div>
     <% end %>
   </div>
