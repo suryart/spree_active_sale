@@ -15,7 +15,7 @@ module Spree
 
     # Get the helper and load from cache when possible
     def all_active_sale_events
-      all_sale_events.select{ |e| e.type == "Spree::ActiveSaleEvent" && e.parent != nil }
+      all_sale_events.select{ |e| e.type == "Spree::ActiveSaleEvent" && e.parent_id != nil }
     end
 
     # find sale event for the product or a taxon
