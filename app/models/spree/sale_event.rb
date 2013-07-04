@@ -89,5 +89,9 @@ module Spree
       def validate_start_and_end_date
         errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if invalid_dates?
       end
+
+      def have_valid_position
+        self.position ||= self.class.select(:id).all.size
+      end
   end
 end

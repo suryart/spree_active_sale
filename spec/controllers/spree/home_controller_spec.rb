@@ -45,7 +45,6 @@ describe Spree::HomeController do
   end
 
   before do
-    controller.stub :current_user => FactoryGirl.create(:user)
     @active_sale = Spree::ActiveSale.create! active_sale_valid_attributes
     @active_sale.active_sale_events.create! valid_attributes
   end

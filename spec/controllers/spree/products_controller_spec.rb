@@ -14,10 +14,6 @@ describe Spree::ProductsController do
     { "warden.user.user.key" => session["warden.user.user.key"] }
   end
 
-  before do
-    controller.stub :current_user => FactoryGirl.create(:user)
-  end
-
   describe "GET show" do
     context "when sale event is live and active" do
       it "then product view page should be accessible" do
