@@ -11,6 +11,7 @@ module Spree
     has_one :root, :conditions => { :parent_id => nil }, :class_name => "Spree::ActiveSaleEvent",
                    :dependent => :destroy
 
+    before_save :have_valid_position
     after_save :set_root
 
     default_scope :order => "#{self.table_name}.position"

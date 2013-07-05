@@ -7,7 +7,8 @@ module Spree
     acts_as_nested_set :dependent => :destroy, :polymorphic => true
 
     before_validation :update_permalink
-    after_save :update_parent_active_sales
+    before_save :have_valid_position
+    after_save :update_parent_active_sales, :update_active_sale_position
 
     has_many :sale_images, :as => :viewable, :dependent => :destroy, :order => 'position ASC'
     belongs_to :eventable, :polymorphic => true
@@ -60,6 +61,14 @@ module Spree
 
     def children_sorted_by_position
       self.children.sort_by{ |child| child.position.nil? ? 0 : child.position }
+    end
+
+    private
+    def update_active_sale_position
+      return true unless active_sale.position.nil?
+      active_sale = self.active_sale
+      active_sale.position = nil
+      active_sale.save
     end
   end
 end

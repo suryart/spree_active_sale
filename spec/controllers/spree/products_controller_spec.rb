@@ -2,20 +2,14 @@
 require 'spec_helper'
 
 describe Spree::ProductsController do
-  stub_authorization!
+  let!(:user) { mock_model(Spree::User, :spree_api_key => 'fake', :last_incomplete_spree_order => nil) }
 
-  let(:active_sale_event) { FactoryGirl.create(:active_sale_event_for_product) }
-  let(:inactive_sale_event) { FactoryGirl.create(:inactive_sale_event_for_product) }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # Spree::ProductsController. Be sure to keep this updated too.
-  def valid_session
-    { "warden.user.user.key" => session["warden.user.user.key"] }
-  end
+  let(:active_sale_event) { create(:active_sale_event_for_product) }
+  let(:inactive_sale_event) { create(:inactive_sale_event_for_product) }
 
   before do
-    controller.stub :spree_current_user => FactoryGirl.create(:user)
+    controller.stub :spree_current_user => user
+    user.stub :has_spree_role? => true
   end
 
   describe "GET show" do
@@ -25,8 +19,9 @@ describe Spree::ProductsController do
         product = event.eventable
         event.live_and_active?.should be_true
         product.live?.should be_true
-        spree_get :show, {:id => product.to_param}, valid_session
+        spree_get :show, :id => product.to_param
         response.should be_success
+        response.status.should == 200
       end
     end
 
@@ -36,7 +31,7 @@ describe Spree::ProductsController do
         product = event.eventable
         event.live_and_active?.should be_false
         product.live?.should be_false
-        spree_get :show, {:id => product.permalink}, valid_session
+        spree_get :show, :id => product.to_param
         response.should redirect_to(spree.root_path)
       end
     end
