@@ -4,6 +4,8 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
+require 'database_cleaner'
+
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'ffaker'
@@ -27,6 +29,25 @@ require 'spree/core/testing_support/authorization_helpers'
 require 'spree/core/url_helpers'
 
 RSpec.configure do |config|
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, comment the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = false
+
+  config.before(:each) do
+    if example.metadata[:js]
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
+    DatabaseCleaner.start
+    reset_spree_preferences
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
   config.include FactoryGirl::Syntax::Methods
 
   # == URL Helpers
@@ -50,10 +71,8 @@ RSpec.configure do |config|
   # config.mock_with :rr
   config.mock_with :rspec
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 end
 
 RSpec::Matchers.define :have_valid_factory do |factory_name|
