@@ -7,28 +7,14 @@ FactoryGirl.define do
   sequence(:start_date) { |n| n.day.ago }
   sequence(:end_date) { |n| n < 1 ? 1.day.from_now : n.days.from_now }
 
-  sequence(:eventable_product) { FactoryGirl.create(:product) }
+  sequence(:eventable_product) { FactoryGirl.create(:product, :available_on => 1.day.ago) }
 
   sequence :eventable_taxon do |n|
     number = n+Random.rand(50)
     FactoryGirl.create(:taxon) do |taxon|
       taxon.products << FactoryGirl.create_list(:product, number)
     end
-    # FactoryGirl.create(:taxon) do |taxon|
-      # Array(0..9).sample.times.map do
-      #   taxon.products << FactoryGirl.generate(:eventable_product)
-      # end
-    # end
   end
-
-  # sequence :eventable_taxon do |f|
-  #   taxon = FactoryGirl.create(:taxon)
-  #   products {
-  #     Array(0..9).sample.times.map do
-  #       FactoryGirl.create(:product)
-  #     end
-  #   }
-  # end
 
   trait :inactive do
     is_active false
@@ -72,7 +58,7 @@ FactoryGirl.define do
       end
 
       after(:create) do |sale, evaluator|
-        FactoryGirl.create_list(:active_sale_event, evaluator.events_count, :active_sale => active_sale, :is_active => evaluator.active)
+        FactoryGirl.create_list(:active_sale_event, evaluator.events_count, :active_sale => sale, :is_active => evaluator.active, :parent_id => sale.root.id)
       end
 
       factory :inactive_sale_with_events, :traits => [:inactive]
@@ -89,6 +75,7 @@ FactoryGirl.define do
     name { generate(:event_name) }
     start_date
     end_date
+    parent_id { active_sale.root.id }
 
     factory :active_sale_event_for_product, :traits => [:product_as_eventable]
     factory :inactive_sale_event, :traits => [:inactive]
@@ -100,78 +87,4 @@ FactoryGirl.define do
     # eventable_id product.id
     # eventable_type product.class.name
   end
-
-  # Active Sale Event Factory for a single Product
-  # factory :active_sale_event_for_product, :class => Spree::ActiveSaleEvent do |f|
-  #   active_sale_event
-  # end
-
-  # Active Sale Event Factory for Taxon(i.e. a group of products)
-  # factory :active_sale_event_for_taxon, :class => Spree::ActiveSaleEvent do |f|
-  #   active_sale = FactoryGirl.create(:active_sale)
-
-  #   taxon = FactoryGirl.create(:taxon)
-  #   1.upto(10).each do |i|
-  #     product = FactoryGirl.create(:product)
-  #     taxon.products << product unless taxon.products.include? product
-  #   end
-    
-  #   # attributes
-  #   name
-  #   is_active true
-  #   start_date 1.day.ago
-  #   end_date 6.days.from_now
-
-  #   # associations
-  #   active_sale_id active_sale.id
-  #   eventable_id taxon.id
-  #   eventable_type taxon.class.to_s
-  #   permalink "t/#{taxon.permalink}"
-  # end
-
-  # Default InActive Sale Event Factory
-  # factory :inactive_sale_event, :class => Spree::ActiveSaleEvent do |f|
-  #   active_sale = FactoryGirl.create(:active_sale)
-  #   product = FactoryGirl.create(:product)
-
-  #   # attributes
-  #   name
-  #   is_active false
-  #   start_date 1.day.ago
-  #   end_date 6.days.from_now
-
-  #   # associations
-  #   active_sale_id active_sale.id
-  #   eventable_id product.id
-  #   eventable_type product.class.to_s
-  #   permalink "products/#{product.permalink}"
-  # end
-
-  # InActive Sale Event Factory for a single Product
-  # factory :inactive_sale_event_for_product, :class => Spree::ActiveSaleEvent do |f|
-  #   inactive_sale_event
-  # end
-
-  # InActive Sale Event Factory for Taxon(i.e. a group of products)
-  # factory :inactive_sale_event_for_taxon, :class => Spree::ActiveSaleEvent do |f|
-  #   active_sale = FactoryGirl.create(:active_sale)
-
-  #   taxon = FactoryGirl.create(:taxon)
-  #   1.upto(10).each do |i|
-  #     product = FactoryGirl.create(:product)
-  #     taxon.products << product unless taxon.products.include? product
-  #   end
-    
-  #   # attributes
-  #   name
-  #   is_active false
-  #   start_date 1.day.ago
-  #   end_date 6.days.from_now
-
-  #   # associations
-  #   active_sale_id active_sale.id
-  #   eventable_id taxon.id
-  #   eventable_type taxon.class.to_s
-  #   permalink "t/#{taxon.permalink}"
-  # end
 end

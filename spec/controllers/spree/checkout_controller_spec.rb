@@ -2,9 +2,11 @@
 require 'spec_helper'
 
 describe Spree::CheckoutController do
-  stub_authorization!
   let(:products) { create_list(:product, 10) }
-  let(:order) { create(:order) }
+  let(:order) { FactoryGirl.create(:order_with_totals, :email => nil, :user => nil) }
+  let(:user) { mock_model Spree::User, :last_incomplete_spree_order => nil, :has_spree_role? => true, :spree_api_key => 'fake' }
+  let(:token) { 'some_token' }
+  
   let(:active_sale_event) { FactoryGirl.create(:active_sale_event) }
   let(:inactive_sale_event) { FactoryGirl.create(:inactive_sale_event) }
 
@@ -16,6 +18,8 @@ describe Spree::CheckoutController do
   end
 
   before do
+    controller.stub :current_order => order
+    order.stub :confirmation_required? => true
     @states = ['address', 'delivery', 'payment', 'confirm']
   end
 
