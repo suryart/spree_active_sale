@@ -18,8 +18,8 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
 * Demo application: [Spree Active Sale Demo](https://github.com/suryart/spree_active_sale_demo)
 * Dependency status: [![Dependency Status](https://gemnasium.com/suryart/spree_active_sale.png)](https://gemnasium.com/suryart/spree_active_sale)
 * Code Climate: [![Code Climate](https://codeclimate.com/github/suryart/spree_active_sale.png)](https://codeclimate.com/github/suryart/spree_active_sale)
-* Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=2-0-stable)](https://travis-ci.org/suryart/spree_active_sale)
-* Converage Status: [![Coverage Status](https://coveralls.io/repos/suryart/spree_active_sale/badge.png?branch=2-0-stable)](https://coveralls.io/r/suryart/spree_active_sale?branch=2-0-stable)
+* Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=master)](https://travis-ci.org/suryart/spree_active_sale)
+* Converage Status: [![Coverage Status](https://coveralls.io/repos/suryart/spree_active_sale/badge.png?branch=2-0-stable)](https://coveralls.io/r/suryart/spree_active_sale?branch=master)
 * Issues: [Project issues](https://github.com/suryart/spree_active_sale/issues)
 * Fork: [Fork this Project](https://github.com/suryart/spree_active_sale/fork_select)
 
