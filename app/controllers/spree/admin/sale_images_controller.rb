@@ -9,9 +9,8 @@ module Spree
       destroy.before :destroy_before
 
       private
-
         def location_after_save
-          edit_admin_active_sale_active_sale_event_url(@active_sale_event.active_sale, @active_sale_event)
+          edit_admin_active_sale_active_sale_event_url(@active_sale_event.active_sale, @active_sale_event, :parent_id => @active_sale_event.parent_id)
         end
 
         def load_data
