@@ -21,38 +21,21 @@ describe Spree::Admin::ActiveSaleEventsController do
       "name"=>"Dummy Event", 
       "description"=>"Dummy event description data", 
       "start_date"=> Time.zone.now.strftime("%Y/%m/%d %H:%M:%S %z"), 
-      "end_date"=> (Time.zone.now+2.months).strftime("%Y/%m/%d %H:%M:%S %z"), 
-      "eventable_type"=> product.class.to_s,
-      "eventable_name"=> product.name,
+      "end_date"=> 2.months.from_now.strftime("%Y/%m/%d %H:%M:%S %z"),
       "is_active"=>"1", 
       "is_hidden"=>"0", 
-      "is_permanent"=>"0",
-      "parent_id" => @active_sale.root.id.to_s
+      "is_permanent"=>"0"
     }
   end
 
   def valid_update_attributes
     valid_attr = valid_attributes
-    valid_attr["permalink"] = product.permalink
-    valid_attr["eventable_id"] = product.id
-    valid_attr["parent_id"] = @active_sale.root.id.to_s
-    valid_attr.delete("eventable_name")
+    # valid_attr["permalink"] = active_sale_event.permalink
     valid_attr
   end
 
   def active_sale_valid_attributes
-    {
-      "name"=>"Dummy Sale", 
-      "description"=>"Dummy event description data", 
-      "start_date"=> Time.zone.now.strftime("%Y/%m/%d %H:%M:%S %z"), 
-      "end_date"=> (Time.zone.now+2.months).strftime("%Y/%m/%d %H:%M:%S %z"), 
-      "permalink" => taxon.permalink,
-      "eventable_type"=> taxon.class.to_s,
-      "eventable_id" => taxon.id,
-      "is_active"=>"1", 
-      "is_hidden"=>"0", 
-      "is_permanent"=>"0"
-    }
+    { "name"=>"Dummy Sale" }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -106,12 +89,6 @@ describe Spree::Admin::ActiveSaleEventsController do
         assigns(:active_sale_event).should be_a(Spree::ActiveSaleEvent)
         assigns(:active_sale_event).should be_persisted
       end
-
-      it "redirects to the created active_sale_event" do
-        pending "have to fix parent_id concept"
-        # spree_post :create, {:active_sale_event => valid_attributes, :active_sale_id => @active_sale.id}, valid_session
-        # response.should redirect_to([:admin, @active_sale, Spree::ActiveSaleEvent])
-      end
     end
 
     describe "with invalid params" do
@@ -127,7 +104,7 @@ describe Spree::Admin::ActiveSaleEventsController do
         # Trigger the behavior that occurs when invalid params are submitted
         # Spree::ActiveSaleEvent.any_instance.stub(:save).and_return(false)
         active_sale_event = @active_sale.active_sale_events.build
-        spree_post :create, {:active_sale_event => {  }, :active_sale_id => @active_sale.id, :parent_id => @active_sale.root.id}, valid_session
+        spree_post :create, {:active_sale_event => {  }, :active_sale_id => @active_sale.id}, valid_session
         response.should render_template("new")
       end
     end
@@ -151,13 +128,6 @@ describe Spree::Admin::ActiveSaleEventsController do
         spree_put :update, {:id => active_sale_event.to_param, :active_sale_event => valid_attributes, :active_sale_id => @active_sale.id}, valid_session
         assigns(:active_sale_event).should eq(active_sale_event)
       end
-
-      it "redirects to the active_sale_event" do
-        pending "have to fix parent_id concept"
-        # active_sale_event = @active_sale.active_sale_events.create! valid_attributes
-        # spree_put :update, {:id => active_sale_event.to_param, :active_sale_event => valid_attributes, :active_sale_id => @active_sale.id}, valid_session
-        # response.should redirect_to([:admin, @active_sale, Spree::ActiveSaleEvent])
-      end
     end
 
     describe "with invalid params" do
@@ -173,7 +143,7 @@ describe Spree::Admin::ActiveSaleEventsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Spree::ActiveSaleEvent.any_instance.stub(:save).and_return(false)
         Spree::ActiveSaleEvent.any_instance.stub(:errors).and_return(['error'])
-        spree_put :update, {:id => active_sale_event.to_param, :active_sale_event => {  }, :active_sale_id => @active_sale.id, :parent_id => active_sale_event.parent_id}, valid_session
+        spree_put :update, {:id => active_sale_event.to_param, :active_sale_event => {  }, :active_sale_id => @active_sale.id}, valid_session
         response.should render_template("edit")
       end
     end

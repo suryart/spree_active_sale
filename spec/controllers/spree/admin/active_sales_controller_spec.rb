@@ -12,18 +12,7 @@ describe Spree::Admin::ActiveSalesController  do
   # Spree::ActiveSale. As you add validations to Spree::ActiveSale, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { 
-      "name" => "Dummy Sale",
-      "description"=>"Dummy event description data", 
-      "start_date"=> Time.zone.now.strftime("%Y/%m/%d %H:%M:%S %z"), 
-      "end_date"=> (Time.zone.now+2.months).strftime("%Y/%m/%d %H:%M:%S %z"), 
-      "permalink" => taxon.permalink,
-      "eventable_type"=> taxon.class.to_s,
-      "eventable_id" => taxon.id.to_s,
-      "is_active"=>"1", 
-      "is_hidden"=>"0", 
-      "is_permanent"=>"0"
-     }
+    { "name" => "Dummy Sale" }
   end
 
   # This should return the minimal set of values that should be in the session

@@ -2,41 +2,19 @@ class OldActiveSale < ActiveRecord::Base
   self.table_name = "spree_active_sales"
 end
 
-unless defined?(Spree::SaleEvent)
-  class Spree::SaleEvent < ActiveRecord::Base
-  end
-end
-
-class CreateSaleEvents < ActiveRecord::Migration
+class RevertActiveSaleSti < ActiveRecord::Migration
   def up
-    # New migration starts here:
-    rename_table :spree_active_sale_events, :spree_sale_events
-    add_column :spree_sale_events, :type, :string
-    add_column :spree_sale_events, :parent_id, :integer
-    add_column :spree_sale_events, :lft, :integer
-    add_column :spree_sale_events, :rgt, :integer
-    add_column :spree_sale_events, :position, :integer, :default => 0
-
-    # Required to have old data backed up!
-    # Saving data to new structure by running steps below:
-    if table_exists?(:spree_active_sales)
-      add_column :spree_active_sales, :type, :string, :default => "Spree::ActiveSale"
-      update_changes
-      drop_table :spree_active_sales
-    end
-
-    # Index for search
-    add_index :spree_sale_events, [:parent_id], :name => 'index_active_sale_on_parent_id'
-    add_index :spree_sale_events, [:active_sale_id], :name => 'index_active_sale_on_active_sale_id'
-    add_index :spree_sale_events, [:permalink], :name => 'index_active_sale_on_permalink'
-  end
-
-  def down
     # Required to get new data saved in old format!
     # Saving data to old structure by running steps below:
+    remove_index :spree_sale_events, :name => :index_active_sale_on_parent_id
+    remove_index :spree_sale_events, :name => :index_active_sale_on_active_sale_id
+    remove_index :spree_sale_events, :name => :index_active_sale_on_permalink
+
     unless table_exists?(:spree_active_sales)
       create_table :spree_active_sales do |t|
         t.string :name
+        t.integer :position
+        t.datetime :deleted_at, :default => nil
 
         t.timestamps
       end
@@ -45,12 +23,13 @@ class CreateSaleEvents < ActiveRecord::Migration
       remove_column :spree_active_sales, :type
     end
 
-    remove_column :spree_sale_events, :position
     remove_column :spree_sale_events, :rgt
     remove_column :spree_sale_events, :lft
     remove_column :spree_sale_events, :parent_id
     remove_column :spree_sale_events, :type
     rename_table :spree_sale_events, :spree_active_sale_events
+    add_column :spree_active_sale_events, :deleted_at, :datetime, :default => nil
+    add_column :spree_active_sale_events, :shipping_category_id, :integer
   end
 
   def update_changes
@@ -71,5 +50,27 @@ class CreateSaleEvents < ActiveRecord::Migration
       Spree::ActiveSaleEvent.where(:active_sale_id => as.id).update_all(:active_sale_id => sale.id)
     }
     Spree::SaleEvent.where(:active_sale_id => nil).destroy_all
+  end
+
+  def down
+    # New migration starts here:
+    rename_table :spree_active_sale_events, :spree_sale_events
+    add_column :spree_sale_events, :type, :string
+    add_column :spree_sale_events, :parent_id, :integer
+    add_column :spree_sale_events, :lft, :integer
+    add_column :spree_sale_events, :rgt, :integer
+
+    # Required to have old data backed up!
+    # Saving data to new structure by running steps below:
+    if table_exists?(:spree_active_sales)
+      add_column :spree_active_sales, :type, :string, :default => "Spree::ActiveSale"
+      update_changes
+      drop_table :spree_active_sales
+    end
+
+    # Index for search
+    add_index :spree_sale_events, [:parent_id], :name => 'index_active_sale_on_parent_id'
+    add_index :spree_sale_events, [:active_sale_id], :name => 'index_active_sale_on_active_sale_id'
+    add_index :spree_sale_events, [:permalink], :name => 'index_active_sale_on_permalink'
   end
 end

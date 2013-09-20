@@ -40,10 +40,6 @@ FactoryGirl.define do
     
     eventable = FactoryGirl.generate(:eventable_taxon)
     name { generate(:sale_name) }
-    start_date { generate(:start_date) }
-    end_date { generate(:end_date) }
-    eventable_id eventable.id
-    eventable_type eventable.class.name
 
     factory :inactive_sale, :traits => [:inactive]
 
@@ -69,13 +65,10 @@ FactoryGirl.define do
   factory :active_sale_event, :class => Spree::ActiveSaleEvent, :aliases => [:active_sale_event_for_taxon] do
     active_sale
 
-    eventable { generate(:eventable_taxon) }
-
     # attributes
     name { generate(:event_name) }
     start_date
     end_date
-    parent_id { active_sale.root.id }
 
     factory :active_sale_event_for_product, :traits => [:product_as_eventable]
     factory :inactive_sale_event, :traits => [:inactive]

@@ -1,0 +1,42 @@
+<div id="new_active_sale_product" data-hook></div>
+
+<% unless sale_products.any? %>
+  <div class="no-objects-found">
+    <%= t('spree.active_sale.event.no_product') %>
+  </div>
+<% else %>
+  <table class="index sortable" id="listing_active_sale_products" data-hook="active_sale_products_table" data-sortable-link="<%= update_positions_admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event) %>">
+    <colgroup>
+      <col style="width: 15%">
+      <col style="width: 70%">
+      <col style="width: 15%">
+      <col style="width: 25%">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_active_sale_products_index_headers">
+        <th colspan="2"><%= t('spree.active_sale.products.active_record.name') %></th>
+        <th><%= t('spree.active_sale.products.active_record.price') %></th>
+        <th data-hook="admin_active_sale_products_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sale_products.each do |sale_product| %>
+        <tr id="<%= spree_dom_id sale_product %>" data-hook="admin_active_sales_index_rows" class="<%= cycle('odd', 'even')%>">
+          <td class="no-border">
+            <span class="handle"></span>
+          </td>
+          <td class='active_sale_name'><%= link_to sale_product.product_name, edit_product_url(sale_product.product) %></td>
+          <td class='active_sale_start_date'><%= sale_product.product.price %></td>
+
+          <td class="actions" data-hook="admin_active_sale_products_index_row_actions">
+            <p class="actions" data-hook="actions">
+              <%= link_to_edit_url edit_admin_product_url(sale_product.product), :no_text => true %>
+              &nbsp;
+              <%= link_to_delete sale_product, { :url => [:admin, @active_sale, @active_sale_event, sale_product], :no_text => true, :name => t('spree.active_sale.event.sale_product.link.remove') } %>
+            </p>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

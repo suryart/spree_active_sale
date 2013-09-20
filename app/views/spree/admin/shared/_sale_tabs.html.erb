@@ -1,0 +1,20 @@
+<% content_for :sidebar_title do %>
+  <span class="name"><%= @active_sale_event.name %></span>
+<% end %>
+
+<% content_for :sidebar do %>
+  <nav class="menu">
+    <ul data-hook="admin_sale_tabs">
+      <li<%== ' class="active"' if current == 'Sale Event Details' %>>
+        <%= link_to_with_icon 'icon-edit', t('spree.active_sale.event.details'), edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event) %>
+      </li>
+      <li<%== ' class="active"' if current == 'Sale Event Images' %>>
+        <%= link_to_with_icon 'icon-picture', t(:images), admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event) %>
+      </li>
+      <li<%== ' class="active"' if current == 'Sale Event Products' %>>
+        <%= link_to_with_icon 'icon-tasks', t('spree.active_sale.event.sale_products'), admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event) %>
+      </li>
+    </ul>
+  </nav>
+
+<% end %>

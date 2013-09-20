@@ -1,7 +1,6 @@
 Spree::Product.class_eval do
-  include Spree::ActiveSalesHelper
-
-  has_many :active_sale_events, :as => :eventable
+  has_many :sale_products
+  has_many :active_sale_events, :through => :sale_products
 
   # Find live and active taxons for a product.
   def find_live_taxons

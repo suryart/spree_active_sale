@@ -6,7 +6,12 @@ module Spree
     attr_accessible :alt, :attachment, :position, :viewable_type, :viewable_id
 
     has_attached_file :attachment,
-                      :styles => { :mini => '48x48>', :small => '100x100>', :sale => '240x240>', :large => '600x600>' },
+                      :styles => { 
+                                    :mini => '48x48>', 
+                                    :small => '100x100>', 
+                                    :sale => '240x240>', 
+                                    :large => '600x600>' 
+                                  },
                       :default_style => :sale,
                       :url => '/spree/sales/:id/:style/:basename.:extension',
                       :path => ':rails_root/public/spree/sales/:id/:style/:basename.:extension',
@@ -17,12 +22,6 @@ module Spree
 
     include Spree::Core::S3Support
     supports_s3 :attachment
-
-    Spree::Image.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:attachment_styles])
-    Spree::Image.attachment_definitions[:attachment][:path] = Spree::Config[:attachment_path]
-    Spree::Image.attachment_definitions[:attachment][:url] = Spree::Config[:attachment_url]
-    Spree::Image.attachment_definitions[:attachment][:default_url] = Spree::Config[:attachment_default_url]
-    Spree::Image.attachment_definitions[:attachment][:default_style] = Spree::Config[:attachment_default_style]
 
     #used by admin sales autocomplete
     def mini_url
@@ -46,10 +45,6 @@ module Spree
         errors.add :attachment, "Paperclip returned errors for file '#{attachment_file_name}' - check ImageMagick installation or image source file."
         false
       end
-    end
-
-    def viewable_type=(event_type)
-      super event_type.to_s.classify.constantize.base_class.to_s
     end
   end
 end

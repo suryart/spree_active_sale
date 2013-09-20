@@ -1,7 +1,6 @@
 Spree::Taxon.class_eval do
-  include Spree::ActiveSalesHelper
-  
-  has_many :active_sale_events, :as => :eventable
+  has_many :sale_taxons
+  has_many :active_sale_events, :through => :sale_taxons
 
   # taxon.live_active_sale_event gets first active sale event which is live and active
   def live_active_sale_event

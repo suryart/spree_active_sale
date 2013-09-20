@@ -26,6 +26,7 @@
     :searching           => I18n.t(:searching),
     :sku                 => I18n.t(:sku),
     :type_to_search      => I18n.t(:type_to_search),
+    :product_placeholder => I18n.t('spree.active_sale.product_placeholder'),
     :taxon_placeholder   => I18n.t(:taxon_placeholder),
     :value               => I18n.t(:value)
   }.to_json
@@ -54,4 +55,10 @@
                               :default => 'Close')
   }.to_json
 %>
+</script>
+
+<script>
+  Spree.active_sale_routes = <%==
+    { :product_search => search_admin_active_sales_url(:format => :json) }.to_json
+  %>
 </script>

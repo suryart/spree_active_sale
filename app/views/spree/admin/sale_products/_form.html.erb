@@ -1,0 +1,39 @@
+<% @sale_product ||= Spree::SaleProduct.new %>
+
+<%= form_for @sale_product, :url => admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event.id, @sale_product), :html => { :multipart => true } do |f| %>
+  <fieldset data-hook="new_sale_product">
+    <legend align="center"><%= t('spree.active_sale.new_sale_product') %></legend>
+      <%= f.hidden_field :active_sale_event_id, :value => @active_sale_event.id %>
+      <%= f.field_container :product_id do %>
+        <%= f.label :product_name, t('spree.active_sale.event.active_record.product_name', :default => :product_name) %>
+        <p class='hint'><%= t('spree.active_sale.event.product_name_hint') %></p>
+        <%= f.text_field :product_id, :class => 'autocomplete fullwidth', :data => { :auto_complete_url => search_admin_active_sales_url } %>
+        <%= f.error_message_on :product_id %>
+      <% end %>
+
+      <div class="form-buttons filter-actions actions" data-hook="buttons">
+        <%= button t(:add), 'icon-ok' %>
+        <span class="or"><%= t(:or) %></span>
+        <%= link_to_with_icon 'icon-remove', t(:cancel), admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
+      </div>
+  </fieldset>
+<% end %>
+
+<% content_for :head do %>
+  
+<% end %>
+
+<%= javascript_tag do -%>
+  $("#admin_active_sale_event input.autocomplete").live("keydown", function(){
+    var eventable_type = $('#active_sale_event_eventable_type :selected').val();
+    var eventable_name = $('#active_sale_event_eventable_name').val();
+    var url = $(this).data('auto-complete-url')
+    already_auto_completed = $(this).is('ac_input');
+    if (!already_auto_completed) {
+      $(this).autocomplete({
+        source: url+"?eventable_type="+eventable_type+"&name="+eventable_name
+      });
+      $(this).focus();
+    }
+  });
+<% end -%>

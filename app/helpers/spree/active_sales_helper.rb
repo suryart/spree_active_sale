@@ -3,7 +3,7 @@ module Spree
     # Getter to load all_sale_events
     # Get the helper and load from cache when possible
     def all_sale_events
-      @all_sale_events ||= Spree::SaleEvent.live_active
+      @all_sale_events ||= Spree::ActiveSaleEvent.live_active_and_hidden(:hidden => false)
     end
 
     # Setter to set all_sale_events.
@@ -15,7 +15,8 @@ module Spree
 
     # Get the helper and load from cache when possible
     def all_active_sale_events
-      all_sale_events.select{ |e| e.type == "Spree::ActiveSaleEvent" && e.parent_id != nil }
+      all_sale_events
+      # all_sale_events.select{ |e| e.class.name == "Spree::ActiveSaleEvent" && e.parent_id != nil }
     end
 
     # find sale event for the product or a taxon
