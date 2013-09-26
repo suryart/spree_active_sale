@@ -91,7 +91,7 @@
             <%= form.label :discount, t('spree.active_sale.event.active_record.discount', :default => :discount) %>
             <p class='hint'><%= t('spree.active_sale.event.discount_hint') %></p>
             <%= form.error_message_on :discount %>
-            <%= form.text_field :discount, :size => 2, :maxlength => 2 %>
+            <%= form.text_field :discount %>
           <% end %>
           </div>
         </div>
