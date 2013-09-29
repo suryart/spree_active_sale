@@ -16,7 +16,7 @@ describe Spree::ProductsController do
     context "when sale event is live and active" do
       it "then product view page should be accessible" do
         event = active_sale_event
-        product = event.eventable
+        product = event.products.first
         event.live_and_active?.should be_true
         product.live?.should be_true
         spree_get :show, :id => product.to_param
@@ -28,7 +28,7 @@ describe Spree::ProductsController do
     context "when sale event is not live and inactive" do
       it "then product view page should not be accessible" do
         event = inactive_sale_event
-        product = event.eventable
+        product = event.products.first
         event.live_and_active?.should be_false
         product.live?.should be_false
         spree_get :show, :id => product.to_param

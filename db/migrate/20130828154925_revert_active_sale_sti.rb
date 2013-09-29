@@ -13,6 +13,7 @@ class RevertActiveSaleSti < ActiveRecord::Migration
     unless table_exists?(:spree_active_sales)
       create_table :spree_active_sales do |t|
         t.string :name
+        t.string :permalink
         t.integer :position
         t.datetime :deleted_at, :default => nil
 
@@ -28,6 +29,7 @@ class RevertActiveSaleSti < ActiveRecord::Migration
     remove_column :spree_sale_events, :parent_id
     remove_column :spree_sale_events, :type
     rename_table :spree_sale_events, :spree_active_sale_events
+    remove_column :spree_active_sale_events, :permalink
     add_column :spree_active_sale_events, :deleted_at, :datetime, :default => nil
     add_column :spree_active_sale_events, :shipping_category_id, :integer
   end

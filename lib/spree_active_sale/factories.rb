@@ -1,8 +1,9 @@
 # coding: UTF-8
-require 'spree/core/testing_support/factories'
-
+# Example adding this to your spec_helper will load these Factories for use:
+# require 'spree_active_sale/factories'
 FactoryGirl.define do
   sequence(:sale_name) { |n| "Active Sale - #{n}" }
+  
   sequence(:event_name) { |n| "Active Sale Event - #{n}" }
   sequence(:start_date) { |n| n.day.ago }
   sequence(:end_date) { |n| n < 1 ? 1.day.from_now : n.days.from_now }

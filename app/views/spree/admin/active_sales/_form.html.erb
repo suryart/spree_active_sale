@@ -5,12 +5,24 @@
 <%= form_for [:admin, @active_sale] do |f| %>
 
   <fieldset data-hook="new_active_sale" class="no-border-top">
+    <div class="seven columns">
+      <%= f.field_container :name do %>
+        <%= f.label :name, t(:name) %> <span class="required">*</span><br />
+        <%= f.text_field :name, :class => 'fullwidth title' %>
+        <%= f.error_message_on :name %>
+      <% end %>
+    </div>
 
-    <%= f.field_container :name do %>
-      <%= f.label :name, t(:name) %> <span class="required">*</span><br />
-      <%= f.text_field :name, :class => 'fullwidth title' %>
-      <%= f.error_message_on :name %>
-    <% end %>
+    <div class="eight columns">
+      <% unless @active_sale.new_record? %>
+        <%= f.field_container :permalink do %>
+          <%= f.label :permalink, raw(t(:permalink)) %> <span class="required">*</span><br />
+          <%= f.text_field :permalink, :class => 'fullwidth title' %>
+          <%= f.error_message_on :permalink %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
 
     <p class="form-buttons" data-hook="admin_active_sale_form_buttons">
       <% if @active_sale.new_record? %>
@@ -25,7 +37,7 @@
 
 <% unless @active_sale.new_record? %>
   <% if @active_sale.active_sale_events.blank? %>
-    <% @active_sale_event = @active_sale.active_sale_events.build %>
+    <% @active_sale_event = @active_sale.active_sale_events.build(:name => @active_sale.name) %>
     <h4><%= t('spree.active_sale.event.create_if_no_record') %></h4>
     <%= render :partial => "spree/admin/active_sale_events/form", :locals => { :events => @active_sale_event } %>
   <% else %>

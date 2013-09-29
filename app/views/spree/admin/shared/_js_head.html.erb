@@ -1,8 +1,0 @@
-<% content_for :head do %>
-  <%= javascript_tag "var active_sale_id = #{@active_sale.id};
-    var loading = '#{escape_javascript t(:loading)}';
-    var new_active_sale_event = '#{escape_javascript t(:new_active_sale_event)}';
-    var server_error = '#{escape_javascript t(:server_error)}';
-    var active_sale_tree_error = '#{escape_javascript t(:active_sale_tree_error)}';"
-  %>
-<% end %>

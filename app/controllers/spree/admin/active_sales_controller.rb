@@ -14,7 +14,7 @@ module Spree
       end
 
       def destroy
-        @active_sale = Spree::ActiveSale.find(params[:id])
+        @active_sale = Spree::ActiveSale.find_by_permalink!(params[:id])
         @active_sale.delete
 
         flash.notice = I18n.t('spree.active_sale.notice_messages.deleted')
@@ -26,14 +26,19 @@ module Spree
       end
 
       def search
-        unless params[:q].blank?
-          @products = Spree::Product.limit(20).search(:name_cont => params[:q]).result
-        else
-          render :json => []
-        end
+        params[:q].blank? ? [] : @products = Spree::Product.limit(20).search(:name_cont => params[:q]).result
       end
 
+      private
+        def location_after_save
+          edit_admin_active_sale_url(@active_sale)
+        end
+
       protected
+
+        def find_resource
+          Spree::ActiveSale.find_by_permalink!(params[:id])
+        end
 
         def load_data
           @taxons = Taxon.order(:name)
@@ -44,7 +49,7 @@ module Spree
           return @collection if @collection.present?
           params[:q] ||= {}
           params[:q][:deleted_at_null] ||= "1"
-
+          
           params[:q][:s] ||= "name asc"
 
           @search = super.ransack(params[:q])

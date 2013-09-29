@@ -1,29 +1,23 @@
-# EVENTS
-# Events represent an entity for active sale in a flash sale/ daily deal.
-# There can be many events for one sale.
+# ActiveSaleEvent
+# Events represent an entity/ schedule for active sale in a flash sale/ daily deal.
+# There can be many events/ schedules for one sale.
 #
 module Spree
   class ActiveSaleEvent < ActiveRecord::Base
-    # before_validation :update_permalink
-
     has_many :sale_images, :as => :viewable, :dependent => :destroy, :order => 'position ASC'
     has_many :sale_products, :dependent => :destroy, :order => "#{Spree::SaleProduct.table_name}.position ASC"
     has_many :products, :through => :sale_products, :order => "#{Spree::SaleProduct.table_name}.position ASC"
     has_many :sale_taxons, :dependent => :destroy, :order => "#{Spree::SaleTaxon.table_name}.position ASC"
     has_many :taxons, :through => :sale_taxons, :order => "#{Spree::SaleTaxon.table_name}.position ASC"
 
-    # belongs_to :eventable, :polymorphic => true
     belongs_to :active_sale
 
-    attr_accessible :description, :end_date, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date, :discount, :taxon_ids, :shipping_category_id, :single_product_sale
+    attr_accessible :description, :end_date, :is_active, :is_hidden, :is_permanent, :name, :active_sale_id, :start_date, :discount, :taxon_ids, :shipping_category_id, :single_product_sale
 
-    validates :name, :permalink, :start_date, :end_date, :active_sale_id, :presence => true
+    validates :name, :start_date, :end_date, :active_sale_id, :presence => true
 
-    # validate if there is no other sale with permalink is currently live and active
-    validates :permalink, :uniqueness => { :message => I18n.t('spree.active_sale.event.validation.errors.live_event') }, :if => :live?
     validate  :validate_start_and_end_date
-
-    make_permalink :order => :name
+    validate  :validate_with_live_event
 
     class << self
       # Spree::ActiveSaleEvent.is_live? method 
@@ -50,8 +44,15 @@ module Spree
         end
     end
 
-    def to_param
-      permalink.present? ? permalink : (permalink_was || name.to_s.to_url)
+    # override the delete method to set deleted_at value
+    # instead of actually deleting the event.
+    def delete
+      self.update_column(:deleted_at, object_zone_time)
+    end
+
+    # return product's or sale's with prefix permalink
+    def permalink
+      self.single_product_sale? ? "/products/#{products.first.try(:permalink)}" : "/sales/#{active_sale.to_param}"
     end
 
     def live?(moment=object_zone_time)
@@ -70,19 +71,6 @@ module Spree
       self.live?(moment) && self.is_active?
     end
 
-    def update_permalink
-      prefix = {"Spree::Taxon" => "t", "Spree::Product" => "products"}
-      self.permalink = [prefix[self.eventable_type], self.eventable.permalink].join("/") unless self.eventable.nil?
-    end
-
-    def eventable_name
-      eventable.try(:name)
-    end
-
-    def eventable_name=(name)
-      self.eventable = self.eventable_type.constantize.find_by_name(name) if name.present?
-    end
-
     def start_and_dates_available?
       self.start_date && self.end_date
     end
@@ -91,14 +79,16 @@ module Spree
       self.start_and_dates_available? && (self.start_date >= self.end_date)
     end
 
-    def eventable_image_available?
-      !!eventable.try(:image_available?)
-    end
-
     private
 
+      # check if there is start and end dates are correct
       def validate_start_and_end_date
         errors.add(:start_date, I18n.t('spree.active_sale.event.validation.errors.invalid_dates')) if invalid_dates?
+      end
+
+      # check if there is no another event is currently live and active
+      def validate_with_live_event
+        errors.add(:another_event, I18n.t('spree.active_sale.event.validation.errors.live_event')) if live?
       end
 
       def object_zone_time

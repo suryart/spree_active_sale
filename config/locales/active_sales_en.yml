@@ -6,6 +6,7 @@ en:
     active_sale:
       active_record:
         name: "Sale name"
+        permalink: "Sale permalink"
       event:
         active_sale_tree_hint: "Right click on any row in the tree to access the menu for adding, deleting or sorting products in a sale. Drag and drop to change their positions."
         active_record:
@@ -68,6 +69,7 @@ en:
           edit: "Edit event"
           list: "Listing events"
         sale_product:
+          attributes_missing: "You need to find and select a product first, product can't be blank."
           link:
             remove: "Remove"
         sale_products: "Sale product(s)"
@@ -79,6 +81,7 @@ en:
             live_event: "already running and live."
         parent_id_cant_be_nil: "Parent can not be null"
         single_product_sale_message: "This event has single product sale enabled. You can not add more than one product to this event. You need to remove the existing product to add another product."
+      create_if_no_record: "You don't have any sales, let's create one?"
       events_not_found: "There are no sales available at this moment. Try later?"
       new_image: "New image"
       new_sale_product: "New sale product"
@@ -90,6 +93,7 @@ en:
         created: "Active sale was successfully created."
         updated: "Active sale was successfully updated."
         deleted: "Active sale has been deleted."
+        event_deleted: "Active sale event/ schedule deleted."
       title:
         new: "New active sale"
         edit: "Edit active sale"

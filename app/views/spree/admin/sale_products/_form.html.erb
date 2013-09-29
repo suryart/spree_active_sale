@@ -18,22 +18,3 @@
       </div>
   </fieldset>
 <% end %>
-
-<% content_for :head do %>
-  
-<% end %>
-
-<%= javascript_tag do -%>
-  $("#admin_active_sale_event input.autocomplete").live("keydown", function(){
-    var eventable_type = $('#active_sale_event_eventable_type :selected').val();
-    var eventable_name = $('#active_sale_event_eventable_name').val();
-    var url = $(this).data('auto-complete-url')
-    already_auto_completed = $(this).is('ac_input');
-    if (!already_auto_completed) {
-      $(this).autocomplete({
-        source: url+"?eventable_type="+eventable_type+"&name="+eventable_name
-      });
-      $(this).focus();
-    }
-  });
-<% end -%>

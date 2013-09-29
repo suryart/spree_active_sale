@@ -7,20 +7,17 @@ Spree::Core::Engine.routes.draw do
         post :update_positions
       end
       resources :active_sale_events, :path => :events do
-        member do
-          put :update_events
-        end
+        put :update_events, :on => :member
         resources :sale_images, :path => :images do
-          collection do
-            post :update_positions
-          end
+          post :update_positions, :on => :collection
         end
         resources :sale_products, :path => :products, :only => [:index, :create, :destroy] do
-          collection do
-            post :update_positions
-          end
+          post :update_positions, :on => :collection
         end
       end
     end
   end
+
+  resources :active_sales, :path => :sales, :only => [:index, :show]
+  get '/sales/t/*id', :to => 'taxon#show', :as => :sales_by_taxon
 end

@@ -10,5 +10,7 @@ module Spree
     preference :active_sales_per_page, :integer, :default => 25
     preference :admin_active_sale_events_per_page, :integer, :default => 25
     preference :active_sale_events_per_page, :integer, :default => 25
+    preference :admin_active_sale_event_products_per_page, :integer, :default => 25
+    preference :active_sale_event_products_per_page, :integer, :default => 25
   end
 end

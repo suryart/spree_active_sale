@@ -8,6 +8,7 @@ module Spree
     delegate :sale_name, :to => :active_sale_event
 
     validates :active_sale_event_id, :product_id, :presence => true
+    validates :product_id, :uniqueness => :active_sale_event_id
 
     def product_name
       product.try(:name)

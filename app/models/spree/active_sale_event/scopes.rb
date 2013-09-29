@@ -133,15 +133,16 @@ module Spree
     end
 
     add_search_scope :live do |*args|
-      where("(#{quoted_table_name}.start_date <= :start_date AND #{quoted_table_name}.end_date >= :end_date) OR #{quoted_table_name}.is_permanent = :is_permanent", { :start_date => zone_time, :end_date => zone_time, :is_permanent => true })
+      not_deleted.
+      where("((#{quoted_table_name}.start_date <= :start_date AND #{quoted_table_name}.end_date >= :end_date) OR #{quoted_table_name}.is_permanent = :is_permanent)", { :start_date => zone_time, :end_date => zone_time, :is_permanent => true })
     end
 
     add_search_scope :active do |*args|
-      where(:is_active => valid_argument(args))
+      not_deleted.where(:is_active => valid_argument(args))
     end
 
     add_search_scope :hidden do |*args|
-      where(:is_hidden => valid_argument(args))
+      not_deleted.where(:is_hidden => valid_argument(args))
     end
 
     add_search_scope :live_active do |*args|
