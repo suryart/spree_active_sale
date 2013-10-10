@@ -22,6 +22,11 @@ module Spree
         respond_with(@active_sale_event)
       end
 
+      private
+        def location_after_save
+          edit_admin_active_sale_active_sale_event_url(@active_sale_event.active_sale, @active_sale_event, :parent_id => @active_sale_event.parent_id)
+        end
+
       protected
 
         def collection
