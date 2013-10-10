@@ -2,10 +2,6 @@ module Spree
   ProductsController.class_eval do
     HTTP_REFERER_REGEXP = /^https?:\/\/[^\/]+\/t\/([a-z0-9\-\/]+)$/ unless defined? HTTP_REFERER_REGEXP
 
-    def index
-      redirect_to root_url, :error => t('spree.active_sale.event.flash.error')
-    end
-
     def show
       @product = Spree::Product.active.find_by_permalink!(params[:id])
       return unless @product

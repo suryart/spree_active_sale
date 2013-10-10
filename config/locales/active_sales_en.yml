@@ -69,6 +69,7 @@ en:
           edit: "Edit event"
           list: "Listing events"
         sale_product:
+          already_exists: "The product has already been added to event"
           attributes_missing: "You need to find and select a product first, product can't be blank."
           link:
             remove: "Remove"

@@ -9,6 +9,8 @@ module Spree
     has_many :products, :through => :sale_products, :order => "#{Spree::SaleProduct.table_name}.position ASC"
     has_many :sale_taxons, :dependent => :destroy, :order => "#{Spree::SaleTaxon.table_name}.position ASC"
     has_many :taxons, :through => :sale_taxons, :order => "#{Spree::SaleTaxon.table_name}.position ASC"
+    has_many :sale_properties, :dependent => :destroy
+    has_many :properties, :through => :sale_properties
 
     belongs_to :active_sale
 
@@ -52,7 +54,11 @@ module Spree
 
     # return product's or sale's with prefix permalink
     def permalink
-      self.single_product_sale? ? "/products/#{products.first.try(:permalink)}" : "/sales/#{active_sale.to_param}"
+      self.single_product_sale? && product.present? ? product : active_sale
+    end
+
+    def product
+      products.first
     end
 
     def live?(moment=object_zone_time)
@@ -88,7 +94,9 @@ module Spree
 
       # check if there is no another event is currently live and active
       def validate_with_live_event
-        errors.add(:another_event, I18n.t('spree.active_sale.event.validation.errors.live_event')) if live?
+        if !active_sale.active_sale_events.where('id != :id', {:id => self.id}).select{ |ase| ase.live? }.blank? && self.live?
+          errors.add(:another_event, I18n.t('spree.active_sale.event.validation.errors.live_event'))
+        end
       end
 
       def object_zone_time

@@ -1,7 +1,7 @@
 Spree::Core::Engine.routes.draw do
   # Add this extension's routes here
   namespace :admin do
-    resources :active_sales do
+    resources :active_sales, :path => :sales do
       collection do
         get  :search
         post :update_positions
@@ -19,5 +19,6 @@ Spree::Core::Engine.routes.draw do
   end
 
   resources :active_sales, :path => :sales, :only => [:index, :show]
-  get '/sales/t/*id', :to => 'taxon#show', :as => :sales_by_taxon
+  get '/:view_type/t/*id', :to => 'taxons#show', :as => :nested_taxons
+  get '/sales/t/*id', :to => 'taxons#show', :as => :sales_by_taxon
 end

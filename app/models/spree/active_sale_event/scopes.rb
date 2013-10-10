@@ -11,6 +11,10 @@ module Spree
 
     def self.simple_scopes
       [
+        :ascend_by_start_date,
+        :descend_by_start_date,
+        :ascend_by_end_date,
+        :descend_by_end_date,
         :ascend_by_updated_at,
         :descend_by_updated_at,
         :ascend_by_name,
@@ -28,14 +32,6 @@ module Spree
 
     add_simple_scopes simple_scopes
 
-    add_search_scope :ascend_by_start_date do
-      order("#{quoted_table_name}.amount ASC")
-    end
-
-    add_search_scope :descend_by_start_date do
-      order("#{quoted_table_name}.amount DESC")
-    end
-
     add_search_scope :start_date_between do |from, to|
       where(ActiveSaleEvent.table_name => { :start_date => from..to })
     end
@@ -44,6 +40,25 @@ module Spree
       where(ActiveSaleEvent.table_name => { :end_date => from..to })
     end
 
+    add_search_scope :active_products do
+      Spree::Product.active.includes(:master => :images).
+      joins([:active_sale_events => :sale_products]).
+      merge(Spree::ActiveSaleEvent.available).
+      order("spree_sale_products.position ASC")
+    end
+
+    add_search_scope :active_products_in_sale_taxon do |taxon|
+      Spree::Product.active.includes(:master => :images).
+      joins([:active_sale_events => :sale_products]).
+      merge(Spree::ActiveSaleEvent.available.in_sale_taxon(taxon)).
+      order("spree_sale_products.position ASC")
+    end
+
+    add_search_scope :active_taxons do
+      Spree::Taxon.
+      joins([:active_sale_events]).
+      merge(Spree::ActiveSaleEvent.available).uniq
+    end
     # This scope selects sales in taxon AND all its descendants
     # If you need sales only within one taxon use
     #
@@ -72,10 +87,15 @@ module Spree
       where(Taxon.table_name => { :id => taxon.self_and_descendants.map(&:id) })
     end
 
+    add_search_scope :in_sale_taxon do |taxon|
+      joins([:active_sale_events => :taxons]).
+      where(Taxon.table_name => { :id => taxon.self_and_descendants.map(&:id) })
+    end
+
     # This scope selects sales in all taxons AND all its descendants
     # If you need sales only within one taxon use
     #
-    #   Spree::Product.taxons_id_eq([x,y])
+    # Spree::ActiveSaleEvent.taxons_id_eq([x,y])
     add_search_scope :in_taxons do |*taxons|
       taxons = get_taxons(taxons)
       taxons.first ? prepare_taxon_conditions(taxons) : scoped
@@ -132,26 +152,33 @@ module Spree
       where("#{quoted_table_name}.deleted_at IS NULL or #{quoted_table_name}.deleted_at >= ?", zone_time)
     end
 
+    # This method can acts as a time machine for sales
+    # For example: All sales started 10 days ago and will end after 5 days -
+    # Spree::ActiveSaleEvent.live(:start_date => 10.days.ago, :end_date => 5.days.from_now)
     add_search_scope :live do |*args|
-      not_deleted.
-      where("((#{quoted_table_name}.start_date <= :start_date AND #{quoted_table_name}.end_date >= :end_date) OR #{quoted_table_name}.is_permanent = :is_permanent)", { :start_date => zone_time, :end_date => zone_time, :is_permanent => true })
+      arg = args.try(:first).try(:present?) ? args.first : {}
+      start_date, end_date = arg[:start_date], arg[:end_date]
+      start_date = start_date.kind_of?(ActiveSupport::TimeWithZone) ? start_date : zone_time
+      end_date = end_date.kind_of?(ActiveSupport::TimeWithZone) ? end_date : zone_time
+      where("((#{quoted_table_name}.start_date <= :start_date AND #{quoted_table_name}.end_date >= :end_date) OR #{quoted_table_name}.is_permanent = :is_permanent)", { :start_date => start_date, :end_date => end_date, :is_permanent => true })
     end
 
     add_search_scope :active do |*args|
-      not_deleted.where(:is_active => valid_argument(args))
+      where(:is_active => valid_argument(args))
     end
 
     add_search_scope :hidden do |*args|
-      not_deleted.where(:is_hidden => valid_argument(args))
+      where(:is_hidden => valid_argument(args))
     end
 
     add_search_scope :live_active do |*args|
-      live.active(valid_argument(args))
+      args = prepare_argument(args)
+      live(args.first).active(valid_argument([args.first[:active]]))
     end
 
     add_search_scope :live_active_and_hidden do |*args|
-      args = [{}] if [nil, true, false].include? args.first
-      live(valid_argument([args.first[:live]])).active(valid_argument([args.first[:active]])).hidden(valid_argument([args.first[:hidden]]))
+      args = prepare_argument(args)
+      live_active(args).hidden(valid_argument([args.first[:hidden]]))
     end
 
     add_search_scope :upcoming_events do |*args|
@@ -170,8 +197,13 @@ module Spree
        where(:end_date => zone_day_duration)
     end
 
-    add_search_scope :available do
-      live_active.not_deleted
+    add_search_scope :available do |*args|
+      args = prepare_argument(args)
+      scope = not_deleted.live_active(args)
+      unless args.first[:hidden].blank?
+        scope = scope.hidden(args.first[:hidden])
+      end
+      scope
     end
 
     add_search_scope :taxons_name_eq do |name|
@@ -194,6 +226,11 @@ module Spree
 
         def valid_argument args
           (args.first == nil || args.first == true)
+        end
+
+        def prepare_argument args
+          arg = args.try(:first)
+          [nil, true, false].include?(arg) || arg.try(:blank?) ? [{}] : args.flatten
         end
 
         def zone_time
