@@ -6,10 +6,10 @@
 <% if sale_events.empty? %>
   <%= t('spree.active_sale.events_not_found') %>
 <% else %>
-  <ul id="sale_events" class="inline product-listing" data-hook>
+  <ul id="products" class="inline product-listing" data-hook>
     <% sale_events.each do |sale_event| %>
       <li id="active_sale_<%= sale_event.id %>" class="columns three <%= cycle("alpha", "secondary", "", "omega secondary", :name => "classes") %>" data-hook="active_sales_list_item" itemscope itemtype="http://schema.org/Offer">
-        <div class="sale_event-image">
+        <div class="product-image">
           <%= link_to small_event_image(sale_event, :itemprop => "image"), sale_event.permalink, :itemprop => 'url' %>
         </div>
         <%= link_to truncate(sale_event.name, :length => 50), sale_event.permalink, :class => 'info', :itemprop => "name", :title => sale_event.name %>
