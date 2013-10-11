@@ -1,29 +1,18 @@
 Spree::Product.class_eval do
-  include Spree::ActiveSalesHelper
+  has_many :sale_products
+  has_many :active_sale_events, :through => :sale_products
 
-  has_many :active_sale_events, :as => :eventable
+  delegate :available, :to => :active_sale_events, :prefix => true
+  delegate :live_active, :to => :active_sale_events, :prefix => true
+  delegate :live_active_and_hidden, :to => :active_sale_events, :prefix => true
 
   # Find live and active taxons for a product.
   def find_live_taxons
-    all_sale_events.select{ |sale_event| (sale_event.eventable_type == "Spree::Taxon") && (self.taxons.map(&:id).include?(sale_event.eventable_id)) }
-  end
-
-  # product.live_active_sale_event gets first active sale event which is live and active
-  def live_active_sale_event
-    get_sale_event(self)
+    Spree::Taxon.joins([:active_sale_events, :products]).where({ :spree_products => {:id => self.id} }).merge(Spree::ActiveSaleEvent.available)
   end
 
   # if there is at least one active sale event which is live and active.
   def live?
-    !self.live_active_sale_event.nil? || !self.find_live_taxons.blank?
-  end
-
-  # Check if image is available for this.
-  def image_available?
-    !images.blank?
-  end
-
-  def image
-    images.first
+    !self.active_sale_events_available.blank? || !self.find_live_taxons.blank?
   end
 end

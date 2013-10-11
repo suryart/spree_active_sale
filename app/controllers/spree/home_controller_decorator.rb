@@ -1,10 +1,12 @@
 module Spree
   HomeController.class_eval do
-    include Spree::ActiveSalesHelper
 
-    # List live and active sales on home page
+    # List live, not hidden and active sales on home page
     def index
-      @sale_events = all_active_sale_events
+      @searcher = Spree::Config.searcher_class.new(params)
+      @searcher.current_user = try_spree_current_user
+      @searcher.current_currency = current_currency
+      @sale_events = @searcher.retrieve_sales
       respond_with(@sale_events)
     end
   end

@@ -92,20 +92,19 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     # Create an ActiveSale
     active_sale = Spree::ActiveSale.create(:name => "January 2013 sales")
 
-    # Output => => #<Spree::ActiveSale id: 42, name: "January 2013 sales", description: nil, 
-    # permalink: nil, start_date: nil, end_date: nil, is_active: true, is_hidden: false, 
-    # is_permanent: false, eventable_id: nil, eventable_type: nil, active_sale_id: nil, 
-    # created_at: "2013-04-16 07:26:45", updated_at: "2013-04-16 07:26:45", 
-    # type: "Spree::ActiveSale", parent_id: nil, lft: 5, rgt: 6, position: nil, discount: nil>
-
+    # Output => => #<Spree::ActiveSale id: 1, name: "January 2013 sales",
+    # created_at: "2013-04-16 07:26:45", updated_at: "2013-04-16 07:26:45">
 
     # Then create an Event under this sale by:
-    event = taxon.active_sale_events.create(:name => "January 2013 sales", 
-        :active_sale_id => active_sale.id, :start_date => Time.now, 
-        :end_date => Time.now+1.day, :permalink => taxon.permalink)
+    event = active_sale.active_sale_events.create(:name => "January 2013 sales", 
+        :start_date => Time.now, :end_date => 1.day.from_now)
 
-    # Now try to access this taxon in web browser.
-    # There should be no any other taxon/ product link accessible except 
+    # now add taxons for events, taxons acts as tags/ categories.
+    event.taxons = [taxon]
+
+    # Now try to access this sale event in web browser.
+    # There should be no any other sale event link accessible except 
+    # If you access the taxon only this sale event will be shown and accessible.
     # the one we've created just now.
   ```
 * When you have enough sale events in your database, you can try these commands as per your requirements :
@@ -154,16 +153,16 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     # output => => #<Spree::ActiveSaleEvent id: 1, name: "Event 1", description: "20% Off", 
     # permalink: "t/designers/event-1", 
     # start_date: "2013-03-22 04:00:03", end_date: "2013-04-25 04:00:00", is_active: true, 
-    # is_hidden: false, is_permanent: false, eventable_id: 1992, 
-    # eventable_type: "Spree::Taxon", active_sale_id: 31, created_at: "2013-03-23 08:37:29", 
-    # updated_at: "2013-04-09 18:55:37", type: "Spree::ActiveSaleEvent", parent_id: nil, 
-    # lft: nil, rgt: nil, position: nil, discount: nil>
+    # is_hidden: false, is_permanent: false, active_sale_id: 31, 
+    # created_at: "2013-03-23 08:37:29", updated_at: "2013-04-09 18:55:37", 
+    # position: 0, discount: nil>
+
     # Now do:
     active_sale_event.live?
     # output => true
 
     # you can also check if that event was live on a particular datetime, for example:
-    active_sale_event.live?(Time.zone.now - 1.month)
+    active_sale_event.live?(1.month.ago)
 
     # to check if an active sale event is live and active:
     active_sale_event.live_and_active?
@@ -235,6 +234,14 @@ Be sure to bundle your dependencies and then create a dummy test app for the spe
     $ bundle
     $ bundle exec rake test_app
     $ bundle exec rspec spec
+
+
+When testing your applications integration with this extension you may use it's factories.
+Simply add this require statement to your spec_helper:
+
+```ruby
+require 'spree_active_sale/factories'
+```
 
 ## Contributing
 

@@ -2,6 +2,11 @@ class OldActiveSale < ActiveRecord::Base
   self.table_name = "spree_active_sales"
 end
 
+unless defined?(Spree::SaleEvent)
+  class Spree::SaleEvent < ActiveRecord::Base
+  end
+end
+
 class CreateSaleEvents < ActiveRecord::Migration
   def up
     # New migration starts here:

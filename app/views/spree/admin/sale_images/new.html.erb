@@ -1,7 +1,4 @@
-<ul class="inline-menu">
-  <li><%= button_link_to t('spree.active_sale.event.link.back'), edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event), :icon => 'icon-arrow-left' %></li>
-</ul>
-
+<%= render :partial => 'spree/admin/shared/sale_tabs', :locals => { :current => 'Sale Event Images' } %>
 
 <%= form_for [:admin, @active_sale, @active_sale_event, @sale_image], :html => { :multipart => true } do |f| %>
   <fieldset data-hook="new_image">
@@ -12,7 +9,7 @@
       <div class="form-buttons filter-actions actions" data-hook="buttons">
         <%= button Spree.t(:save), 'icon-refresh' %>
         <span class="or"><%= Spree.t(:or) %></span>
-        <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), admin_active_sale_active_sale_event_url(@active_sale_event.active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
+        <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
       </div>
   </fieldset>
 <% end %>
