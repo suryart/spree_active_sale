@@ -7,7 +7,7 @@
   <fieldset data-hook="new_active_sale" class="no-border-top">
     <div class="seven columns">
       <%= f.field_container :name do %>
-        <%= f.label :name, t(:name) %> <span class="required">*</span><br />
+        <%= f.label :name, Spree.t(:name) %> <span class="required">*</span><br />
         <%= f.text_field :name, :class => 'fullwidth title' %>
         <%= f.error_message_on :name %>
       <% end %>
