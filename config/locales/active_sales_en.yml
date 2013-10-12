@@ -64,6 +64,9 @@ en:
           updated: "Event was successfully updated."
           deleted: "Event has been deleted."
         product_name_hint: "Type the name of product and press 'Add' button to add in this sale event."
+        products:
+          title:
+            list: "Listing products"
         title:
           new: "New event"
           edit: "Edit event"

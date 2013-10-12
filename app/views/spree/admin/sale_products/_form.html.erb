@@ -12,9 +12,9 @@
       <% end %>
 
       <div class="form-buttons filter-actions actions" data-hook="buttons">
-        <%= button t(:add), 'icon-ok' %>
-        <span class="or"><%= t(:or) %></span>
-        <%= link_to_with_icon 'icon-remove', t(:cancel), admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
+        <%= button Spree.t(:add), 'icon-ok' %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
       </div>
   </fieldset>
 <% end %>
