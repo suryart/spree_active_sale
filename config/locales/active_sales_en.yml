@@ -6,6 +6,7 @@ en:
     active_sale:
       active_record:
         name: "Sale name"
+        permalink: "Sale permalink"
       event:
         active_sale_tree_hint: "Right click on any row in the tree to access the menu for adding, deleting or sorting products in a sale. Drag and drop to change their positions."
         active_record:
@@ -18,10 +19,10 @@ en:
           name: "Event name"
           start_date: "Start date"
           end_date: "End date"
-          eventable_name: "Add the name to add type in event"
-          eventable_type: "Add a type for event"
           permalink: "Type the name or permalink"
           position: "Position"
+          product_name: "Product name"
+          single_product_sale: "Single product sale?"
         boolean:
           yes: "Yes"
           no: "No"
@@ -38,25 +39,44 @@ en:
           second_text: 'Second'
           current_text: 'Current'
           close_text: 'Close'
+        details: "Sale event details"
         ending_message: "SALE CLOSES IN"
-        eventable_hint: "Will this be a sale for an individual product or many based on a taxon?"
-        eventable_name_hint: "Enter the name of product or taxon this sale will include."
         discount_hint: "Integer number with the mean or max discount percentage (i.e. '30' to express a 30%)."
         flash:
           error: "The page you are looking for is no longer available."
+        images:
+          link:
+            new: "New image"
+            edit: "Edit image"
+            back: "Back to images"
+          title:
+            new: "New event image"
+            edit: "Edit event image"
+            list: "Listing event images"
         link:
           new: "New event"
           edit: "Edit event"
           back: "Back to events"
-        no_image: "No image found. If image is not available for this sale then affiliated product's/ taxon's image will be used by default to show on store."
+        no_image: "No image found. If image is not available for this sale and event is a single products sale then, affiliated product's image will be used by default to show on store."
+        no_product: "No product found. If there is not available for this sale event then customers will not be able to see anything within this event/ deal on store."
         notice_messages:
           created: "Event was successfully created."
           updated: "Event was successfully updated."
           deleted: "Event has been deleted."
+        product_name_hint: "Type the name of product and press 'Add' button to add in this sale event."
+        products:
+          title:
+            list: "Listing products"
         title:
           new: "New event"
           edit: "Edit event"
           list: "Listing events"
+        sale_product:
+          already_exists: "The product has already been added to event"
+          attributes_missing: "You need to find and select a product first, product can't be blank."
+          link:
+            remove: "Remove"
+        sale_products: "Sale product(s)"
         validation:
           errors:
             date_empty: "can't be left empty."
@@ -64,7 +84,11 @@ en:
             invalid_root_dates: "and end date should be in between it's sub sales' start and end dates range."
             live_event: "already running and live."
         parent_id_cant_be_nil: "Parent can not be null"
+        single_product_sale_message: "This event has single product sale enabled. You can not add more than one product to this event. You need to remove the existing product to add another product."
+      create_if_no_record: "You don't have any sales, let's create one?"
       events_not_found: "There are no sales available at this moment. Try later?"
+      new_image: "New image"
+      new_sale_product: "New sale product"
       link:
         new: "New active sale"
         edit: "Edit active sale"
@@ -73,7 +97,9 @@ en:
         created: "Active sale was successfully created."
         updated: "Active sale was successfully updated."
         deleted: "Active sale has been deleted."
+        event_deleted: "Active sale event/ schedule deleted."
       title:
         new: "New active sale"
         edit: "Edit active sale"
         list: "Listing active sales"
+      product_placeholder: "Add a Product"
