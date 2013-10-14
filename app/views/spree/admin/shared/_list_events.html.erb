@@ -16,7 +16,7 @@
         <td class='active_sale_name'><%= link_to event.name, edit_admin_active_sale_active_sale_event_url(@active_sale, event) %></td>
         <td class='active_sale_start_date'><%= event.start_date %></td>
         <td class='active_sale_end_date'><%= event.end_date %></td>
-        <td class='active_sale_is_live'><%= event.live? ? t('spree.active_sale.event.boolean.yes') : t('spree.active_sale.event.boolean.no') %></td>
+        <td class='active_sale_is_live'><%= event.live? ? t('spree.active_sale.event.boolean_yes') : t('spree.active_sale.event.boolean_no') %></td>
         <td class="actions" data-hook="admin_active_sale_events_index_row_actions">
           <p class="actions" data-hook="actions">
             <%= link_to_edit_url edit_admin_active_sale_active_sale_event_url(@active_sale, event), :no_text => true %>

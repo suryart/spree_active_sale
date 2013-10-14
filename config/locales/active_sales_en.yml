@@ -8,7 +8,6 @@ en:
         name: "Sale name"
         permalink: "Sale permalink"
       event:
-        active_sale_tree_hint: "Right click on any row in the tree to access the menu for adding, deleting or sorting products in a sale. Drag and drop to change their positions."
         active_record:
           description: "Event Description"
           is_active: "Active?"
@@ -23,9 +22,8 @@ en:
           position: "Position"
           product_name: "Product name"
           single_product_sale: "Single product sale?"
-        boolean:
-          yes: "Yes"
-          no: "No"
+        boolean_yes: "Yes"
+        boolean_no: "No"
         can_not_be_nil: "Argument can not be nil or instance of any other class than Spree::ActiveSaleEvent"
         create_if_no_record: "You don't have any event in this active sale, let's create an event?"
         datetimepicker:
