@@ -41,14 +41,14 @@ module Spree
     end
 
     add_search_scope :active_products do
-      Spree::Product.active.includes(:master => :images).
+      Spree::Product.active.includes(:variants_including_master => [:prices, :images]).
       joins([:active_sale_events => :sale_products]).
       merge(Spree::ActiveSaleEvent.available).
       order("spree_sale_products.position ASC")
     end
 
     add_search_scope :active_products_in_sale_taxon do |taxon|
-      Spree::Product.active.includes(:master => :images).
+      Spree::Product.active.includes(:variants_including_master => [:prices, :images]).
       joins([:active_sale_events => :sale_products]).
       merge(Spree::ActiveSaleEvent.available.in_sale_taxon(taxon)).
       order("spree_sale_products.position ASC")
