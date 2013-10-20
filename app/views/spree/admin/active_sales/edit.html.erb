@@ -1,11 +1,11 @@
 <% content_for :page_title do %>
-  <%= t('spree.active_sale.title.edit') %>&#62; &ldquo;<%= @active_sale.name %>&rdquo;
+  <%= Spree.t('active_sale.title.edit') %>&#62; &ldquo;<%= @active_sale.name %>&rdquo;
 <% end %>
 
 <% content_for :page_actions do %>
   <li>
-    <%= button_link_to t('spree.active_sale.link.back'), collection_url, :icon => 'icon-arrow-left', :id => 'admin_new_active_sale_link' %>
-    <%= button_link_to t('spree.active_sale.event.link.new'), [:new, :admin, @active_sale, :active_sale_event], :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
+    <%= button_link_to Spree.t('active_sale.link.back'), collection_url, :icon => 'icon-arrow-left', :id => 'admin_new_active_sale_link' %>
+    <%= button_link_to Spree.t('active_sale.event.link.new'), [:new, :admin, @active_sale, :active_sale_event], :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
   </li>
 <% end %>
 

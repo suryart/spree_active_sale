@@ -4,7 +4,7 @@
 %>
 
 <% if sale_events.empty? %>
-  <%= t('spree.active_sale.events_not_found') %>
+  <%= Spree.t('active_sale.events_not_found') %>
 <% else %>
   <ul id="products" class="inline product-listing" data-hook>
     <% sale_events.each do |sale_event| %>

@@ -38,7 +38,7 @@
 <% unless @active_sale.new_record? %>
   <% if @active_sale.active_sale_events.blank? %>
     <% @active_sale_event = @active_sale.active_sale_events.build(:name => @active_sale.name) %>
-    <h4><%= t('spree.active_sale.event.create_if_no_record') %></h4>
+    <h4><%= Spree.t('active_sale.event.create_if_no_record') %></h4>
     <%= render :partial => "spree/admin/active_sale_events/form", :locals => { :events => @active_sale_event } %>
   <% else %>
     <% @active_sale_events = @active_sale.active_sale_events %>

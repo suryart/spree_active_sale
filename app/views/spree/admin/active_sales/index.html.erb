@@ -1,36 +1,38 @@
 <% content_for :page_title do %>
-  <%= t('spree.active_sale.title.list') %>
+  <%= Spree.t('active_sale.title.list') %>
 <% end %>
 
 <% content_for :page_actions do %>
   <li>
-    <%= button_link_to t('spree.active_sale.link.new'), new_object_url, :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
+    <%= button_link_to Spree.t('active_sale.link.new'), new_object_url, :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
   </li>
 <% end %>
 
 <div id="new_active_sale" data-hook></div>
 
 <% if @active_sales.blank? %>
-  <h4><%= t('spree.active_sale.create_if_no_record') %></h4>
+  <h4><%= Spree.t('active_sale.create_if_no_record') %></h4>
   <% @active_sale = Spree::ActiveSale.new %>
   <%= render :partial => 'form' %>
 <% else %>
   <table class="index sortable" id='listing_active_sales' data-hook data-sortable-link="<%= update_positions_admin_active_sales_url %>">
     <colgroup>
-      <col style="width: 85%">
-      <col style="width: 15%">
+      <col style="width: 5%">
+      <col style="width: 80%">
     </colgroup>
     <thead>
       <tr data-hook="active_sales_header">
-        <th><%= Spree.t(:name) %></th>
+        <th colspan="2"><%= Spree.t(:name) %></th>
         <th class="actions"></th>
       </tr>
     </thead>
     <tbody>
       <% @active_sales.each do |active_sale| %>
         <tr id="<%= spree_dom_id active_sale %>" data-hook="active_sales_row" class="<%= cycle('odd', 'even')%>">
+          <td class="no-border">
+            <span class="handle"></span>
+          </td>
           <td>
-            <span class="handle"></span>&nbsp;
             <%= active_sale.name %>
           </td>
           <td class="actions">

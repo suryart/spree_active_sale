@@ -4,7 +4,7 @@
 
 <% content_for :page_actions do %>
   <li>
-    <%= button_link_to t('spree.active_sale.event.images.link.new'), [:new, :admin, @active_sale, @active_sale_event, :sale_image], :icon => 'icon-plus', :id => 'admin_new_active_sale_image_link' %>
+    <%= button_link_to Spree.t('active_sale.event.images.link.new'), [:new, :admin, @active_sale, @active_sale_event, :sale_image], :icon => 'icon-plus', :id => 'admin_new_active_sale_image_link' %>
   </li>
 <% end %>
 

@@ -2,11 +2,11 @@
 
 <%= form_for @sale_product, :url => admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event.id, @sale_product), :html => { :multipart => true } do |f| %>
   <fieldset data-hook="new_sale_product">
-    <legend align="center"><%= t('spree.active_sale.new_sale_product') %></legend>
+    <legend align="center"><%= Spree.t('active_sale.new_sale_product') %></legend>
       <%= f.hidden_field :active_sale_event_id, :value => @active_sale_event.id %>
       <%= f.field_container :active_sale_event_id do %>
-        <%= f.label :product_name, t('spree.active_sale.event.active_record.product_name', :default => :product_name) %>
-        <p class='hint'><%= t('spree.active_sale.event.product_name_hint') %></p>
+        <%= f.label :product_name, Spree.t('active_sale.event.active_record.product_name', :default => :product_name) %>
+        <p class='hint'><%= Spree.t('active_sale.event.product_name_hint') %></p>
         <%= f.text_field :product_id, :class => 'autocomplete fullwidth', :data => { :auto_complete_url => search_admin_active_sales_url } %>
         <%= f.error_message_on :active_sale_event_id %>
       <% end %>

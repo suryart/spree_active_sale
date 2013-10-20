@@ -26,7 +26,7 @@
     :searching           => Spree.t(:searching),
     :sku                 => Spree.t(:sku),
     :type_to_search      => Spree.t(:type_to_search),
-    :product_placeholder => I18n.t('spree.active_sale.product_placeholder'),
+    :product_placeholder => Spree.t('active_sale.product_placeholder'),
     :taxon_placeholder   => Spree.t(:taxon_placeholder),
     :value               => Spree.t(:value)
   }.to_json
@@ -35,23 +35,23 @@
 
 <script>
   Spree.datetime_translations = <%==
-  { :date_format      => I18n.t('spree.active_sale.event.datetimepicker.js_date_format',
+  { :date_format      => Spree.t('active_sale.event.datetimepicker.js_date_format',
                               :default => 'yy/mm/dd'),
-    :time_format      => I18n.t('spree.active_sale.event.datetimepicker.js_format',
+    :time_format      => Spree.t('active_sale.event.datetimepicker.js_format',
                               :default => 'hh:mm:ss tt z'),
-    :time_only_title  => I18n.t('spree.active_sale.event.datetimepicker.time_only_title', 
+    :time_only_title  => Spree.t('active_sale.event.datetimepicker.time_only_title', 
                               :default => 'Time Only'),
-    :time_text        => I18n.t('spree.active_sale.event.datetimepicker.time_text',
+    :time_text        => Spree.t('active_sale.event.datetimepicker.time_text',
                               :default => 'Time'),
-    :hour_text        => I18n.t('spree.active_sale.event.datetimepicker.hour_text',
+    :hour_text        => Spree.t('active_sale.event.datetimepicker.hour_text',
                               :default => 'Hour'),
-    :minute_text      => I18n.t('spree.active_sale.event.datetimepicker.minute_text',
+    :minute_text      => Spree.t('active_sale.event.datetimepicker.minute_text',
                               :default => 'Minute'),
-    :second_text      => I18n.t('spree.active_sale.event.datetimepicker.second_text',
+    :second_text      => Spree.t('active_sale.event.datetimepicker.second_text',
                               :default => 'Second'),
-    :current_text     => I18n.t('spree.active_sale.event.datetimepicker.current_text',
+    :current_text     => Spree.t('active_sale.event.datetimepicker.current_text',
                               :default => 'Current'),
-    :close_text       => I18n.t('spree.active_sale.event.datetimepicker.close_text',
+    :close_text       => Spree.t('active_sale.event.datetimepicker.close_text',
                               :default => 'Close')
   }.to_json
 %>
