@@ -2,9 +2,9 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_active_sale'
-  s.version     = '1.3.2'
+  s.version     = '1.3.3'
   s.summary     = 'Spree Active Sale to handle flash sales/ daily deals behavior for spree.'
-  s.description = 'Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a variant, product, or group number of products in a taxon, attach that variant, product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.'
+  s.description = 'Spree Active Sale enables flash sale/ daily deals behavior within a spree application. Using this extension, you can have a single product, or number of products within a sale event with start and end date for scheduling. So, your sale event will only be available between the dates given and when the sale is expired(i.e. not live/ available), it will not be accessible at any point till you create a new sale event or reschedule the same.'
   s.required_ruby_version = '>= 1.9.2'
 
   s.author    = 'Surya Tripathi'

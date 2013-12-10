@@ -1,6 +1,6 @@
 # Welcome to Spree Active Sale
 
-Spree Active Sale makes it easy to handle flash sale/ daily deals behavior within a spree application. By this, you can have a product, or group number of products in a taxon, attach that product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or reschedule the same.
+Spree Active Sale enables flash sale/ daily deals behavior within a spree application. Using this extension, you can have a single product, or number of products within a sale event with start and end date for scheduling. So, your sale event will only be available between the dates given and when the sale is expired(i.e. not live/ available), it will not be accessible at any point till you create a new sale event or reschedule the same.
 
 > It's all about selling your first product. ~ [Vivek SP](https://twitter.com/viveksp)
 
@@ -9,7 +9,7 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
 ## FEATURES
 
 * Provides a quick implementation of flash sales/ daily deals behavior by a easy scheduler a.k.a *ActiveSale*.
-* Provides an admin interface for creating/ scheduling, managing, sorting, bundeling, or re-scheduling sale events.
+* Provides an admin interface for creating/ scheduling, managing, sorting, or re-scheduling sale events and its products.
 * Provides a view helper for countdown timer to show sale's ending time, which will be shown to your customers. This eventually makes a sense of urgency on your customers' mind.
 * Supplies methods for class <tt>Spree::ActiveSaleEvent</tt> like: <tt>live</tt>, <tt>active</tt>, <tt>live_active</tt>, <tt>hidden</tt>, <tt>live_active_and_hidden</tt>, <tt>upcoming_events</tt>, <tt>starting_today</tt>, <tt>ending_today</tt>.
 
@@ -21,7 +21,6 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
 * Build Status: [![Build Status](https://travis-ci.org/suryart/spree_active_sale.png?branch=1-3-stable)](https://travis-ci.org/suryart/spree_active_sale)
 * Coverage Status: [![Coverage Status](https://coveralls.io/repos/suryart/spree_active_sale/badge.png?branch=1-3-stable)](https://coveralls.io/r/suryart/spree_active_sale?branch=1-3-stable)
 * Issues: [Project issues](https://github.com/suryart/spree_active_sale/issues)
-* Fork: [Fork this Project](https://github.com/suryart/spree_active_sale/fork_select)
 
 ## INSTALLATION
 

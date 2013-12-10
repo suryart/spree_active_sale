@@ -88,7 +88,7 @@ module Spree
     end
 
     add_search_scope :in_sale_taxon do |taxon|
-      joins([:active_sale_events => :taxons]).
+      joins([:taxons]).
       where(Taxon.table_name => { :id => taxon.self_and_descendants.map(&:id) })
     end
 

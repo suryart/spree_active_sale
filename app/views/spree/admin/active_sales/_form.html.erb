@@ -5,10 +5,10 @@
 <%= form_for [:admin, @active_sale] do |f| %>
 
   <fieldset data-hook="new_active_sale" class="no-border-top">
-    <div class="seven columns">
+    <div class="<%= @active_sale.new_record? ? 'align-center' : 'seven columns' %>">
       <%= f.field_container :name do %>
         <%= f.label :name, t(:name) %> <span class="required">*</span><br />
-        <%= f.text_field :name, :class => 'fullwidth title' %>
+        <%= f.text_field :name, :class => 'fullwidth title', :placeholder => t('spree.active_sale.name_placeholder') %>
         <%= f.error_message_on :name %>
       <% end %>
     </div>

@@ -4,6 +4,7 @@
 en:
   spree:
     active_sale:
+      name_placeholder: "Brand name Sale. For example: Gucci Sale, Versace Sale. Or, Summer/ Winter Sale etc."
       active_record:
         name: "Sale name"
         permalink: "Sale permalink"
@@ -58,7 +59,7 @@ en:
           edit: "Edit event"
           back: "Back to events"
         no_image: "No image found. If image is not available for this sale and event is a single products sale then, affiliated product's image will be used by default to show on store."
-        no_product: "No product found. If there is not available for this sale event then customers will not be able to see anything within this event/ deal on store."
+        no_product: "No product found. If product(s) is/are not available for this sale event then customers will not be able to see anything within this event/ deal on store."
         notice_messages:
           created: "Event was successfully created."
           updated: "Event was successfully updated."

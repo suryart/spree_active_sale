@@ -1,9 +1,11 @@
 class OldActiveSale < ActiveRecord::Base
   self.table_name = "spree_active_sales"
+  attr_accessible :type, :active_sale_id
 end
 
 unless defined?(Spree::SaleEvent)
   class Spree::SaleEvent < ActiveRecord::Base
+    attr_accessible :type, :active_sale_id
   end
 end
 

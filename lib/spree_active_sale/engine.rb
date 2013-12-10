@@ -10,7 +10,6 @@ module SpreeActiveSale
       Spree::ActiveSaleConfig = Spree::ActiveSaleConfiguration.new
       %w(ActionController::Base Spree::BaseController).each { |controller| 
         controller.constantize.send(:helper, Spree::ActiveSaleEventsHelper)
-        controller.constantize.send(:helper, Spree::ActiveSalesHelper)
       }
     end
 
@@ -28,5 +27,3 @@ module SpreeActiveSale
     config.to_prepare &method(:activate).to_proc
   end
 end
-
-
