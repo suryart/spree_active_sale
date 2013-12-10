@@ -1,0 +1,26 @@
+<% content_for :page_title do %>
+  <%= @active_sale.name %> &#62; <%= @active_sale_event.name %> &#62; <%= t('spree.active_sale.event.products.title.list') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to t('spree.active_sale.link.edit'), [:edit, :admin, @active_sale], :icon => 'icon-edit', :id => 'edit_admin_active_sales_link' %>
+
+    <%= button_link_to t('spree.active_sale.event.link.edit'), [:edit, :admin, @active_sale, @active_sale_event], :icon => 'icon-arrow-left', :id => 'edit_admin_active_sale_events_link' %>
+
+    <%= button_link_to t('spree.active_sale.event.link.new'), [:new, :admin, @active_sale, :active_sale_event], :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
+  </li>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/sale_tabs', :locals => { :current => 'Sale Event Products' } %>
+
+<% single_product_sale = @active_sale_event.single_product_sale? && @sale_products.count >= 1 %>
+<% unless single_product_sale %>
+  <%= render :partial => 'form' %>
+<% else %>
+  <div class="no-objects-found">
+    <%= t('spree.active_sale.event.single_product_sale_message') %>
+  </div>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/sale_products', :locals => { :sale_products => single_product_sale ? [@sale_products.first] : @sale_products } %>

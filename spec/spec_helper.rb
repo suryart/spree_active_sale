@@ -19,14 +19,14 @@ Coveralls.wear!
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
-# include local factories
-Dir[File.join(File.dirname(__FILE__), 'factories/**/*.rb')].each { |f| require f }
-
 # Requires factories defined in spree_core
 require 'spree/core/testing_support/factories'
 require 'spree/core/testing_support/controller_requests'
 require 'spree/core/testing_support/authorization_helpers'
 require 'spree/core/url_helpers'
+
+# include spree_active_sale factories
+require 'spree_active_sale/factories'
 
 RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

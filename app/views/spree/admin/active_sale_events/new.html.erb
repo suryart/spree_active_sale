@@ -9,9 +9,5 @@
 <% end %>
 
 <div data-hook="admin_active_sale_event_edit_form">
-  <div id="active-sale-event-form-wrapper">
-    <%= form_for [:admin, @active_sale, @active_sale_event], :html => { :id => 'admin_active_sale_event', :multipart => true } do |form| %>
-      <%= render :partial => 'form', :locals => { :form => form } %>
-    <% end %>
-  </div>
+  <%= render :partial => 'form'%>
 </div>

@@ -1,6 +1,6 @@
 <div id="images" data-hook></div>
 
-<% unless @active_sale_event.sale_images.any? %>
+<% unless @sale_images.any? %>
   <div class="no-objects-found">
     <%= t('spree.active_sale.event.no_image') %>
   </div>
@@ -21,7 +21,7 @@
     </thead>
 
     <tbody>
-      <% (@active_sale_event.sale_images).each do |image| %>
+      <% @sale_images.each do |image| %>
         <tr id="<%= spree_dom_id image %>" data-hook="images_row" class="<%= cycle('odd', 'even')%>">
           <td class="no-border">
             <span class="handle"></span>
