@@ -10,11 +10,11 @@ module Spree
     before_save :have_valid_position
     after_save :update_parent_active_sales, :update_active_sale_position
 
-    has_many :sale_images, :as => :viewable, :dependent => :destroy, :order => 'position ASC'
+    has_many :sale_images, -> { order 'position ASC' }, :as => :viewable, :dependent => :destroy
     belongs_to :eventable, :polymorphic => true
     belongs_to :active_sale
 
-    attr_accessible :description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date, :eventable_name, :discount, :parent_id
+    #attr_accessible :description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date, :eventable_name, :discount, :parent_id
 
     validates :name, :permalink, :eventable_id, :start_date, :end_date, :active_sale_id, :presence => true
     validates :eventable_type, :presence => true, :uniqueness => { :scope => :eventable_id, :message => I18n.t('spree.active_sale.event.validation.errors.live_event') }, :if => :live?
@@ -31,7 +31,10 @@ module Spree
 
     def update_permalink
       prefix = {"Spree::Taxon" => "t", "Spree::Product" => "products"}
-      self.permalink = [prefix[self.eventable_type], self.eventable.permalink].join("/") unless self.eventable.nil?
+      if self.eventable.present?
+        eventable_permalink = self.eventable.class.name == "Spree::Product" ? self.eventable.slug : self.eventable.permalink
+      end
+      self.permalink = [prefix[self.eventable_type], eventable_permalink].join("/") unless self.eventable.nil?
     end
 
     # This callback basically makes sure that parents for an event lives longer.
