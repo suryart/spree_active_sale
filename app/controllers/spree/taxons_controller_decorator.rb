@@ -5,14 +5,11 @@ module Spree
       @taxon = Spree::Taxon.find_by_permalink!(params[:id])
       return unless @taxon
 
-      if @taxon.live?
-        @searcher = Spree::Config.searcher_class.new(params.merge(:taxon => @taxon.id))
-        @products = @searcher.retrieve_products
+      @searcher = Spree::Config.searcher_class.new(params.merge(:taxon => @taxon.id))
+      @products = @searcher.retrieve_products
+      @taxonomies = Spree::Taxonomy.includes(root: :children)
 
-        respond_with(@taxon)
-      else
-        redirect_to root_url, :error => t('spree.active_sale.event.flash.error')
-      end
+      respond_with(@taxon)
     end
   end
 end

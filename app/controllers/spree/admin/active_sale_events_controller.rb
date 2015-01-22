@@ -14,11 +14,15 @@ module Spree
       def destroy
         @active_sale_event = Spree::ActiveSaleEvent.find(params[:id])
         @active_sale_event.destroy
-        respond_with(@active_sale_event) { |format| format.json { render :json => '' } }
+        flash[:success] = flash_message_for(@active_sale_event, :successfully_removed)
+        respond_with(@active_sale_event) do |format|
+          format.html { redirect_to location_after_destroy }
+          format.js   { render :partial => "spree/admin/shared/destroy" }
+        end
       end
 
       def update_events
-        @active_sale_event.update_attributes(params[:active_sale_event])
+        @active_sale_event.update_attributes(active_sale_events_params)
         respond_with(@active_sale_event)
       end
 
@@ -37,7 +41,7 @@ module Spree
         def build_resource
           get_eventable unless params[object_name].nil?
           if parent_data.present?
-            parent.send(controller_name).build(params[object_name])
+            parent.send(controller_name).build(object_params)
           else
             model_class.new(params[object_name])
           end
@@ -62,6 +66,19 @@ module Spree
           event.delete(:parent_id) if event[:parent_id].nil? || event[:parent_id] == "nil"
           parent_id
         end
+
+      private
+
+        def object_params
+          if params[object_name].present?
+            params[object_name].permit(:description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date, :eventable_name, :discount, :parent_id)
+          end
+        end
+
+        def active_sale_events_params
+            params.require(:active_sale_event).permit(:position, :parent_id)
+        end
+
     end
   end
 end
