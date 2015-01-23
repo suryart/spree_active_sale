@@ -18,9 +18,6 @@ module Spree
 
     after_post_process :find_dimensions
 
-    # include Spree::Core::S3Support
-    # supports_s3 :attachment
-
     #used by admin sales autocomplete
     def mini_url
       attachment.url(:mini, false)

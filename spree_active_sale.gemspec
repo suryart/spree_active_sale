@@ -2,10 +2,10 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_active_sale'
-  s.version     = '2.0.0'
+  s.version     = '2.4.0'
   s.summary     = 'Spree Active Sale to handle flash sales/ daily deals behavior for spree.'
   s.description = 'Spree Active Sale makes it easy to handle flash sale/ daily deals behavior with in a spree application. By this, you can have a variant, product, or group number of products in a taxon, attach that variant, product, or taxon to a sale event with a start and end date for scheduling. So that, your sale event will only be available between the dates given and when the sale is gone(i.e. not live), it will not be accessible at any point till you create a new one or re-schedule the same.'
-  s.required_ruby_version = '>= 2.1.5'
+  s.required_ruby_version = '>= 2.1'
 
   s.author    = 'Surya Tripathi'
   s.email     = 'raj.surya19@gmail.com'
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 2.4.3.beta'
+  s.add_dependency 'spree_core', '~> 2.4.0'
 
   s.add_development_dependency 'capybara', '~> 2.1.0'
   s.add_development_dependency 'coffee-rails'
