@@ -6,7 +6,6 @@
 module Spree
   class SaleEvent < ActiveRecord::Base
     acts_as_nested_set :dependent => :destroy, :polymorphic => true
-    #attr_accessible :description, :end_date, :eventable_id, :eventable_type, :is_active, :is_hidden, :is_permanent, :name, :permalink, :active_sale_id, :start_date, :eventable_name, :type, :parent_id, :position
 
     scope :live, lambda { where("(start_date <= :start_date AND end_date >= :end_date) OR is_permanent = :is_permanent", { :start_date => zone_time, :end_date => zone_time, :is_permanent => true }) }
     scope :active, lambda { |*args| where(:is_active => valid_argument(args)) }

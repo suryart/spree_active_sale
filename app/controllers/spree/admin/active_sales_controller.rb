@@ -26,6 +26,23 @@ module Spree
         render :json => search.result.map(&:name)
       end
 
+      def create
+        invoke_callbacks(:create, :before)
+        @object.attributes = permitted_resource_params
+        if @object.save
+          invoke_callbacks(:create, :after)
+          flash[:success] = flash_message_for(@object, :successfully_created)
+          respond_with(@object) do |format|
+            format.html { redirect_to location_after_save }
+            format.js   { render :layout => false }
+          end
+        else
+          invoke_callbacks(:create, :fails)
+          flash[:error] = "Error occured!"
+          redirect_to :back
+        end
+      end
+
       protected
 
         def collection
