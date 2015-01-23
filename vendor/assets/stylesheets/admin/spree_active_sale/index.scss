@@ -1,10 +1,9 @@
 /*
- *= require admin/spree_backend
+ *= require spree/backend
  *= require admin/spree_active_sale/spree_active_sale_event
  *= require admin/spree_active_sale/jquery-ui.timepicker-addon
 */
 
-@import 'admin/plugins/font-awesome';
-@import 'admin/globals/functions';
-@import 'admin/globals/variables';
+@import 'spree/backend/globals/functions';
+@import 'spree/backend/globals/variables';
 @import 'sale_tree';
