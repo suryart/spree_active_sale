@@ -4,19 +4,13 @@ module SpreeActiveSale
     isolate_namespace Spree
     engine_name 'spree_active_sale'
 
-    config.autoload_paths += %W(#{config.root}/lib)
-
-    initializer "spree_active_sale.environment", :before => "spree.environment" do |app|
-      Spree::ActiveSaleConfig = Spree::ActiveSaleConfiguration.new
-      %w(ActionController::Base Spree::BaseController).each { |controller| 
-        controller.constantize.send(:helper, Spree::ActiveSaleEventsHelper)
-        controller.constantize.send(:helper, Spree::ActiveSalesHelper)
-      }
-    end
-
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
+    end
+
+    initializer 'spree_active_sale.environment', before: :load_config_initializers do |_app|
+      SpreeActiveSale::Config = Spree::ActiveSaleConfiguration.new
     end
 
     def self.activate
@@ -25,7 +19,8 @@ module SpreeActiveSale
       end
     end
 
-    config.to_prepare &method(:activate).to_proc
+    config.to_prepare(&method(:activate).to_proc)
+
   end
 end
 

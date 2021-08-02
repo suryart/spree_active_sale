@@ -1,6 +1,10 @@
 module Spree
   module Admin
-    ResourceController.class_eval do
+    module ResourceControllerDecorator
+
     end
   end
 end
+
+
+Spree::Admin::ResourceController.prepend(Spree::Admin::ResourceControllerDecorator)
