@@ -6,7 +6,7 @@ module Spree
   class ActiveSale < ActiveRecord::Base
     has_many :active_sale_events, :conditions => { :deleted_at => nil }, :dependent => :destroy
 
-    attr_accessible :name, :permalink
+    attr_accessor :name, :permalink
 
     validates :name, :permalink, :presence => true
     validates :permalink, :uniqueness => true
