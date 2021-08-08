@@ -1,5 +1,5 @@
 module Spree
-  ProductsController.class_eval do
+  module ProductsControllerDecorator
     HTTP_REFERER_REGEXP = /^https?:\/\/[^\/]+\/t\/([a-z0-9\-\/]+)$/ unless defined? HTTP_REFERER_REGEXP
 
     def show
@@ -23,3 +23,5 @@ module Spree
     end
   end
 end
+
+Spree::ProductsController.prepend(Spree::ProductsControllerDecorator)

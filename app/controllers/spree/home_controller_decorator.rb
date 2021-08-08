@@ -1,6 +1,5 @@
 module Spree
-  HomeController.class_eval do
-
+  module HomeControllerDecorator
     # List live, not hidden and active sales on home page
     def index
       @searcher = Spree::Config.searcher_class.new(params)
@@ -11,3 +10,5 @@ module Spree
     end
   end
 end
+
+Spree::HomeController.prepend(Spree::HomeControllerDecorator)
