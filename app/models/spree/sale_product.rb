@@ -2,7 +2,7 @@ module Spree
   class SaleProduct < ActiveRecord::Base
     belongs_to :active_sale_event, :class_name => 'Spree::ActiveSaleEvent'
     belongs_to :product, :class_name => 'Spree::Product'
-    attr_accessible :active_sale_event_id, :product_id, :position, :product_name
+    attr_accessor :active_sale_event_id, :product_id, :position, :product_name
 
     delegate :product_name, :to => :product
     delegate :sale_name, :to => :active_sale_event

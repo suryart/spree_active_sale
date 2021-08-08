@@ -1,6 +1,8 @@
 module Spree
-  TaxonsController.class_eval do
-    before_filter :load_view_type
+  module TaxonsControllerDecorator
+    def self.prepended(base)
+      base.before_action :load_view_type
+    end
 
     def show
       @taxon = Spree::Taxon.find_by_permalink!(params[:id])
@@ -18,14 +20,16 @@ module Spree
 
     private
 
-      def load_view_type
-        if params[:view_type].present? && params[:view_type] == 'sales'
-          @view_type = 'sale_events'
-          @retrieve_type = 'retrieve_sales'
-        else
-          @view_type = 'products'
-          @retrieve_type = 'retrieve_products'
-        end
+    def load_view_type
+      if params[:view_type].present? && params[:view_type] == 'sales'
+        @view_type = 'sale_events'
+        @retrieve_type = 'retrieve_sales'
+      else
+        @view_type = 'products'
+        @retrieve_type = 'retrieve_products'
       end
+    end
   end
 end
+
+Spree::TaxonsController.prepend(Spree::TaxonsControllerDecorator)
