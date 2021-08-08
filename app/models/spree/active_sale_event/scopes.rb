@@ -26,7 +26,7 @@ module Spree
       scopes.each do |name|
         parts = name.to_s.match(/(.*)_by_(.*)/)
         order_text = "#{quoted_table_name}.#{parts[2]} #{parts[1] == 'ascend' ?  "ASC" : "DESC"}"
-        self.scope(name.to_s, relation.order(order_text))
+        self.scope(name.to_s, -> { relation.order(order_text) })
       end
     end
 
@@ -63,7 +63,7 @@ module Spree
     # If you need sales only within one taxon use
     #
     #   Spree::ActiveSaleEvent.taxons_id_eq(x)
-    # 
+    #
     # If you're using count on the result of this scope, you must use the
     # `:distinct` option as well:
     #
