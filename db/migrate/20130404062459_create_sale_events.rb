@@ -7,7 +7,7 @@ unless defined?(Spree::SaleEvent)
   end
 end
 
-class CreateSaleEvents < ActiveRecord::Migration
+class CreateSaleEvents < ActiveRecord::Migration[6.1]
   def up
     # New migration starts here:
     rename_table :spree_active_sale_events, :spree_sale_events
@@ -56,11 +56,11 @@ class CreateSaleEvents < ActiveRecord::Migration
   def update_changes
     OldActiveSale.where(:type => nil).each{ |a| a.update_attributes(:type => "Spree::ActiveSale") }
     Spree::SaleEvent.where(:type => nil).each{ |sale| sale.update_attributes(:type => "Spree::ActiveSaleEvent") }
-    OldActiveSale.all.each{ |as| 
+    OldActiveSale.all.each{ |as|
       sale = Spree::SaleEvent.find_or_create_by_name_and_active_sale_id_and_type(as.name, nil, "Spree::ActiveSale")
-      as.active_sale_events.each{ |event| 
-        event.update_attributes(:active_sale_id => sale.id) 
-      }      
+      as.active_sale_events.each{ |event|
+        event.update_attributes(:active_sale_id => sale.id)
+      }
     }
   end
 

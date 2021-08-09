@@ -1,4 +1,4 @@
-class RemoveEventableFromSpreeActiveSaleEvents < ActiveRecord::Migration
+class RemoveEventableFromSpreeActiveSaleEvents < ActiveRecord::Migration[6.1]
   def up
     add_column :spree_active_sale_events, :single_product_sale, :boolean, :default => false
 
@@ -24,7 +24,7 @@ class RemoveEventableFromSpreeActiveSaleEvents < ActiveRecord::Migration
   def down
     add_column :spree_active_sale_events, :eventable_id, :integer
     add_column :spree_active_sale_events, :eventable_type, :string
-    
+
     Spree::ActiveSaleEvent.where(:single_product_sale => false).each do |se|
       unless se.sale_products.first.blank?
         se.update_attributes(:eventable_id => se.sale_products.first.product_id, :eventable_type => 'Spree::Product', :single_product_sale => false)

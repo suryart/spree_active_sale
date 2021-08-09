@@ -2,7 +2,7 @@ class OldActiveSale < ActiveRecord::Base
   self.table_name = "spree_active_sales"
 end
 
-class RevertActiveSaleSti < ActiveRecord::Migration
+class RevertActiveSaleSti < ActiveRecord::Migration[6.1]
   def up
     # Required to get new data saved in old format!
     # Saving data to old structure by running steps below:
@@ -37,11 +37,11 @@ class RevertActiveSaleSti < ActiveRecord::Migration
   def update_changes
     OldActiveSale.where(:type => nil).each{ |a| a.update_attributes(:type => "Spree::ActiveSale") }
     Spree::SaleEvent.where(:type => nil).each{ |sale| sale.update_attributes(:type => "Spree::ActiveSaleEvent") }
-    OldActiveSale.all.each{ |as| 
+    OldActiveSale.all.each{ |as|
       sale = Spree::SaleEvent.find_or_create_by_name_and_active_sale_id_and_type(as.name, nil, "Spree::ActiveSale")
-      as.active_sale_events.each{ |event| 
-        event.update_attributes(:active_sale_id => sale.id) 
-      }      
+      as.active_sale_events.each{ |event|
+        event.update_attributes(:active_sale_id => sale.id)
+      }
     }
   end
 
