@@ -1,4 +1,4 @@
-class CreateSpreeSaleProducts < ActiveRecord::Migration
+class CreateSpreeSaleProducts < ActiveRecord::Migration[6.1]
   def change
     create_table :spree_sale_products do |t|
       t.integer :product_id
