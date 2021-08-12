@@ -2,7 +2,7 @@ module Spree
   module Admin
     class SaleProductsController < ResourceController
       belongs_to 'spree/active_sale_event', :find_by => :id
-      prepend_before_filter :load_data
+      prepend_before_action :load_data
 
       def index
         respond_with(@sale_products)

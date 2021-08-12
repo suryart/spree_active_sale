@@ -1,6 +1,7 @@
 module Spree
   class ActiveSalesController < Spree::StoreController
-    before_filter :load_sale, :except => :index
+    before_action :load_sale, :except => :index
+
     rescue_from ActiveRecord::RecordNotFound, :with => :render_404
     helper 'spree/taxons'
     helper 'spree/products'
@@ -41,7 +42,7 @@ module Spree
 
       def load_sale
         @active_sale = ActiveSale.find_by_permalink!(params[:id])
-        @sale_event = @active_sale.active_sale_events.live_active_and_hidden(:hidden => false).first 
+        @sale_event = @active_sale.active_sale_events.live_active_and_hidden(:hidden => false).first
         if @sale_event.present?
           @sale_properties, @products = @sale_event.sale_properties.includes(:property), @sale_event.products
         else

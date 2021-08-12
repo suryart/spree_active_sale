@@ -2,7 +2,7 @@ module Spree
   module Admin
     class SaleImagesController < ResourceController
       belongs_to 'spree/active_sale_event', :find_by => :id
-      before_filter :load_data
+      before_action :load_data
 
       create.before :set_viewable
       update.before :set_viewable
