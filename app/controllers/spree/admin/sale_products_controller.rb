@@ -17,7 +17,7 @@ module Spree
         def load_data
           @active_sale ||= Spree::ActiveSale.find_by_permalink!(params[:active_sale_id])
           @active_sale_event ||= Spree::ActiveSaleEvent.find(params[:active_sale_event_id])
-          @sale_products ||= @active_sale_event.sale_products.page(params[:page]).per(Spree::ActiveSaleConfig[:admin_active_sale_event_products_per_page])
+          @sale_products ||= @active_sale_event.sale_products.page(params[:page]).per(SpreeActiveSale::Config[:admin_active_sale_event_products_per_page])
         end
     end
   end

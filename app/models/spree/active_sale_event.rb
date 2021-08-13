@@ -39,7 +39,7 @@ module Spree
 
         def prepare_pagination(options)
           per_page = options[:per_page].to_i
-          options[:per_page] = per_page > 0 ? per_page : Spree::ActiveSaleConfig[:active_sale_events_per_page]
+          options[:per_page] = per_page > 0 ? per_page : SpreeActiveSale::Config[:active_sale_events_per_page]
           page = options[:page].to_i
           options[:page] = page > 0 ? page : 1
           options

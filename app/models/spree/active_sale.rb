@@ -18,7 +18,7 @@ module Spree
     accepts_nested_attributes_for :active_sale_events, :allow_destroy => true, :reject_if => lambda { |attrs| attrs.all? { |k, v| v.blank? } }
 
     def self.config(&block)
-      yield(Spree::ActiveSaleConfig)
+      yield(SpreeActiveSale::Config)
     end
 
     # override the delete method to set deleted_at value

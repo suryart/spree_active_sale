@@ -1,5 +1,5 @@
-<% 
-  paginate_sales = sale_events.paginate(:active_sale_events_per_page) if Spree::ActiveSaleConfig[:paginate_sale_events_for_user?]
+<%
+  paginate_sales = sale_events.paginate(:active_sale_events_per_page) if SpreeActiveSale::Config[:paginate_sale_events_for_user?]
   paginate_sales ||= sale_events
 %>
 
