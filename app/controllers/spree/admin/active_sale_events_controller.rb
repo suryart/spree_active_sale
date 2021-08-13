@@ -2,8 +2,8 @@ module Spree
   module Admin
     class ActiveSaleEventsController < ResourceController
       belongs_to 'spree/active_sale', :find_by => :permalink
-      before_filter :load_active_sale, :only => [:index]
-      before_filter :load_data, :except => [:index]
+      before_action :load_active_sale, :only => [:index]
+      before_action :load_data, :except => [:index]
 
       def show
         session[:return_to] ||= request.referer
@@ -30,7 +30,7 @@ module Spree
       end
 
       private
-      
+
         def location_after_save
           edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event)
         end
@@ -41,7 +41,7 @@ module Spree
           return @collection if @collection.present?
           params[:q] ||= {}
           params[:q][:deleted_at_null] ||= "1"
-          
+
           params[:q][:s] ||= "name asc"
 
           @search = super.ransack(params[:q])

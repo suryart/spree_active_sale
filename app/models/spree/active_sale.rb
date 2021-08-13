@@ -4,16 +4,16 @@
 #
 module Spree
   class ActiveSale < ActiveRecord::Base
-    has_many :active_sale_events, :conditions => { :deleted_at => nil }, :dependent => :destroy
+    has_many :active_sale_events, -> { where(deleted_at: nil) }, :dependent => :destroy
 
     attr_accessor :name, :permalink
 
     validates :name, :permalink, :presence => true
     validates :permalink, :uniqueness => true
 
-    default_scope :order => "#{self.table_name}.position"
+    default_scope { order("#{self.table_name}.position") }
 
-    make_permalink :order => :name
+    # make_permalink :order => :name
 
     accepts_nested_attributes_for :active_sale_events, :allow_destroy => true, :reject_if => lambda { |attrs| attrs.all? { |k, v| v.blank? } }
 

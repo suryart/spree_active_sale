@@ -1,7 +1,7 @@
 module Spree
   module Admin
     class ActiveSalesController < ResourceController
-      before_filter :load_data, :except => :index
+      before_action :load_data, :except => :index
 
       def index
         session[:return_to] = request.url
@@ -49,7 +49,7 @@ module Spree
           return @collection if @collection.present?
           params[:q] ||= {}
           params[:q][:deleted_at_null] ||= "1"
-          
+
           params[:q][:s] ||= "name asc"
 
           @search = super.ransack(params[:q])
