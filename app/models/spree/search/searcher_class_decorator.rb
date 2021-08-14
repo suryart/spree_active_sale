@@ -17,7 +17,7 @@ module Spree
       end
 
       curr_page = @properties[:page] || 1
-      per_page  = @properties[:per_page] || Spree::ActiveSaleConfig[:active_sale_events_per_page]
+      per_page  = @properties[:per_page] || SpreeActiveSale::Config[:active_sale_events_per_page]
       @sales    = @sales_scope.page(curr_page).per(per_page)
     end
 
@@ -40,7 +40,7 @@ module Spree
         sale_scope = sale_scope.in_taxon(taxon) unless taxon.blank?
         sale_scope = get_sales_conditions_for(sale_scope, keywords) unless keywords.blank?
         sale_scope = add_sale_search_scopes(sale_scope)
-        sale_scope = sale_scope.send(sort_by) unless sort_by.blank?        
+        sale_scope = sale_scope.send(sort_by) unless sort_by.blank?
         sale_scope
       end
 

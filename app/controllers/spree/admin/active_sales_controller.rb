@@ -55,7 +55,7 @@ module Spree
           @search = super.ransack(params[:q])
 
           @search = Spree::ActiveSale.includes(:active_sale_events).ransack(params[:q])
-          @collection = @search.result.page(params[:page]).per(Spree::ActiveSaleConfig[:admin_active_sales_per_page])
+          @collection = @search.result.page(params[:page]).per(SpreeActiveSale::Config[:admin_active_sales_per_page])
         end
     end
   end
