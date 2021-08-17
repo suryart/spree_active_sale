@@ -17,7 +17,7 @@
 
       <%= f.field_container :taxons do %>
         <%= f.label :taxon_ids, Spree.t(:taxons) %><br />
-        <%= f.hidden_field :taxon_ids, :value => @active_sale_event.taxon_ids&.join(',') %>
+        <%= f.hidden_field :taxon_ids, :value => @active_sale_event.taxon_ids.join(',') %>
       <% end %>
     </div>
 

@@ -27,7 +27,7 @@
             <span class="handle"></span>
           </td>
           <td>
-            <%= link_to image_tag(image.attachment.url(:mini)), image.attachment.url(:original) %>
+            <%= link_to image_tag(main_app.url_for(image.url(:mini))), main_app.rails_blob_url(image.attachment) %>
           </td>
           <td><%= image.alt %></td>
           <td class="actions">
