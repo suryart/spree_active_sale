@@ -26,7 +26,6 @@ module Spree
         def destroy_before
           @viewable = @sale_image.viewable
         end
-
     end
   end
 end
