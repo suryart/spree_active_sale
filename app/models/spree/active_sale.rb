@@ -6,16 +6,18 @@ module Spree
   class ActiveSale < ActiveRecord::Base
     has_many :active_sale_events, -> { where(deleted_at: nil) }, :dependent => :destroy
 
-    attr_accessor :name, :permalink
-
     validates :name, :permalink, :presence => true
     validates :permalink, :uniqueness => true
 
     default_scope { order("#{self.table_name}.position") }
 
-    # make_permalink :order => :name
-
     accepts_nested_attributes_for :active_sale_events, :allow_destroy => true, :reject_if => lambda { |attrs| attrs.all? { |k, v| v.blank? } }
+
+    before_validation :update_permalink
+
+    def update_permalink
+      self.permalink = self.name.parameterize
+    end
 
     def self.config(&block)
       yield(SpreeActiveSale::Config)
@@ -35,6 +37,7 @@ module Spree
     def events
       self.active_sale_events
     end
+
     alias :schedules :events
   end
 end
