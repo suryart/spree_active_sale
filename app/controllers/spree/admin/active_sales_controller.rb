@@ -2,7 +2,6 @@ module Spree
   module Admin
     class ActiveSalesController < ResourceController
       before_action :load_data, :except => :index
-
       def index
         session[:return_to] = request.url
         respond_with(@collection)
