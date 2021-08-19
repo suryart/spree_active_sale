@@ -7,7 +7,7 @@
       <%= f.field_container :active_sale_event_id do %>
         <%= f.label :product_name, Spree.t('active_sale.event.active_record.product_name', :default => :product_name) %>
         <p class='hint'><%= Spree.t('active_sale.event.product_name_hint') %></p>
-        <%= f.text_field :product_id, :class => 'autocomplete fullwidth', :data => { :auto_complete_url => search_admin_active_sales_url } %>
+        <%= f.select(:product_id, {}, {}, id: "product_id", :multiple => false, class: "select2") %>
         <%= f.error_message_on :active_sale_event_id %>
       <% end %>
 
@@ -18,3 +18,21 @@
       </div>
   </fieldset>
 <% end %>
+<script>
+  $(document).ready(function() {
+    $('#product_id').select2({
+      ajax: {
+        url: "<%= search_admin_active_sales_path %>",
+        dataType: "json",
+        processResults: function (data) {
+
+          return {
+            results: $.map( data["products"], function(product, i) {
+              return { id: product["id"], text: product["name"] }
+            })
+          }
+        }
+      }
+    });
+  });
+</script>
