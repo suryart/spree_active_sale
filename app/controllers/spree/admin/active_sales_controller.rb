@@ -26,7 +26,7 @@ module Spree
       end
 
       def search
-        params[:q].blank? ? [] : @products = Spree::Product.limit(20).search(:name_cont => params[:q]).result
+        params[:q].blank? ? [] : @products = Spree::Product.limit(20).ransack(:name_cont => params[:q]).result
       end
 
       private
