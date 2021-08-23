@@ -14,8 +14,6 @@ module Spree
 
     belongs_to :active_sale
 
-    attr_accessor :description, :end_date, :is_active, :is_hidden, :is_permanent, :name, :active_sale_id, :start_date, :discount, :taxon_ids, :shipping_category_id, :single_product_sale
-
     validates :name, :start_date, :end_date, :active_sale_id, :presence => true
 
     validate  :validate_start_and_end_date
