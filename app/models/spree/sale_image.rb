@@ -1,45 +1,43 @@
 module Spree
   class SaleImage < Asset
-    validates_attachment_presence :attachment
-    validate :no_attachment_errors
+    include Configuration::ActiveStorage
+    include Rails.application.routes.url_helpers
 
-    attr_accessor :alt, :attachment, :position, :viewable_type, :viewable_id
+    def mobile_styles
+      results = {}
+      self.class.mobile_styles.map do |key, size|
+        return unless size
 
-    has_attached_file :attachment,
-                      :styles => { :mini => '48x48>', :small => '100x100>', :sale => '240x240>', :large => '600x600>' },
-                      :default_style => :sale,
-                      :url => '/spree/sales/:id/:style/:basename.:extension',
-                      :path => ':rails_root/public/spree/sales/:id/:style/:basename.:extension',
-                      :convert_options => { :all => '-strip' }
-    # save the w,h of the original image (from which others can be calculated)
-    # we need to look at the write-queue for images which have not been saved yet
-    after_post_process :find_dimensions
-
-    include Spree::Core::S3Support
-    supports_s3 :attachment
-
-    #used by admin sales autocomplete
-    def mini_url
-      attachment.url(:mini, false)
-    end
-
-    def find_dimensions
-      temporary = attachment.queued_for_write[:original]
-      filename = temporary.path unless temporary.nil?
-      filename = attachment.path if filename.blank?
-      geometry = Paperclip::Geometry.from_file(filename)
-      self.attachment_width  = geometry.width
-      self.attachment_height = geometry.height
-    end
-
-    # if there are errors from the plugin, then add a more meaningful message
-    def no_attachment_errors
-      unless attachment.errors.empty?
-        # uncomment this to get rid of the less-than-useful interrim messages
-        # errors.clear
-        errors.add :attachment, "Paperclip returned errors for file '#{attachment_file_name}' - check ImageMagick installation or image source file."
-        false
+        results[key] = style(key)
       end
+
+      results
+    end
+
+    def styles
+      results = {}
+
+      self.class.styles.map do |key, size|
+        return unless size
+
+        results[key] = style(key)
+      end
+
+      results
+    end
+
+    def style(name)
+      size = self.class.styles[name]
+      return unless size
+
+      width, height = image_size = size.split('x').map(&:to_i)
+
+      {
+        url: url_for(attachment.variant(resize_and_pad: image_size)),
+        size: size,
+        width: width,
+        height: height
+      }
     end
   end
 end
