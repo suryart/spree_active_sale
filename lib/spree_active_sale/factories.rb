@@ -5,7 +5,7 @@ FactoryGirl.define do
   trait :inactive do
     is_active false
   end
-  
+
   trait :hidden do
     is_hidden true
   end
@@ -44,6 +44,7 @@ FactoryGirl.define do
   # Default Active Sale Event Factory
   factory :active_sale_event, :class => Spree::ActiveSaleEvent, :aliases => [:event] do
     active_sale
+    promotion
 
     # attributes
     sequence(:name) { |n| "Active Sale Event ##{n} - #{Kernel.rand(9999)}" }
@@ -83,5 +84,9 @@ FactoryGirl.define do
   factory :sale_taxon, :class => Spree::SaleTaxon do
     active_sale_event { FactoryGirl.create(:active_sale_event) }
     taxon { FactoryGirl.create(:taxon) }
+  end
+
+  factory :promotion, :class => Spree::Promotion do
+    sequence(:name) { |n| "Promotion ##{n} - #{Kernel.rand(9999)}" }
   end
 end

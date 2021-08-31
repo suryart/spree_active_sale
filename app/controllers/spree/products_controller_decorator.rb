@@ -6,7 +6,7 @@ module Spree
       def self.included(base)
         base.include ::Spree::BaseHelper
 
-        base.helper 'spree/trackers'
+        # base.helper 'spree/trackers'
       end
     end
 

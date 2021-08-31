@@ -3,24 +3,22 @@ module Spree
     class SaleProductsController < ResourceController
       belongs_to 'spree/active_sale_event', :find_by => :id
       prepend_before_action :load_data
+      after_action :create_product_promotion_rule, only: [:create]
+      before_action :destroy_product_promotion_rule, only: [:destroy]
 
-      def create
-        invoke_callbacks(:create, :before)
-        @object.attributes = permitted_resource_params
-        if @object.save
-          invoke_callbacks(:create, :after)
-          flash[:success] = flash_message_for(@object, :successfully_created)
-          respond_with(@object) do |format|
-            format.html { redirect_to location_after_save }
-            format.js   { render layout: false }
-          end
-        else
-          invoke_callbacks(:create, :fails)
-          respond_with(@object) do |format|
-            format.html { render action: :new }
-            format.js { render layout: false }
-          end
-        end
+      def create_product_promotion_rule
+        Spree::ProductPromotionRule.create(
+          product_id: @object.product_id,
+          promotion_rule_id: @object.active_sale_event.promotion_rules.first.id,
+          preferences: nil
+        )
+      end
+
+      def destroy_product_promotion_rule
+        Spree::ProductPromotionRule.find_by(
+          product_id: @object.product_id,
+          promotion_rule_id: @object.active_sale_event.promotion_rules.first.id,
+        ).destroy
       end
 
       def index

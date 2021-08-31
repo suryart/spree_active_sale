@@ -4,6 +4,8 @@ module Spree
       belongs_to 'spree/active_sale', :find_by => :permalink
       before_action :load_active_sale, :only => [:index]
       before_action :load_data, :except => [:index]
+      after_action :create_promotion, only: [:create]
+      after_action :update_promotion, only: [:update]
 
       def show
         session[:return_to] ||= request.referer
@@ -11,6 +13,7 @@ module Spree
       end
 
       def destroy
+        DestroyPromotion.call(active_sale_event: @active_sale_event)
         @active_sale_event = Spree::ActiveSaleEvent.find(params[:id])
         @active_sale_event.delete
 
@@ -26,10 +29,19 @@ module Spree
         if params[:active_sale_event][:taxon_ids].present?
           params[:active_sale_event][:taxon_ids] = params[:active_sale_event][:taxon_ids].split(',')
         end
+
         super
       end
 
       private
+
+        def create_promotion
+          CreatePromotion.call(active_sale_event: @object)
+        end
+
+        def update_promotion
+          UpdatePromotion.call(active_sale_event: @object)
+        end
 
         def location_after_save
           edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event)
@@ -57,6 +69,7 @@ module Spree
         def load_data
           @taxons = Taxon.order(:name)
           @shipping_categories = ShippingCategory.order(:name)
+          @promotions = Spree::PromotionCategory.active_sale.promotions
         end
     end
   end
