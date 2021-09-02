@@ -46,12 +46,6 @@
         <%= f.error_message_on :shipping_category %>
       <% end %>
 
-      <%= f.field_container :promotion do %>
-        <%= f.label :promotion_id, Spree.t(:promotion) %>
-        <%= f.collection_select(:promotion_id, @promotions, :id, :name, { :include_blank => 'None' }, { :class => 'select2' }) %>
-        <%= f.error_message_on :promotion %>
-      <% end %>
-
       <%= f.field_container :discount do %>
         <%= f.label :discount, Spree.t('active_sale.event.active_record.discount', :default => :discount) %>
         <p class='hint'><%= Spree.t('active_sale.event.discount_hint') %></p>

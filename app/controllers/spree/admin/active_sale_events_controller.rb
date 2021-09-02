@@ -4,8 +4,44 @@ module Spree
       belongs_to 'spree/active_sale', :find_by => :permalink
       before_action :load_active_sale, :only => [:index]
       before_action :load_data, :except => [:index]
-      after_action :create_promotion, only: [:create]
-      after_action :update_promotion, only: [:update]
+
+      def create
+        active_sale_event_params = permitted_resource_params.merge(active_sale_id: @active_sale.id)
+        context = ActiveSale::ActiveSaleEventCreator.call(params: active_sale_event_params)
+        @active_sale_event = context.active_sale_event
+
+        if context.success
+          flash[:success] = flash_message_for(@active_sale_event, :successfully_created)
+          respond_with(@active_sale_event) do |format|
+            format.html { redirect_to location_after_save }
+            format.js   { render layout: false }
+          end
+        else
+          respond_with(@active_sale_event) do |format|
+            format.html { render action: :new }
+            format.js { render layout: false }
+          end
+        end
+      end
+
+      def update
+        context = ActiveSale::ActiveSaleEventUpdater.call(active_sale_event: @object, params: permitted_resource_params)
+        if context.success
+          respond_with(@object) do |format|
+            format.html do
+              flash[:success] = flash_message_for(@object, :successfully_updated)
+              redirect_to location_after_save
+            end
+            format.js { render layout: false }
+          end
+        else
+          invoke_callbacks(:update, :fails)
+          respond_with(@object) do |format|
+            format.html { render action: :edit }
+            format.js { render layout: false }
+          end
+        end
+      end
 
       def show
         session[:return_to] ||= request.referer
@@ -13,9 +49,7 @@ module Spree
       end
 
       def destroy
-        DestroyPromotion.call(active_sale_event: @active_sale_event)
-        @active_sale_event = Spree::ActiveSaleEvent.find(params[:id])
-        @active_sale_event.delete
+        ActiveSale::ActiveSaleEventDestroyer.call(active_sale_event: @active_sale_event)
 
         flash.notice = I18n.t('spree.active_sale.notice_messages.event_deleted')
 
@@ -25,23 +59,7 @@ module Spree
         end
       end
 
-      def update
-        if params[:active_sale_event][:taxon_ids].present?
-          params[:active_sale_event][:taxon_ids] = params[:active_sale_event][:taxon_ids].split(',')
-        end
-
-        super
-      end
-
       private
-
-        def create_promotion
-          CreatePromotion.call(active_sale_event: @object)
-        end
-
-        def update_promotion
-          UpdatePromotion.call(active_sale_event: @object)
-        end
 
         def location_after_save
           edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event)

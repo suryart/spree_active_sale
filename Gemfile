@@ -16,7 +16,7 @@ gem 'coveralls', require: false
 gem 'spree_analytics_trackers'
 
 gem 'rails-controller-testing'
-gem 'factory_girl'
-gem 'faker'
+gem 'factory_bot'
+gem 'ffaker'
 
 gemspec

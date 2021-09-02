@@ -8,8 +8,8 @@ require 'database_cleaner'
 
 require 'capybara/rspec'
 require 'capybara/rails'
-require 'faker'
-require 'factory_girl'
+require 'ffaker'
+require 'factory_bot'
 
 require 'coveralls'
 Coveralls.wear!
@@ -33,13 +33,13 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
 
-  config.before(:each) do
-    # if example.metadata[:js]
-    #   DatabaseCleaner.strategy = :truncation
-    # else
-    #   DatabaseCleaner.strategy = :transaction
-    # end
-    # DatabaseCleaner.start
+  config.before(:each) do |example|
+    if example.metadata[:js]
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
+    DatabaseCleaner.start
     # reset_spree_preferences
   end
 
@@ -47,7 +47,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   # == URL Helpers
   #
