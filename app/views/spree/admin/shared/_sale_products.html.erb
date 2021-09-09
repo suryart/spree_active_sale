@@ -5,40 +5,37 @@
     <%= Spree.t('active_sale.event.no_product') %>
   </div>
 <% else %>
-  <table class="index sortable" id="listing_active_sale_products" data-hook="active_sale_products_table" data-sortable-link="<%= update_positions_admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event) %>">
-    <colgroup>
-       <col style="width: 15%;">
-       <col style="width: 10%;">
-       <col style="width: 48%;">
-       <col style="width: 10%;">
-       <col style="width: 17%;">
-    </colgroup>
-    <thead>
-      <tr data-hook="admin_products_index_headers">
-        <th ><%= Spree.t(:sku) %></th>
-        <th colspan="2"><%= Spree.t(:name) %></th>
-        <th><%= Spree.t(:master_price) %></th>
-        <th data-hook="admin_sale_products_index_header_actions" class="actions"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% sale_products.each do |sale_product| %>
-        <% product = sale_product.product %>
-        <tr <%= "style='color: red;'" if product.deleted? %> id="<%= spree_dom_id sale_product %>" data-hook="admin_sale_products_index_rows" class="<%= cycle('odd', 'even') %>">
-          <td class="align-center">
-            <span class="handle"></span>
-            <%= product.sku rescue '' %>
-          </td>
-          <td class="align-center"><%= mini_image(product) %></td>
-          <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
-          <td class="align-center"><%= product.display_price.to_html rescue '' %></td>
-          <td class="actions" data-hook="admin_products_index_row_actions">
-            <%= link_to_edit_url edit_admin_product_url(sale_product.product), :no_text => true %>
-            &nbsp;
-            <%= link_to_delete sale_product, { :url => [:admin, @active_sale, @active_sale_event, sale_product], :no_text => true, :name => Spree.t('active_sale.event.sale_product.link.remove') } %>
-          </td>
+  <div class="table-responsive">
+    <table class="table" id="listing_active_sale_products">
+      <thead>
+        <tr data-hook="admin_products_index_headers">
+          <th scope="col" ><%= Spree.t(:sku) %></th>
+          <th scope="col" colspan="2"><%= Spree.t(:name) %></th>
+          <th scope="col"><%= Spree.t(:master_price) %></th>
+          <th scope="col" data-hook="admin_active_sale_events_index_header_actions" class="actions"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% sale_products.each do |sale_product| %>
+          <% product = sale_product.product %>
+          <tr <%= "style='color: red;'" if product.deleted? %> id="<%= spree_dom_id sale_product %>" data-hook="admin_sale_products_index_rows" class="<%= cycle('odd', 'even') %>">
+            <td class="align-center">
+              <span class="handle"></span>
+              <%= product.sku rescue '' %>
+            </td>
+            <td class="align-center"><%= mini_image(product) %></td>
+            <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
+            <td class="align-center"><%= product.display_price.to_html rescue '' %></td>
+            <td class="actions" data-hook="admin_active_sale_events_index_row_actions">
+              <p class="actions" data-hook="actions">
+              <%= link_to_edit_url edit_admin_product_url(sale_product.product), :no_text => true %>
+              &nbsp;
+              <%= link_to_delete sale_product, { :url => [:admin, @active_sale, @active_sale_event, sale_product], :no_text => true, :name => Spree.t('active_sale.event.sale_product.link.remove') } %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>

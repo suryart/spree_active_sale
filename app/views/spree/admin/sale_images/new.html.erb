@@ -1,16 +1,21 @@
 <%= render :partial => 'spree/admin/shared/sale_tabs', :locals => { :current => 'Sale Event Images' } %>
 
+<% content_for :page_title do %>
+  <%= link_to Spree.t("active_sale.name"), spree.admin_active_sales_url %> /
+  <%= link_to @active_sale.name, spree.admin_active_sale_url(@active_sale) %> /
+  <%= link_to @active_sale_event.name, [:edit, :admin, @active_sale, @active_sale_event] %> /
+  <%= link_to Spree.t('active_sale.event.images.title.list'), admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event) %> /
+  <%= Spree.t('active_sale.event.images.title.new') %>
+<% end %>
+
 <%= form_for [:admin, @active_sale, @active_sale_event, @sale_image], :html => { :multipart => true } do |f| %>
   <fieldset data-hook="new_image">
-    <legend align="center"><%= Spree.t(:new_image) %></legend>
-
-      <%= render :partial => 'form', :locals => { :f => f } %>
-    
-      <div class="form-buttons filter-actions actions" data-hook="buttons">
-        <%= button Spree.t(:save), 'icon-refresh' %>
-        <span class="or"><%= Spree.t(:or) %></span>
-        <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
-      </div>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <div class="form-buttons filter-actions actions" data-hook="buttons">
+      <%= button Spree.t('actions.create'), 'save.svg' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event), :id => 'cancel_link', :class => 'button' %>
+    </div>
   </fieldset>
 <% end %>
 
