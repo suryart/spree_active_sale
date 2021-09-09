@@ -13,11 +13,15 @@ module Spree
     has_many :properties, :through => :sale_properties
 
     belongs_to :active_sale
+    belongs_to :promotion, class_name: "Spree::Promotion"
 
-    validates :name, :start_date, :end_date, :active_sale_id, :presence => true
+    validates :name, :start_date, :end_date, :active_sale_id, :promotion_id, :presence => true
 
     validate  :validate_start_and_end_date
     validate  :validate_with_live_event
+
+    delegate :promotion_rules, to: :promotion
+    delegate :promotion_actions, to: :promotion
 
     class << self
       # Spree::ActiveSaleEvent.is_live? method

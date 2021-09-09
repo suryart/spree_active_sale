@@ -5,21 +5,34 @@ module Spree
       prepend_before_action :load_data
 
       def create
-        invoke_callbacks(:create, :before)
-        @object.attributes = permitted_resource_params
-        if @object.save
-          invoke_callbacks(:create, :after)
+        result = ActiveSale::SaleProductCreator.call(
+          product_id: permitted_resource_params["product_id"],
+          active_sale_event: @active_sale_event
+        )
+        @object = result.sale_product
+
+        if result.success
           flash[:success] = flash_message_for(@object, :successfully_created)
           respond_with(@object) do |format|
             format.html { redirect_to location_after_save }
             format.js   { render layout: false }
           end
         else
-          invoke_callbacks(:create, :fails)
           respond_with(@object) do |format|
             format.html { render action: :new }
             format.js { render layout: false }
           end
+        end
+      end
+
+      def destroy
+        ActiveSale::SaleProductDestroyer.call(sale_product: @sale_product)
+
+        flash.notice = I18n.t('spree.active_sale.notice_messages.event_deleted')
+
+        respond_with(@active_sale_event) do |format|
+          format.html { redirect_to collection_url }
+          format.js  { render_js_for_destroy }
         end
       end
 

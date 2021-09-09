@@ -26,32 +26,32 @@ Spree Active Sale makes it easy to handle flash sale/ daily deals behavior withi
 ## INSTALLATION
 
 ### In a rails application with Spree installed include the following line in your Gemfile:
-  * Get the latest greatest from github: 
-    
+  * Get the latest greatest from github:
+
       ```ruby
         gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git'
       ```
 
-  * Get the 2-0-stable branch for Spree 2.0.x from github: 
-    
+  * Get the 2-0-stable branch for Spree 2.0.x from github:
+
       ```ruby
         gem 'spree_active_sale' , :git => 'git://github.com/suryart/spree_active_sale.git', :branch => '2-0-stable'
       ```
 
   * Or get it from rubygems.org by mentioning the following line in your Gemfile:
-    
-      ```ruby 
+
+      ```ruby
         gem 'spree_active_sale', '2.0.0'
       ```
 
-### Then run the following commands: 
+### Then run the following commands:
 
     $ bundle install
-    $ rails g spree_active_sale:install 
+    $ rails g spree_active_sale:install
     $ rake db:migrate
-    $ rails s 
+    $ rails s
 
-### Optional commands available: 
+### Optional commands available:
 
     $ rails g spree_active_sale:assets          ; to copy assets from plugin dir to app's dir
     $ rake spree_active_sale:install            ; Copies all migrations and assets to the application
@@ -65,26 +65,26 @@ If you do not run **rails g spree_active_sale:install** then you must have to ad
 ##### Stylesheet usage in Rails >= 3.1(Only supported versions for now)
 
 You will have to add stylesheet in the bottom of your **admin/all.css** file as follows -
-  
+
     *= require admin/spree_active_sale
 
 Later you will have to add stylesheet in the bottom of your **store/all.css** file as follows -
-  
+
     *= require store/spree_active_sale
 
 ##### Javascript usage in Rails >= 3.1(Only supported versions for now)
 
 You will have to add javascript in the bottom of your **admin/all.js** file as follows -
-    
+
     //= require admin/spree_active_sale
 
 You will have to add javascript in the bottom of your **store/all.js** file as follows -
-    
+
     //= require store/spree_active_sale
 
 ## Example and usages
 
-* For trying to see how this plugin works. You can create an *ActiveSale* and its events by following these commands in your <tt>rails console</tt>: 
+* For trying to see how this plugin works. You can create an *ActiveSale* and its events by following these commands in your <tt>rails console</tt>:
   ```ruby
     # Get a taxon in rails console:
     taxon = Spree::Taxon.last
@@ -96,14 +96,14 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     # created_at: "2013-04-16 07:26:45", updated_at: "2013-04-16 07:26:45">
 
     # Then create an Event under this sale by:
-    event = active_sale.active_sale_events.create(:name => "January 2013 sales", 
+    event = active_sale.active_sale_events.create(:name => "January 2013 sales",
         :start_date => Time.now, :end_date => 1.day.from_now)
 
     # now add taxons for events, taxons acts as tags/ categories.
     event.taxons = [taxon]
 
     # Now try to access this sale event in web browser.
-    # There should be no any other sale event link accessible except 
+    # There should be no any other sale event link accessible except
     # If you access the taxon only this sale event will be shown and accessible.
     # the one we've created just now.
   ```
@@ -112,14 +112,14 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     # listing all sale events which are currently and suppose to be running.
     Spree::ActiveSaleEvent.live
 
-    # listing all sale events which are active, they may or may not be live. 
+    # listing all sale events which are active, they may or may not be live.
     Spree::ActiveSaleEvent.active
 
     # to list all inactive sale events.
-    Spree::ActiveSaleEvent.active(false) 
+    Spree::ActiveSaleEvent.active(false)
 
     # listing all sale events which are live and active, which includes hidden sales, too.
-    Spree::ActiveSaleEvent.live_active 
+    Spree::ActiveSaleEvent.live_active
 
     # to list all sale events which live and not active.
     Spree::ActiveSaleEvent.live_active(false)
@@ -138,7 +138,7 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
 
     # listing all scheduled sale events which are going to be live in future.
     Spree::ActiveSaleEvent.upcoming_events
-    
+
     # listing all past sale events which ended and not accessible to users.
     Spree::ActiveSaleEvent.past_events
 
@@ -147,14 +147,14 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
 
     # listing all sale events which are going to expire today.
     Spree::ActiveSaleEvent.ending_today
-    
+
     # to check if an active sale event is live?
     active_sale_event = Spree::ActiveSaleEvent.first
-    # output => => #<Spree::ActiveSaleEvent id: 1, name: "Event 1", description: "20% Off", 
-    # permalink: "t/designers/event-1", 
-    # start_date: "2013-03-22 04:00:03", end_date: "2013-04-25 04:00:00", is_active: true, 
-    # is_hidden: false, is_permanent: false, active_sale_id: 31, 
-    # created_at: "2013-03-23 08:37:29", updated_at: "2013-04-09 18:55:37", 
+    # output => => #<Spree::ActiveSaleEvent id: 1, name: "Event 1", description: "20% Off",
+    # permalink: "t/designers/event-1",
+    # start_date: "2013-03-22 04:00:03", end_date: "2013-04-25 04:00:00", is_active: true,
+    # is_hidden: false, is_permanent: false, active_sale_id: 31,
+    # created_at: "2013-03-23 08:37:29", updated_at: "2013-04-09 18:55:37",
     # position: 0, discount: nil>
 
     # Now do:
@@ -171,8 +171,8 @@ You will have to add javascript in the bottom of your **store/all.js** file as f
     # you can check if that event was live and active on a particular datetime by:
     active_sale_event.live_and_active?(Time.zone.now - 1.month)
 
-    # to check if an instance/ object is live or not?. 
-    # Here instance can be an object of 
+    # to check if an instance/ object is live or not?.
+    # Here instance can be an object of
     # "Spree::ActiveSaleEvent", "Spree::Variant", "Spree::Product", or "Spree::Taxon" class.
     # Which simply says if sale event for that instance is accessible for users or not.
     Spree::ActiveSaleEvent.is_live?(instance)
@@ -194,7 +194,7 @@ There is a view helper which shows the count down timer. This extension uses [jQ
     <%= sale_event_timer(active_sale_event) %>
   ```
 You can pass a layout(layout is optional. default value is: '{dn} days {hnn}{sep}{mnn}{sep}{snn}' ) according to your requirement like this:
-  
+
   ```ruby
     <%= sale_event_timer(active_sale_event, '{dn} days {hnn} hours {sep}{mnn} minutes {sep}{snn} seconds') %>
   ```
@@ -204,7 +204,7 @@ Please visit [jQuery Countdown](http://keith-wood.name/countdown.html) for more 
 ## Overriding configuration and preferences
 
 You can use this at the bottom of your **application's app/config/initializers/spree.rb** for configuration:
-    
+
   ```ruby
     Spree::ActiveSale.config do |config|
       config.admin_active_sales_per_page = 20
@@ -223,11 +223,20 @@ Since you can not set boolean values from the block config shown above for assig
     Spree::ActiveSaleConfig[:name_with_event_position?] = true
   ```
 
+## Countdown Flash Sales Use Case
+
+![Active Sale Event Form](https://user-images.githubusercontent.com/10734553/131882564-af095ee0-7827-4f5f-a492-062bc6e9bfbf.png)
+
+Active sale event provide option start date to start the event for discount on item. We need to inform user before the event start by clicking active so it means that the event is active and ready to display to user and we can count down from that time to the start date to inform user about count down.
+
 ## TODOs
 
 * Improve testing and write more test cases.
 
 ## Testing
+
+
+Try this markdown:
 
 Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
 

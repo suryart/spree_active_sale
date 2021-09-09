@@ -9,7 +9,7 @@ require 'database_cleaner'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'ffaker'
-require 'factory_girl'
+require 'factory_bot'
 
 require 'coveralls'
 Coveralls.wear!
@@ -33,21 +33,21 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
 
-  config.before(:each) do
+  config.before(:each) do |example|
     if example.metadata[:js]
       DatabaseCleaner.strategy = :truncation
     else
       DatabaseCleaner.strategy = :transaction
     end
     DatabaseCleaner.start
-    reset_spree_preferences
+    # reset_spree_preferences
   end
 
   config.after(:each) do
     DatabaseCleaner.clean
   end
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   # == URL Helpers
   #
@@ -55,11 +55,11 @@ RSpec.configure do |config|
   #
   # visit spree.admin_path
   # current_path.should eql(spree.products_path)
-  config.include Spree::TestingSupport::UrlHelpers
-  config.include Spree::TestingSupport::ControllerRequests
-  config.include Spree::TestingSupport::Preferences
-  config.include Spree::TestingSupport::Flash
-  config.include Capybara::DSL
+  # config.include Spree::TestingSupport::UrlHelpers
+  # config.include Spree::TestingSupport::ControllerRequests
+  # config.include Spree::TestingSupport::Preferences
+  # config.include Spree::TestingSupport::Flash
+  # config.include Capybara::DSL
 
   # == Mock Framework
   #
