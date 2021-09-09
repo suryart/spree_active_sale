@@ -1,12 +1,10 @@
 <% content_for :page_title do %>
-  <%= Spree.t('active_sale.title.edit') %>&#62; &ldquo;<%= @active_sale.name %>&rdquo;
+  <%= link_to Spree.t("active_sale.name"), spree.admin_active_sales_url %> /
+  <%= @active_sale.name %>
 <% end %>
 
 <% content_for :page_actions do %>
-  <li>
-    <%= button_link_to Spree.t('active_sale.link.back'), collection_url, :icon => 'icon-arrow-left', :id => 'admin_new_active_sale_link' %>
-    <%= button_link_to Spree.t('active_sale.event.link.new'), [:new, :admin, @active_sale, :active_sale_event], :icon => 'icon-plus', :id => 'admin_new_active_sale_link' %>
-  </li>
+  <%= button_link_to Spree.t("active_sale.event.link.new"), [:new, :admin, @active_sale, :active_sale_event], { class: "btn-success", icon: 'add.svg', id: 'admin_new_active_sale' } %>
 <% end %>
 
 <div data-hook="admin_active_sale_edit_form">
@@ -14,3 +12,14 @@
     <%= render :partial => 'form' %>
   </div>
 </div>
+
+<% unless @active_sale.new_record? %>
+  <% if @active_sale.active_sale_events.blank? %>
+    <% @active_sale_event = @active_sale.active_sale_events.build(:name => @active_sale.name) %>
+    <h4><%= Spree.t('active_sale.event.create_if_no_record') %></h4>
+    <%= render :partial => "spree/admin/active_sale_events/form", :locals => { :events => @active_sale_event } %>
+  <% else %>
+    <% @active_sale_events = @active_sale.active_sale_events %>
+    <%= render :partial => "spree/admin/shared/list_events", :locals => { :events => @active_sale_events } %>
+  <% end %>
+<% end %>

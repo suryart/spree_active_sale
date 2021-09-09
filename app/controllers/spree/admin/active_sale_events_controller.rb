@@ -82,6 +82,7 @@ module Spree
 
         def load_active_sale
           @active_sale = Spree::ActiveSale.find_by_permalink!(params[:active_sale_id])
+          @active_sale_events = @active_sale.active_sale_events
         end
 
         def load_data

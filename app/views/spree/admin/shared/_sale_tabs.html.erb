@@ -3,18 +3,33 @@
 <% end %>
 
 <% content_for :sidebar do %>
-  <nav class="menu">
-    <ul data-hook="admin_sale_tabs">
-      <li<%== ' class="active"' if current == 'Sale Event Details' %>>
-        <%= link_to_with_icon 'icon-edit', Spree.t('active_sale.event.details'), edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event) %>
+  <ul class="nav flex-column nav-pills" data-hook="admin_order_tabs">
+    <% if can? :update, @active_sale_event %>
+      <li data-hook='admin_order_tabs_channel_details'>
+        <%= link_to_with_icon 'edit.svg',
+          Spree.t('active_sale.event.details'),
+          edit_admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event),
+          class: "#{'active' if current == 'Sale Event Details'} nav-link" %>
       </li>
-      <li<%== ' class="active"' if current == 'Sale Event Images' %>>
-        <%= link_to_with_icon 'icon-picture', Spree.t(:images), admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event) %>
+    <% end %>
+
+    <% if can? :update, @active_sale_event %>
+      <li data-hook='admin_order_tabs_channel_details'>
+        <%= link_to_with_icon 'images.svg',
+          Spree.t(:images),
+          admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event),
+          class: "#{'active' if current == 'Sale Event Images'} nav-link" %>
       </li>
-      <li<%== ' class="active"' if current == 'Sale Event Products' %>>
-        <%= link_to_with_icon 'icon-tasks', Spree.t('active_sale.event.sale_products'), admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event) %>
+    <% end %>
+
+    <% if can? :update, @active_sale_event %>
+      <li data-hook='admin_order_tabs_channel_details'>
+        <%= link_to_with_icon 'items.svg',
+          Spree.t('active_sale.event.sale_products'),
+          admin_active_sale_active_sale_event_sale_products_url(@active_sale, @active_sale_event),
+          class: "#{'active' if current == 'Sale Event Products'} nav-link" %>
       </li>
-    </ul>
-  </nav>
+    <% end %>
+  </ul>
 
 <% end %>

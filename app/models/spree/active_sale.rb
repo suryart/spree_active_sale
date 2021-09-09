@@ -16,7 +16,7 @@ module Spree
     before_validation :update_permalink
 
     def update_permalink
-      self.permalink = self.name.parameterize
+      self.permalink = self.name.parameterize if self.permalink.blank?
     end
 
     def self.config(&block)

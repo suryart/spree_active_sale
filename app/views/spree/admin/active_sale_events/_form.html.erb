@@ -1,96 +1,132 @@
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @active_sale_event } %>
 
 <%= form_for @active_sale_event, :url => @active_sale_event.new_record? ? admin_active_sale_active_sale_events_url(@active_sale) : admin_active_sale_active_sale_event_url(@active_sale, @active_sale_event), :html => { :id => 'admin_active_sale_event', :multipart => true } do |f| %>
-  <fieldset data-hook="admin_active_sale_event_form_fields" class="no-border-top">
-    <div class="left eight columns alpha" data-hook="admin_active_sale_event_form_left">
-      <%= f.field_container :name do %>
-        <%= f.label :name, raw(Spree.t('active_sale.event.active_record.name') + content_tag(:span, ' *', :class => 'required')) %>
-        <%= f.text_field :name, :class => 'fullwidth' %>
+  <div class="row">
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <%= f.label Spree.t('active_sale.event.active_record.name'), class: "text-md" %>
+        <%= f.text_field :name, class: 'form-control' %>
         <%= f.error_message_on :name %>
-      <% end %>
-
-      <%= f.field_container :description do %>
-        <%= f.label :description, Spree.t('active_sale.event.active_record.description') %>
-        <%= f.text_area :description, {:rows => 10, :class => 'fullwidth'} %>
-        <%= f.error_message_on :description %>
-      <% end %>
-
-      <%= f.field_container :taxons do %>
-        <%= f.label :taxon_ids, Spree.t(:taxons) %><br />
-        <%= f.hidden_field :taxon_ids, :value => @active_sale_event.taxon_ids.join(',') %>
-      <% end %>
+      </div>
     </div>
 
-    <div class="right <%== @active_sale_event.new_record? ? 'eight' : 'four' %> columns omega" data-hook="admin_active_sale_event_form_right">
-      <%= f.field_container :start_date do %>
-        <%= f.label :start_date, raw(Spree.t('active_sale.event.active_record.start_date') + content_tag(:span, ' *', :class => 'required')) %>
-        <%= f.error_message_on :start_date %>
-        <% if @active_sale_event.start_date? %>
-          <% start_date = l(@active_sale_event.start_date, :format => Spree.t('active_sale.event.datetimepicker.format')) %>
-        <% else %>
-          <% start_date = l(Time.zone.now, :format => Spree.t('active_sale.event.datetimepicker.format')) %>
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <%= f.label Spree.t('active_sale.event.active_record.description'), class: "text-md" %>
+        <%= f.text_area :description, class: 'form-control' %>
+        <%= f.error_message_on :description %>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <%= f.label Spree.t('active_sale.event.active_record.start_date'), class: "text-md" %>
+        <div class="input-group datePickerTo"
+             data-wrap="true"
+             data-alt-input="true"
+             data-alt-format="Y-m-d H:i"
+             data-min-date="<%= @active_sale_event.start_date %>"
+             data-enable-time="true"
+             data-date-format = "Y-m-d H:i:s"
+             >
+
+             <%= f.text_field :start_date,
+               value: datepicker_field_value(@active_sale_event.start_date),
+               placeholder: Spree.t(:select_a_date),
+               class: 'form-control shadow-none ',
+               'data-input':'' %>
+             <%= render partial: 'spree/admin/shared/cal_close' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <%= f.label Spree.t('active_sale.event.active_record.end_date'), class: "text-md" %>
+        <div class="input-group datePickerTo"
+             data-wrap="true"
+             data-alt-input="true"
+             data-alt-format="Y-m-d H:i"
+             data-min-date="<%= @active_sale_event.end_date %>"
+             data-enable-time="true"
+             data-date-format = "Y-m-d H:i:s"
+             >
+
+             <%= f.text_field :end_date,
+               value: datepicker_field_value(@active_sale_event.end_date),
+               placeholder: Spree.t(:select_a_date),
+               class: 'form-control shadow-none ',
+               'data-input':'' %>
+             <%= render partial: 'spree/admin/shared/cal_close' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <%= f.field_container :shipping_categories do %>
+          <%= f.label :shipping_category_id, Spree.t(:shipping_categories) %>
+          <%= f.collection_select(:shipping_category_id, @shipping_categories, :id, :name, { :include_blank => 'None' }, { :class => 'select2' }) %>
+          <%= f.error_message_on :shipping_category %>
         <% end %>
-        <%= f.text_field :start_date, :value => start_date, :class => 'timepicker' %>
-      <% end %>
+      </div>
+    </div>
 
-      <%= f.field_container :end_date do %>
-        <%= f.label :end_date, raw(Spree.t('active_sale.event.active_record.end_date') + content_tag(:span, ' *', :class => 'required')) %>
-        <%= f.error_message_on :end_date %>
-        <% end_date = l((@active_sale_event.end_date? ? @active_sale_event.end_date : Time.zone.now+1.day), :format => Spree.t('active_sale.event.datetimepicker.format')) %>
-        <%= f.text_field :end_date, :value => end_date, :class => 'timepicker' %>
-      <% end %>
-
-      <%= f.field_container :shipping_categories do %>
-        <%= f.label :shipping_category_id, Spree.t(:shipping_categories) %>
-        <%= f.collection_select(:shipping_category_id, @shipping_categories, :id, :name, { :include_blank => 'None' }, { :class => 'select2' }) %>
-        <%= f.error_message_on :shipping_category %>
-      <% end %>
-
-      <%= f.field_container :discount do %>
-        <%= f.label :discount, Spree.t('active_sale.event.active_record.discount', :default => :discount) %>
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <%= f.label Spree.t('active_sale.event.active_record.discount'), class: "text-md" %>
         <p class='hint'><%= Spree.t('active_sale.event.discount_hint') %></p>
+        <%= f.text_field :discount, class: 'form-control' %>
         <%= f.error_message_on :discount %>
-        <%= f.text_field :discount, :size => 2, :maxlength => 2 %>
-      <% end %>
+      </div>
+    </div>
 
-      <%= f.field_container :is_active, :class => ['checkbox'] do %>
-        <label>
-          <%= f.check_box :is_active %>
-          <%= Spree.t('active_sale.event.active_record.is_active') %>
-          <%= f.error_message_on :is_active %>
-        </label>
-      <% end %>
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <%= f.field_container :is_active, :class => ['checkbox'] do %>
+          <label>
+            <%= f.check_box :is_active %>
+            <%= Spree.t('active_sale.event.active_record.is_active') %>
+            <%= f.error_message_on :is_active %>
+          </label>
+        <% end %>
 
-      <%= f.field_container :is_hidden, :class => ['checkbox'] do %>
-        <label>
-          <%= f.check_box :is_hidden %>
-          <%= Spree.t('active_sale.event.active_record.is_hidden') %>
-          <%= f.error_message_on :is_hidden %>
-        </label>
-      <% end %>
+        <%= f.field_container :is_hidden, :class => ['checkbox'] do %>
+          <label>
+            <%= f.check_box :is_hidden %>
+            <%= Spree.t('active_sale.event.active_record.is_hidden') %>
+            <%= f.error_message_on :is_hidden %>
+          </label>
+        <% end %>
 
-      <%= f.field_container :is_permanent, :class => ['checkbox'] do %>
-        <label>
-          <%= f.check_box :is_permanent %>
-          <%= Spree.t('active_sale.event.active_record.is_permanent') %>
-          <%= f.error_message_on :is_permanent %>
-        </label>
-      <% end %>
+        <%= f.field_container :is_permanent, :class => ['checkbox'] do %>
+          <label>
+            <%= f.check_box :is_permanent %>
+            <%= Spree.t('active_sale.event.active_record.is_permanent') %>
+            <%= f.error_message_on :is_permanent %>
+          </label>
+        <% end %>
 
-      <%= f.field_container :single_product_sale, :class => ['checkbox'] do %>
-        <label>
-          <%= f.check_box :single_product_sale %>
-          <%= Spree.t('active_sale.event.active_record.single_product_sale') %>
-          <%= f.error_message_on :single_product_sale %>
-        </label>
-      <% end %>
+        <%= f.field_container :single_product_sale, :class => ['checkbox'] do %>
+          <label>
+            <%= f.check_box :single_product_sale %>
+            <%= Spree.t('active_sale.event.active_record.single_product_sale') %>
+            <%= f.error_message_on :single_product_sale %>
+          </label>
+        <% end %>
+      </div>
     </div>
     <div class="clear"></div>
 
     <% if @active_sale_event.new_record? %>
-      <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+      <div class="col-lg-12 col-sm-12">
+        <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+      </div>
     <% else %>
-      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+      <div class="col-lg-12 col-sm-12">
+        <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+      </div>
     <% end %>
-  </fieldset>
+  </div>
 <% end %>

@@ -1,11 +1,12 @@
 <%= render :partial => 'spree/admin/shared/sale_tabs', :locals => { :current => 'Sale Event Images' } %>
-
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @sale_image } %>
 
-<% content_for :page_actions do %>
-  <li>
-    <%= button_link_to Spree.t('active_sale.event.images.link.new'), [:new, :admin, @active_sale, @active_sale_event, :sale_image], :icon => 'icon-plus', :id => 'admin_new_active_sale_image_link' %>
-  </li>
+<% content_for :page_title do %>
+  <%= link_to Spree.t("active_sale.name"), spree.admin_active_sales_url %> /
+  <%= link_to @active_sale.name, spree.admin_active_sale_url(@active_sale) %> /
+  <%= link_to @active_sale_event.name, [:edit, :admin, @active_sale, @active_sale_event] %> /
+  <%= link_to Spree.t('active_sale.event.images.title.list'), admin_active_sale_active_sale_event_sale_images_url(@active_sale, @active_sale_event) %> /
+  <%= @sale_image.attachment_file_name %>
 <% end %>
 
 <%= form_for [:admin, @active_sale, @active_sale_event, @sale_image], :html => { :multipart => true } do |f| %>
@@ -13,10 +14,10 @@
     <legend align="center"><%= @sale_image.attachment_file_name%></legend>
     <div data-hook="thumbnail" class="field alpha three columns align-center">
       <%= f.label Spree.t(:thumbnail) %><br>
-      <%= link_to image_tag(@sale_image.attachment.url(:small)), @sale_image.attachment.url(:product) %>
+      <%= link_to image_tag(main_app.url_for(@sale_image.url(:mini))), main_app.rails_blob_url(@sale_image.attachment) %>
     </div>
     <div class="nine columns omega">
-      <%= render :partial => 'form', :locals => { :f => f } %>  
+      <%= render :partial => 'form', :locals => { :f => f } %>
     </div>
     <div class="clear"></div>
     <div class="form-buttons filter-actions actions" data-hook="buttons">

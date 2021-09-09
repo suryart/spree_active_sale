@@ -1,26 +1,14 @@
-<% content_for :page_actions do %>
-  <li>
-    <%= button_link_to Spree.t('active_sale.link.edit'), [:edit, :admin, @active_sale], :icon => 'icon-edit', :id => 'edit_admin_active_sales_link' %>
-
-    <%= button_link_to Spree.t('active_sale.event.link.edit'), [:edit, :admin, @active_sale, @active_sale_event], :icon => 'icon-pencil', :id => 'edit_admin_active_sale_link' %>
-
-    <%= button_link_to Spree.t('active_sale.event.images.link.back'), [:admin, @active_sale, @active_sale_event, :sale_images], :icon => 'icon-arrow-left', :id => 'admin_new_active_sale_link' %>
-  </li>
-<% end %>
-
-<div data-hook="admin_image_form_fields">
-  <div class="four columns alpha">
-    <div data-hook="file" class="field">
-      <%= f.label :attachment, Spree.t(:filename) %><br>
+<div data-hook="admin_image_form_fields" class="row">
+  <div class="col-12 col-md-6">
+    <div data-hook="file" class="form-group">
+      <%= f.label :attachment, Spree.t(:filename) %>
       <%= f.file_field :attachment %>
     </div>
   </div>
-  <div data-hook="alt_text" class="field omega five columns">
-    <%= f.label Spree.t(:alt_text) %><br>
-    <%= f.text_area :alt, :rows => 4, :class => 'fullwidth' %>
+  <div data-hook="alt_text" class="col-12 col-md-6">
+    <div class="form-group">
+      <%= f.label :alt, Spree.t(:alt_text) %>
+      <%= f.text_area :alt, rows: 4, class: 'form-control' %>
+    </div>
   </div>
 </div>
-
-<div class="clear"></div>
-
-<br/>

@@ -1,30 +1,32 @@
-<div id="new_active_sale_event" data-hook></div>
-
-<table class="index" id="listing_active_sale_events" data-hook>
-  <thead>
-    <tr data-hook="admin_active_sale_events_index_headers">
-      <th><%= Spree.t('active_sale.event.active_record.name') %></th>
-      <th><%= Spree.t('active_sale.event.active_record.start_date') %></th>
-      <th><%= Spree.t('active_sale.event.active_record.end_date') %></th>
-      <th><%= Spree.t('active_sale.event.active_record.is_live') %></th>
-      <th data-hook="admin_active_sale_events_index_header_actions" class="actions"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @active_sale_events.each do |event| %>
-      <tr id="<%= spree_dom_id event %>" data-hook="admin_active_sales_index_rows" class="<%= cycle('odd', 'even')%>">
-        <td class='active_sale_name'><%= link_to event.name, edit_admin_active_sale_active_sale_event_url(@active_sale, event) %></td>
-        <td class='active_sale_start_date'><%= event.start_date %></td>
-        <td class='active_sale_end_date'><%= event.end_date %></td>
-        <td class='active_sale_is_live'><%= event.live? ? Spree.t('active_sale.event.boolean_yes') : Spree.t('active_sale.event.boolean_no') %></td>
-        <td class="actions" data-hook="admin_active_sale_events_index_row_actions">
-          <p class="actions" data-hook="actions">
+<% if @active_sale_events.any? %>
+<div class="table-responsive">
+  <table class="table" id="listing_active_sale_events">
+    <thead>
+      <tr data-hook="admin_active_sale_events_index_headers">
+        <th scope="col"><%= Spree.t('active_sale.event.active_record.name') %></th>
+        <th scope="col"><%= Spree.t('active_sale.event.active_record.start_date') %></th>
+        <th scope="col"><%= Spree.t('active_sale.event.active_record.end_date') %></th>
+        <th scope="col"><%= Spree.t('active_sale.event.active_record.is_live') %></th>
+        <th scope="col" data-hook="admin_active_sale_event_s_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @active_sale_events.each do |event| %>
+        <tr data-hook="admin_active_sale_events_index_rows" class="<%= cycle('odd', 'even') %>">
+          <td class='active_sale_name'><%= link_to event.name, edit_admin_active_sale_active_sale_event_url(@active_sale, event) %></td>
+          <td class='active_sale_start_date'><%= event.start_date %></td>
+          <td class='active_sale_end_date'><%= event.end_date %></td>
+          <td class='active_sale_is_live'><%= event.live? ? Spree.t('active_sale.event.boolean_yes') : Spree.t('active_sale.event.boolean_no') %></td>
+          <td class="actions" data-hook="admin_active_sale_events_index_row_actions">
+            <p class="actions" data-hook="actions">
             <%= link_to_edit_url edit_admin_active_sale_active_sale_event_url(@active_sale, event), :no_text => true %>
             &nbsp;
             <%= link_to_delete event, { :url => [:admin, @active_sale, event], :no_text => true } %>
-          </p>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            </p>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
